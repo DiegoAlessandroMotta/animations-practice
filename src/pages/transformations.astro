@@ -1,0 +1,151 @@
+---
+import Box from "../Components/Box.astro";
+import Layout from "../layouts/Layout.astro";
+
+const boxes = [
+	{
+		classList: "translate",
+		text: "translate",
+	},
+	{
+		classList: "translatex",
+		text: "translatex",
+	},
+	{
+		classList: "translatey",
+		text: "translatey",
+	},
+	{
+		classList: "scale",
+		text: "scale",
+	},
+	{
+		classList: "scalex",
+		text: "scalex",
+	},
+	{
+		classList: "scaley",
+		text: "scaley",
+	},
+	{
+		classList: "rotate",
+		text: "rotate",
+	},
+	{
+		classList: "rotatex",
+		text: "rotatex",
+	},
+	{
+		classList: "rotatey",
+		text: "rotatey",
+	},
+	{
+		classList: "rotatez",
+		text: "rotatez",
+	},
+	{
+		classList: "skew",
+		text: "skew",
+	},
+	{
+		classList: "skewx",
+		text: "skewx",
+	},
+	{
+		classList: "skewy",
+		text: "skewy",
+	},
+];
+---
+
+<Layout title="animaciones">
+	<main>
+		{
+			boxes.map((element) => (
+				<Box classList={element.classList}>{element.text}</Box>
+			))
+		}
+	</main>
+</Layout>
+
+<style is:global>
+	main {
+		min-height: 100dvh;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 36px;
+		padding: 24px;
+	}
+
+	:root {
+		--scale: 1.3
+	}
+
+	.translate {
+		&:hover {
+			transform: translate(100px, 100px);
+		}
+	}
+	.translatex {
+		&:hover {
+			transform: translateX(100px);
+		}
+	}
+	.translatey {
+		&:hover {
+			transform: translateY(100px);
+		}
+	}
+	.scale {
+		&:hover {
+			transform: scale(var(--scale));
+		}
+	}
+	.scalex {
+		&:hover {
+			transform: scaleX(var(--scale));
+		}
+	}
+	.scaley {
+		&:hover {
+			transform: scaleY(var(--scale));
+		}
+	}
+	.rotate {
+		&:hover {
+			transform: rotate(45deg);
+		}
+	}
+	.rotatex {
+		&:hover {
+			transform: rotateX(45deg);
+		}
+	}
+	.rotatey {
+		&:hover {
+			transform: rotateY(45deg);
+		}
+	}
+	.rotatez {
+		&:hover {
+			transform: rotateZ(45deg);
+		}
+	}
+	.skew {
+		&:hover {
+			transform: skew(45deg);
+		}
+	}
+	.skewx {
+		&:hover {
+			transform: skewX(45deg);
+		}
+	}
+	.skewy {
+		&:hover {
+			transform: skewY(45deg);
+		}
+	}
+</style>

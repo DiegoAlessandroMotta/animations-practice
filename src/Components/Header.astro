@@ -1,0 +1,59 @@
+<header>
+  <div>
+    <a href="/">
+      <h1>Animations practice</h1>
+    </a>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/transformations">Transformations</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style is:global>
+  header {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    padding: 16px 16px;
+  }
+
+  a {
+    text-decoration: none;
+    color: hsl(0, 0%, 100%);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  nav {
+    align-content: center;
+
+    ul {
+      list-style: none;
+      display: flex;
+      align-content: center;
+    }
+
+    a {
+      color: hsl(0, 0%, 80%);
+      font-size: 1em;
+      padding: 12px 24px;
+      font-weight: 600;
+      transition: 0.3s;
+      border-bottom: 2px solid transparent;
+
+      &:hover {
+        background-color: hsl(0, 0%, 10%);
+        color: white;
+        border-color: white;
+      }
+    }
+  }
+</style>

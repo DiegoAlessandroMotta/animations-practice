@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RocketIcon from "../Components/RocketIcon.astro";
+---
+
+<Layout title="animaciones">
+	<main>
+		<picture class="rocket">
+			<RocketIcon />
+		</picture>
+	</main>
+</Layout>
+
+<style is:global>
+	main {
+		min-height: 100dvh;
+		display: flex;
+		flex-flow: row wrap;
+		padding: 24px;
+		/* align-content: center; */
+		/* justify-content: center; */
+	}
+
+	.rocket {
+		width: fit-content;
+		height: fit-content;
+		/* animation: name duration timing-function delay iteration-count direction fill-mode; */
+		animation: move-and-rotate 8s infinite;
+	}
+
+	@keyframes move-and-rotate {
+		0% {
+			translate: 0px 0px;
+			rotate: 0deg;
+			color: white;
+			filter: drop-shadow(0px 0px 20px white);
+		}
+
+		10% {
+			translate: 0px 0px;
+			rotate: 90deg;
+		}
+
+		25% {
+			translate: 500px 0px;
+			rotate: 90deg;
+			color: aqua;
+			filter: drop-shadow(0px 0px 20px aqua);
+		}
+
+		35% {
+			translate: 500px 0px;
+			rotate: 180deg;
+		}
+
+		50% {
+			translate: 500px 500px;
+			rotate: 180deg;
+			color: chartreuse;
+			filter: drop-shadow(0px 0px 20px chartreuse);
+		}
+
+		60% {
+			translate: 500px 500px;
+			rotate: 270deg;
+		}
+
+		75% {
+			translate: 0px 500px;
+			rotate: 270deg;
+			color: deeppink;
+			filter: drop-shadow(0px 0px 20px deeppink);
+		}
+
+		85% {
+			translate: 0px 500px;
+			rotate: 360deg;
+		}
+
+		100% {
+			translate: 0px 0px;
+			rotate: 360deg;
+			color: white;
+			filter: drop-shadow(0px 0px 20px white);
+		}
+	}
+</style>

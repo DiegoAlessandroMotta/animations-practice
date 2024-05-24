@@ -1,15 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import BootstrapLayout from "../../layouts/BootstrapLayout.astro";
+import Header from "../../Components/bootstrap/Header.astro";
 ---
 
-<Layout title="Bootstrap">
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  />
-
+<BootstrapLayout title="Bootstrap">
+  <Header />
   <main>
     <div class="container">
       Responsive combinated
@@ -26,27 +21,16 @@ import Layout from "../../layouts/Layout.astro";
       </div>
     </div>
   </main>
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-</Layout>
+</BootstrapLayout>
 
 <style>
-  main {
-    min-height: 100dvh;
-    background-color: hsl(0, 0%, 5%);
-    color: white;
-  }
-
   .oscuro {
     background-color: hsl(0, 0%, 20%);
     color: white;
   }
-  
+
   .claro {
     background-color: hsl(0, 0%, 50%);
-    color: black
+    color: black;
   }
 </style>

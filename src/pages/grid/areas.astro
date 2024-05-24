@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+---
+
+<Layout title="Areas">
+  <main>
+    <div class="container">
+      <header>This is the header</header>
+      <div class="sidebar">This is the sidebar</div>
+      <div class="content">This is the content</div>
+      <footer>This is the footer</footer>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100dvh;
+  }
+
+  .container {
+    background-color: hsl(0, 0%, 20%);
+    min-height: 100dvh;
+    display: grid;
+    grid-template-areas: 
+    "header header header"
+    "content content sidebar"
+    "footer footer footer";
+  }
+
+  .container header {
+    grid-area: header;
+    background-color: deepskyblue;
+  }
+
+  .container .sidebar {
+    grid-area: sidebar;
+    background-color: chartreuse;
+  }
+
+  .container .content {
+    grid-area: content;
+    background-color: crimson;
+  }
+
+  .container footer {
+    grid-area: footer;
+    background-color: indigo;
+  }
+</style>

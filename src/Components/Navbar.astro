@@ -1,0 +1,75 @@
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li>
+      <a href="/grid">Grid</a>
+      <ul>
+        <li><a href="/grid/areas">Areas</a></li>
+        <li><a href="/grid/align">Align</a></li>
+      </ul>
+    </li>
+    <li><a href="/bootstrap">Bootstrap</a></li>
+  </ul>
+</nav>
+
+<style>
+  nav {
+    align-content: center;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    align-content: center;
+
+    li {
+      display: flex;
+      padding: 0;
+    }
+  }
+
+  a {
+    color: hsl(0, 0%, 80%);
+    font-size: 1em;
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
+    width: 100%;
+    text-decoration: none;
+    color: hsl(0, 0%, 100%);
+
+    &:hover {
+      background-color: hsl(0, 0%, 10%);
+      color: white;
+      border-color: white;
+      cursor: pointer;
+    }
+  }
+
+  li {
+    > ul {
+      list-style: none;
+      position: absolute;
+      visibility: collapse;
+      opacity: 0;
+      display: flex;
+      flex-flow: column nowrap;
+      align-content: center;
+    }
+
+    &:hover > ul {
+      visibility: visible;
+      margin-top: 2.5em;
+      background-color: hsl(0, 0%, 5%);
+      opacity: 1;
+      z-index: 1;
+
+      > li {
+        a {
+          border: none;
+        }
+      }
+    }
+  }
+</style>

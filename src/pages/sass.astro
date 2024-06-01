@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CSS from "../sass/sass.module.scss";
+---
+
+<Layout title="Sass">
+  <main class="main-content">
+    <h1 class="main-content__title">This is an h1</h1>
+    <p class="main-content__text">This is a paragraph</p>
+  </main>
+  <main class={CSS.main}>
+    <h1 class={CSS.title}>This is an h1</h1>
+    <p class={CSS.text}>This is a paragraph</p>
+  </main>
+</Layout>
+
+<style lang="scss">
+  $primary-color: peru;
+  $bg-color: hsl(0, 0%, 10%);
+  $text-color: aquamarine;
+
+  .main-content {
+    background-color: $bg-color;
+  }
+
+  .main-content__title {
+    color: $primary-color;
+    text-align: center;
+  }
+
+  .main-content__text {
+    color: $text-color;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Post from "../Components/Post.astro";
+---
+
+<Layout title="Sass">
+  <main>
+    <Post
+      username="KyleSoda"
+      accountName="kylesoda"
+      avatarUrl="https://avatars.githubusercontent.com/u/153887376?v=4"
+      postText="This is my firs post"
+      postImgUrl="https://i.pinimg.com/736x/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg"
+    />
+    <Post
+      username="Xanderitsme"
+      accountName="xanderitsme"
+      avatarUrl="https://avatars.githubusercontent.com/u/153887376?v=4"
+      postText="This is simple post"
+      postImgUrl="https://i.pinimg.com/736x/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg"
+    />
+  </main>
+  <div class="layers">
+    <div id="post-viewer"></div>
+  </div>
+
+  <script is:inline>
+    const appendHTML = ({ parentElement, htmlContent }) => {
+      parentElement.innerHTML += htmlContent;
+    };
+
+    const removeElement = ({ elementId }) => {
+      const $element = document.getElementById(elementId);
+      if ($element !== null) {
+        $element.remove();
+        return;
+      }
+
+      console.log("element not found");
+    };
+
+    const $postsImages = document.querySelectorAll(".post__image-container");
+    const $postViewer = document.getElementById("post-viewer");
+
+    $postsImages.forEach(($postImage) => {
+      $postImage.addEventListener("click", (event) => {
+        const $img = event.target.closest("img");
+
+        if ($img instanceof HTMLImageElement) {
+          const imgUrl = $img.getAttribute("src");
+
+          appendHTML({
+            parentElement: $postViewer,
+            htmlContent: ImageViewer({ imgUrl }),
+          });
+        }
+      });
+    });
+
+    $postViewer.addEventListener("click", () => {
+      removeElement({ elementId: "img-viewer" });
+    });
+
+    const ImageViewer = ({ imgUrl }) => {
+      return `
+        <div class="viewer" id="img-viewer">
+          <figure class="viewer__image-container">
+            <img
+            class="viewer__image"
+            src="${imgUrl}"
+            alt="anything"
+            />
+          </figure>
+        </div>
+      `;
+    };
+  </script>
+</Layout>
+
+<style is:inline>
+  body:has(#img-viewer) {
+    overflow: hidden;
+  }
+
+  .viewer {
+    position: fixed;
+    width: 100dvw;
+    height: 100dvw;
+    background-color: hsla(0, 0%, 0%, 80%);
+    backdrop-filter: blur(5px);
+    left: 0;
+    top: 0;
+  }
+
+  .viewer__image-container {
+    height: 100dvh;
+    max-width: 90dvw;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+
+  .viewer__image {
+    height: 90dvh;
+  }
+</style>
+
+<style>
+  main {
+    padding: 24px;
+  }
+</style>

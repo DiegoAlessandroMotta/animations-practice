@@ -43,7 +43,7 @@ const posts = [
     analiticsCount: 122461,
     contentPost:
       'This is a simple post <a class="post-link" href="/">#Go to home</a>',
-  }
+  },
 ];
 ---
 
@@ -107,13 +107,20 @@ const posts = [
 
     $postViewer?.addEventListener("click", (event) => {
       if (event.target !== event.target.closest("img")) {
-        removeElement({ elementId: "[data-id=img-viewer]" });
+        const elementId = "[data-id=img-viewer]";
+        const $element = document.querySelector(elementId);
+
+        $element.classList.toggle("fade-out");
+
+        setTimeout(() => {
+          removeElement({ elementId });
+        }, 200);
       }
     });
 
     const ImageViewer = ({ imgUrl }) => {
       return `
-        <div class="viewer" data-id="img-viewer">
+        <div class="viewer fade-in" data-id="img-viewer">
           <figure class="viewer__image-container">
             <img
               class="viewer__image"
@@ -157,9 +164,45 @@ const posts = [
     max-height: 95%;
     max-width: 100%;
   }
+
+  .fade-in {
+    animation: fade-in;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+  }
+
+  .fade-out {
+    animation: fade-out;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
 </style>
 
 <style>
+  html {
+    scrollbar-width: thin;
+  }
+
   main {
     padding: 24px;
   }

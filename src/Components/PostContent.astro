@@ -1,19 +1,38 @@
 <p class="post-description">
   <slot />
+  <br>
+  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus repellendus, facilis totam officiis nam nemo blanditiis sit modi, molestias id perspiciatis animi possimus quas quia soluta, laboriosam reprehenderit esse quam?
+  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus repellendus, facilis totam officiis nam nemo blanditiis sit modi, molestias id perspiciatis animi possimus quas quia soluta, laboriosam reprehenderit esse quam?
 </p>
 
 <style is:global>
   a.post-link {
     color: hsl(204, 88%, 53%);
-    text-decoration: none;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: transparent;
+    text-decoration-thickness:  1px;
+    text-underline-offset: 2px;
+    transition: 0.2s;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration-color: currentColor;
     }
   }
 
   p.post-description {
     color: hsla(0, 0%, 100%, 70%);
     font-weight: 400;
+    text-wrap: pretty;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 20px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  p.post-description--all {
+
   }
 </style>

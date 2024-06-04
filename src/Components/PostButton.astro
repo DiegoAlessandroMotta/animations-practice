@@ -33,14 +33,13 @@ const { hoverColor } = Astro.props;
 
     &:hover {
       .icon-container::before {
-        opacity: 0.15;
+        opacity: 0.08;
       }
     }
   }
 
   .icon-container {
-    color: inherit;
-    transition: inherit;
+    color: currentColor;
 
     &::before {
       content: "";
@@ -50,13 +49,12 @@ const { hoverColor } = Astro.props;
       border-radius: 50%;
       background-color: currentColor;
       opacity: 0;
-      transition: inherit;
+      transition: 0.3s;
     }
   }
 
   .icon-button__content {
-    color: inherit;
-    transition: inherit;
+    color: currentColor;
     padding: 0 0.3rem;
     align-content: center;
   }

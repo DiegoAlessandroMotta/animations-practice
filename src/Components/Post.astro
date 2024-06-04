@@ -155,9 +155,13 @@ const countToString = (count: number) => {
   .user-information__username {
     color: hsl(0, 0%, 100%);
     font-weight: 600;
-
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: transparent;
+    transition: 0.2s;
+    
     &:hover {
-      text-decoration: underline;
+      text-decoration-color: currentColor;
       cursor: pointer;
     }
   }
@@ -185,6 +189,7 @@ const countToString = (count: number) => {
     align-items: center;
     max-height: 510px;
     margin-top: 0.7rem;
+    width: fit-content;
     cursor: pointer;
   }
 

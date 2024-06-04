@@ -1,13 +1,15 @@
 .icon-container {
   display: inline-block;
   background-color: transparent;
-  height: 2.2em;
-  width: 2.2em;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  transition: 0.3s;
-  overflow: hidden;
   cursor: pointer;
+}
+
+svg {
+  height: 1.3em;
+  width: 1.3em;
+  color: currentColor;
+  transition: inherit;
 }

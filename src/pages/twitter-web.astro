@@ -1,31 +1,69 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Post from "../Components/Post.astro";
+
+const posts = [
+  {
+    username: "ひろ@C103/1日目東モ08a",
+    accountName: "habanero_mgmg",
+    avatarUrl:
+      "https://pbs.twimg.com/profile_images/1350790885244485633/5DYTStYq_400x400.jpg",
+    // postImgUrl: "https://pbs.twimg.com/media/GPJAr8SbkAAk8o1?format=jpg&name=large",
+    postImgUrl:
+      "https://pbs.twimg.com/media/GPNxHcsacAAficI?format=jpg&name=900x900",
+    repliesCount: 18,
+    repostsCount: 4219,
+    likesCount: 29415,
+    analiticsCount: 368193,
+    contentPost: "ヴェールヌイ",
+  },
+  {
+    username: "さ",
+    accountName: "iorikawawa",
+    avatarUrl:
+      "https://pbs.twimg.com/profile_images/1691080601955385344/tuAfJ3Qy_400x400.jpg",
+    // postImgUrl:"https://pbs.twimg.com/media/F0QvSJraEAAe66C?format=jpg&name=4096x4096",
+    postImgUrl:
+      "https://pbs.twimg.com/media/GPJm6jxaoAAdoKr?format=jpg&name=small",
+    repliesCount: 7,
+    repostsCount: 2217,
+    likesCount: 13612,
+    analiticsCount: 292461,
+    contentPost: "ヴェールヌイ",
+  },
+  {
+    username: "Randomuser",
+    accountName: "randomuser",
+    avatarUrl: "https://avatars.githubusercontent.com/u/153887376?v=4",
+    postImgUrl:
+      "https://i.pinimg.com/736x/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg",
+    repliesCount: 4,
+    repostsCount: 812,
+    likesCount: 6612,
+    analiticsCount: 122461,
+    contentPost:
+      'This is a simple post <a class="post-link" href="/">#Go to home</a>',
+  }
+];
 ---
 
 <Layout title="Twitter" favicon="/ico/twitter.ico">
   <main>
-    <Post
-      username="ひろ@C103/1日目東モ08a"
-      accountName="habanero_mgmg"
-      avatarUrl="https://pbs.twimg.com/profile_images/1350790885244485633/5DYTStYq_400x400.jpg"
-      postText="ヴェールヌイ"
-      postImgUrl="https://pbs.twimg.com/media/GPJAr8SbkAAk8o1?format=jpg&name=large"
-    />
-    <Post
-      username="さ"
-      accountName="iorikawawa"
-      avatarUrl="https://pbs.twimg.com/profile_images/1691080601955385344/tuAfJ3Qy_400x400.jpg"
-      postText="セミナー"
-      postImgUrl="https://pbs.twimg.com/media/F0QvSJraEAAe66C?format=jpg&name=4096x4096"
-    />
-    <Post
-      username="Xanderitsme"
-      accountName="xanderitsme"
-      avatarUrl="https://avatars.githubusercontent.com/u/153887376?v=4"
-      postText="This is simple post"
-      postImgUrl="https://i.pinimg.com/736x/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg"
-    />
+    {
+      posts.map((post) => (
+        <Post
+          username={post.username}
+          accountName={post.accountName}
+          avatarUrl={post.avatarUrl}
+          postImgUrl={post.postImgUrl}
+          repliesCount={post.repliesCount}
+          repostsCount={post.repostsCount}
+          likesCount={post.likesCount}
+          analiticsCount={post.analiticsCount}
+          set:html={post.contentPost}
+        />
+      ))
+    }
   </main>
   <div class="layers">
     <div id="post-viewer"></div>
@@ -37,9 +75,11 @@ import Post from "../Components/Post.astro";
     };
 
     const removeElement = ({ elementId }) => {
-      const $element = document.getElementById(elementId);
+      // const $element = document.getElementById(elementId);
+      const $element = document.querySelector(elementId);
 
       if ($element !== null) {
+        // $element.remove();
         $element.remove();
         return;
       }
@@ -48,7 +88,7 @@ import Post from "../Components/Post.astro";
     };
 
     const $postsImages = document.querySelectorAll(".post__image-container");
-    const $postViewer = document.getElementById("post-viewer");
+    const $postViewer = document.querySelector("#post-viewer");
 
     $postsImages.forEach(($postImage) => {
       $postImage.addEventListener("click", (event) => {
@@ -60,20 +100,20 @@ import Post from "../Components/Post.astro";
           appendHTML({
             parentElement: $postViewer,
             htmlContent: ImageViewer({ imgUrl }),
-          })
+          });
         }
       });
     });
 
-    $postViewer.addEventListener("click", (event) => {
-      if (event.target !== event.target.closest('img')) {
-        removeElement({ elementId: "img-viewer" });
+    $postViewer?.addEventListener("click", (event) => {
+      if (event.target !== event.target.closest("img")) {
+        removeElement({ elementId: "[data-id=img-viewer]" });
       }
     });
 
     const ImageViewer = ({ imgUrl }) => {
       return `
-        <div class="viewer" id="img-viewer">
+        <div class="viewer" data-id="img-viewer">
           <figure class="viewer__image-container">
             <img
               class="viewer__image"
@@ -88,7 +128,7 @@ import Post from "../Components/Post.astro";
 </Layout>
 
 <style is:inline>
-  body:has(#img-viewer) {
+  body:has([data-id="img-viewer"]) {
     overflow: hidden;
   }
 
@@ -112,7 +152,7 @@ import Post from "../Components/Post.astro";
     align-items: center;
     margin: auto;
   }
-  
+
   .viewer__image {
     max-height: 95%;
     max-width: 100%;

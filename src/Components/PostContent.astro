@@ -1,0 +1,19 @@
+<p class="post-description">
+  <slot />
+</p>
+
+<style is:global>
+  a.post-link {
+    color: hsl(204, 88%, 53%);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  p.post-description {
+    color: hsla(0, 0%, 100%, 70%);
+    font-weight: 400;
+  }
+</style>

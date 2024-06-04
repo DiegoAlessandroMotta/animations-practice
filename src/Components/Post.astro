@@ -5,16 +5,38 @@ import ReplyIcon from "./Icons/ReplyIcon.astro";
 import RepostIcon from "./Icons/RepostIcon.astro";
 import OptionsIcon from "./Icons/OptionsIcon.astro";
 import AnaliticsIcon from "./Icons/AnaliticsIcon.astro";
+import PostButton from "./PostButton.astro";
+import PostContent from "./PostContent.astro";
 
 interface Props {
   username: string;
   accountName: string;
   avatarUrl: string;
-  postText: string;
   postImgUrl: string;
+  repliesCount: number;
+  repostsCount: number;
+  likesCount: number;
+  analiticsCount: number;
 }
 
-const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
+const {
+  username,
+  accountName,
+  avatarUrl,
+  postImgUrl,
+  repliesCount,
+  repostsCount,
+  likesCount,
+  analiticsCount,
+} = Astro.props;
+
+const countToString = (count: number) => {
+  return count > 1000
+    ? count > 1000000
+      ? `${Math.round(count / 1000000)}M`
+      : `${Math.round(count / 1000)}K`
+    : count;
+};
 ---
 
 <article class="post">
@@ -33,22 +55,40 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
           <span class="post-time-ago">17h</span>
         </span>
         <span class="post-options">
-          <OptionsIcon />
+          <PostButton hoverColor="bluesky">
+            <OptionsIcon />
+          </PostButton>
         </span>
       </header>
       <div>
-        <p class="post-text">{postText}</p>
+        <PostContent>
+          <slot />
+        </PostContent>
       </div>
       <figure class="post__image-container">
         <img class="post__image" src={postImgUrl} alt="post-image" />
       </figure>
       <footer class="post-footer">
         <div class="icons-container">
-          <ReplyIcon />
-          <RepostIcon />
-          <LikeIcon />
-          <AnaliticsIcon />
-          <ShareIcon />
+          <PostButton hoverColor="bluesky">
+            <ReplyIcon slot="icon" />
+            {countToString(repliesCount)}
+          </PostButton>
+          <PostButton hoverColor="lightGreen">
+            <RepostIcon slot="icon" />
+            {countToString(repostsCount)}
+          </PostButton>
+          <PostButton hoverColor="carmesi">
+            <LikeIcon slot="icon" />
+            {countToString(likesCount)}
+          </PostButton>
+          <PostButton hoverColor="bluesky">
+            <AnaliticsIcon slot="icon" />
+            {countToString(analiticsCount)}
+          </PostButton>
+          <PostButton hoverColor="bluesky">
+            <ShareIcon />
+          </PostButton>
         </div>
       </footer>
     </div>
@@ -64,7 +104,7 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
     min-width: 200px;
     width: 100%;
     background-color: black;
-    padding: 0.7rem 1rem;
+    padding: 0.8rem 1rem;
     border-left: 1px solid hsla(0, 0%, 100%, 20%);
     border-right: 1px solid hsla(0, 0%, 100%, 20%);
 
@@ -123,7 +163,7 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
   }
 
   .user-information__account-name {
-    font-weight: 300;
+    font-weight: 400;
 
     &:hover {
       cursor: pointer;
@@ -131,17 +171,12 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
   }
 
   .post-time-ago {
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .post-options {
     height: 1rem;
     margin-left: auto;
-  }
-
-  .post-text {
-    color: hsl(0, 0%, 70%);
-    font-weight: 300;
   }
 
   .post__image-container {
@@ -152,7 +187,7 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
     margin-top: 0.7rem;
     cursor: pointer;
   }
-  
+
   .post__image {
     max-height: 510px;
     max-width: 100%;
@@ -168,5 +203,12 @@ const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
   .icons-container {
     display: flex;
     justify-content: space-between;
+  }
+
+  .icon-button {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
   }
 </style>

@@ -1,74 +1,58 @@
 ---
-import HeartIcon from "./Icons/HeartIcon.astro";
+import LikeIcon from "./Icons/LikeIcon.astro";
 import ShareIcon from "./Icons/ShareIcon.astro";
-import CommentIcon from "./Icons/CommentIcon.astro";
-import RetweetIcon from "./Icons/RetweetIcon.astro";
+import ReplyIcon from "./Icons/ReplyIcon.astro";
+import RepostIcon from "./Icons/RepostIcon.astro";
+import OptionsIcon from "./Icons/OptionsIcon.astro";
+import AnaliticsIcon from "./Icons/AnaliticsIcon.astro";
 
 interface Props {
-  username: string
-  accountName: string
-  avatarUrl: string
-  postText: string
-  postImgUrl: string
+  username: string;
+  accountName: string;
+  avatarUrl: string;
+  postText: string;
+  postImgUrl: string;
 }
 
-const {
-  username,
-  accountName,
-  avatarUrl,
-  postText,
-  postImgUrl
-} = Astro.props
-
+const { username, accountName, avatarUrl, postText, postImgUrl } = Astro.props;
 ---
 
 <article class="post">
-  <header class="post-header">
-    <figure class="user-avatar">
-      <img
-        class="user-avatar__image"
-        src={avatarUrl}
-        alt="avatar"
-      />
-    </figure>
-    <div class="user-information">
-      <p class="user-information__username">{username}</p>
-      <p class="user-information__account-name">@{accountName}</p>
+  <div class="post-container">
+    <aside class="post-aside">
+      <figure class="user-avatar">
+        <img class="user-avatar__image" src={avatarUrl} alt="avatar" />
+      </figure>
+    </aside>
+    <div class="post-content">
+      <header class="post-header">
+        <span class="user-information">
+          <span class="user-information__username">{username}</span>
+          <span class="user-information__account-name">@{accountName}</span>
+          <span> · </span>
+          <span class="post-time-ago">17h</span>
+        </span>
+        <span class="post-options">
+          <OptionsIcon />
+        </span>
+      </header>
+      <div>
+        <p class="post-text">{postText}</p>
+      </div>
+      <figure class="post__image-container">
+        <img class="post__image" src={postImgUrl} alt="post-image" />
+      </figure>
+      <footer class="post-footer">
+        <div class="icons-container">
+          <ReplyIcon />
+          <RepostIcon />
+          <LikeIcon />
+          <AnaliticsIcon />
+          <ShareIcon />
+        </div>
+      </footer>
     </div>
-    <div class="post-options">. . .</div>
-  </header>
-  <div class="post-content">
-    <div>
-      <p class="post-text">{postText}</p>
-    </div>
-    <figure class="post__image-container">
-      <img
-        class="post__image"
-        src={postImgUrl}
-        alt="post-image"
-      />
-    </figure>
   </div>
-  <footer class="post-footer">
-    <div class="icons-container">
-      <span class="icon icon--comment">
-        <CommentIcon />
-        <p class="icon__text">Comment</p>
-      </span>
-      <span class="icon icon--retweet">
-        <RetweetIcon />
-        <p class="icon__text">Retweet</p>
-      </span>
-      <span class="icon icon--love">
-        <HeartIcon />
-        <p class="icon__text">Love</p>
-      </span>
-      <span class="icon icon--share">
-        <ShareIcon />
-        <p class="icon__text">Share</p>
-      </span>
-    </div>
-  </footer>
 </article>
 
 <style>
@@ -76,27 +60,35 @@ const {
     display: flex;
     flex-flow: column nowrap;
     margin: 0 auto;
-    max-width: 520px;
+    max-width: 600px;
     min-width: 200px;
     width: 100%;
     background-color: black;
-    gap: 1rem;
-    padding: 0.8rem 0;
+    padding: 0.7rem 1rem;
+    border-left: 1px solid hsla(0, 0%, 100%, 20%);
+    border-right: 1px solid hsla(0, 0%, 100%, 20%);
 
     &:has(+ .post) {
-      border-bottom: 1px solid hsla(0, 0%, 100%, 40%)
+      border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
     }
   }
 
-  .post-header {
+  .post-container {
     display: flex;
-    padding: 0px 12px;
-    gap: 12px;
+    flex-flow: row nowrap;
+  }
+
+  .post-aside {
+    padding-right: 1rem;
+  }
+
+  .post-content {
+    flex-grow: 1;
   }
 
   .user-avatar {
-    width: 64px;
-    height: 64px;
+    width: 40px;
+    height: 40px;
 
     &:hover {
       cursor: pointer;
@@ -110,11 +102,18 @@ const {
     border-radius: 50%;
   }
 
+  .post-header {
+    display: flex;
+  }
+
   .user-information {
-    align-content: center;
+    font-size: 15px;
+    color: hsla(0, 0%, 100%, 50%);
+    height: fit-content;
   }
 
   .user-information__username {
+    color: hsl(0, 0%, 100%);
     font-weight: 600;
 
     &:hover {
@@ -124,106 +123,50 @@ const {
   }
 
   .user-information__account-name {
-    color: hsl(0, 0%, 50%);
-    font-weight: 600;
+    font-weight: 300;
 
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .post-time-ago {
+    font-weight: 300;
   }
 
   .post-options {
+    height: 1rem;
     margin-left: auto;
-    padding-right: 16px;
-    font-weight: 900;
-    cursor: pointer;
-  }
-
-  .post-content {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 0px 16px;
   }
 
   .post-text {
-    color: hsl(0, 0%, 80%);
-    margin-bottom: 0.7rem;
+    color: hsl(0, 0%, 70%);
+    font-weight: 300;
   }
 
   .post__image-container {
-    width: 100%;
     overflow-y: hidden;
     display: flex;
-    max-height: 600px;
-    height: 100%;
-    border-radius: 0.5rem;
-
-    &:hover {
-      cursor: pointer;
-    }
+    align-items: center;
+    max-height: 510px;
+    margin-top: 0.7rem;
+    cursor: pointer;
   }
-
+  
   .post__image {
-    width: 100%;
+    max-height: 510px;
+    max-width: 100%;
+    border-radius: 1rem;
+    border: 1px solid hsla(0, 0%, 100%, 15%);
     object-fit: cover;
   }
 
   .post-footer {
-    border-top: 1px solid hsla(0, 0%, 100%, 10%);
-    padding: 0 1rem;
     padding-top: 1rem;
   }
 
   .icons-container {
-    max-width: 400px;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-  }
-
-  .icon {
-    text-align: center;
-
-    > svg {
-      color: hsla(0, 0%, 100%, 50%);
-      transition: 0.3s;
-    }
-
-    &:hover {
-      filter: drop-shadow(0px 0px 5px currentColor);
-      > svg {
-        color: inherit;
-        background-color: transparent;
-      }
-
-      .icon__text {
-        filter: none;
-        color: inherit;
-        opacity: 1;
-      }
-    }
-  }
-
-  .icon--comment:hover {
-    color: #09f;
-  }
-
-  .icon--retweet:hover {
-    color: hsl(120, 80%, 38%);
-  }
-
-  .icon--love:hover {
-    color: crimson;
-  }
-
-  .icon--share:hover {
-    color: #09f;
-  }
-
-  .icon__text {
-    font-size: small;
-    color: hsla(0, 0%, 100%, 50%);
-    opacity: 0;
-    transition: 0.3s;
   }
 </style>

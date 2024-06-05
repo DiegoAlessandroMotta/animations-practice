@@ -107,9 +107,15 @@ const countToString = (count: number) => {
     padding: 0.8rem 1rem;
     border-left: 1px solid hsla(0, 0%, 100%, 20%);
     border-right: 1px solid hsla(0, 0%, 100%, 20%);
+    transition: 0.3s;
+    cursor: pointer;
 
     &:has(+ .post) {
       border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
+    }
+
+    &:hover {
+      background-color: hsla(0, 0%, 100%, 3%);
     }
   }
 
@@ -156,6 +162,7 @@ const countToString = (count: number) => {
     color: hsl(0, 0%, 100%);
     font-weight: 600;
     text-decoration: underline;
+    text-decoration-thickness: 2px;
     text-underline-offset: 2px;
     text-decoration-color: transparent;
     transition: 0.2s;
@@ -197,7 +204,7 @@ const countToString = (count: number) => {
     max-height: 510px;
     max-width: 100%;
     border-radius: 1rem;
-    border: 1px solid hsla(0, 0%, 100%, 15%);
+    border: 1px solid hsla(0, 0%, 100%, 20%);
     object-fit: cover;
   }
 

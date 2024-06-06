@@ -100,8 +100,7 @@
 
 .output-message {
   display: block;
-  min-height: 6rem;
-  margin-top: 2rem;
+  min-height: 8rem;
 }
 
 .output-message__title {

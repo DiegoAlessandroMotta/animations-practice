@@ -1,70 +1,63 @@
 ---
+import Exercise from "@/Components/Exercise/Exercise.astro";
 import Layout from "../../layouts/Layout.astro";
-import "./index.css";
+import "./_index.css";
 ---
 
 <Layout title="Javascript" favicon="/ico/js.svg">
   <main class="main-content">
-    <article class="exercise">
-      <header class="exercise-header">
-        <h2 class="exercise__title">Ejercicio 1</h2>
-        <p class="exercise__description">
-          Crea un programa que solicite al usuario su nombre, apellido y edad
-          para luego presentar un saludo amigable, mostrando la información
-          ingresada. Por ejemplo: "Buen día, soy Denys Jaramillo y tengo 41
-          años." El resultado se mostrará en una alerta o en la consola
-        </p>
-      </header>
-      <section class="exercise-content">
-        <form class="exercise-form" id="form-1">
-          <label class="input-container">
-            Nombres:
-            <input
-              class="exercise__input transition-3"
-              name="firstname"
-              type="text"
-              pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
-              title="ingrese sus nombres"
-              autocomplete="off"
-              required
-            />
-          </label>
-          <label class="input-container">
-            Apellidos:
-            <input
-              class="exercise__input transition-3"
-              name="lastname"
-              type="text"
-              pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
-              title="ingrese sus apellidos"
-              autocomplete="off"
-              required
-            />
-          </label>
-          <label class="input-container">
-            Edad:
-            <input
-              class="exercise__input transition-3"
-              type="number"
-              name="age"
-              pattern="[0-9]{1,36}"
-              min="5"
-              max="100"
-              title="ingrese su edad"
-              autocomplete="off"
-              required
-            />
-          </label>
-          <button class="button mt-1 transition-3" type="submit">
-            Mostrar saludo
-          </button>
-        </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-1"></p>
+    <Exercise
+      title="Ejercicio 1"
+      description=`Crea un programa que solicite al usuario su nombre, apellido y edad
+        para luego presentar un saludo amigable, mostrando la información
+        ingresada. Por ejemplo: "Buen día, soy Denys Jaramillo y tengo 41
+        años." El resultado se mostrará en una alerta o en la consola`
+      messageId="message-1"
+    >
+      <form class="exercise-form" id="form-1">
+        <label class="input-container">
+          Nombres:
+          <input
+            class="exercise__input transition-3"
+            name="firstname"
+            type="text"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+            title="ingrese sus nombres"
+            autocomplete="off"
+            required
+          />
         </label>
-      </section>
-    </article>
+        <label class="input-container">
+          Apellidos:
+          <input
+            class="exercise__input transition-3"
+            name="lastname"
+            type="text"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+            title="ingrese sus apellidos"
+            autocomplete="off"
+            required
+          />
+        </label>
+        <label class="input-container">
+          Edad:
+          <input
+            class="exercise__input transition-3"
+            type="number"
+            name="age"
+            pattern="[0-9]{1,36}"
+            min="5"
+            max="100"
+            title="ingrese su edad"
+            autocomplete="off"
+            required
+          />
+        </label>
+        <button class="button mt-1 transition-3" type="submit">
+          Mostrar saludo
+        </button>
+      </form>
+    </Exercise>
 
     <article class="exercise">
       <header class="exercise-header">
@@ -91,18 +84,16 @@ import "./index.css";
             Evaluar
           </button>
         </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-2"></p>
-        </label>
       </section>
+      <footer class="output-message">
+        <h3 class="output-message__title">Resultado:</h3>
+        <p class="output-message__text" data-id="message-2"></p>
+      </footer>
     </article>
 
     <article class="exercise">
       <header class="exercise-header">
-        <h2 class="exercise__title">
-          Ejercicio 3
-        </h2>
+        <h2 class="exercise__title">Ejercicio 3</h2>
         <p class="exercise__description">
           Crea un programa que reciba un monto a pagar y calcule su precio
           final, incluyendo un impuesto al valor agregado (IGV) del 18%. El
@@ -128,11 +119,11 @@ import "./index.css";
             Calcular
           </button>
         </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-3"></p>
-        </label>
       </section>
+      <footer class="output-message">
+        <h3 class="output-message__title">Resultado:</h3>
+        <p class="output-message__text" data-id="message-3"></p>
+      </footer>
     </article>
 
     <article class="exercise">
@@ -163,11 +154,11 @@ import "./index.css";
             Calcular
           </button>
         </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-4"></p>
-        </label>
       </section>
+      <footer class="output-message">
+        <h3 class="output-message__title">Resultado:</h3>
+        <p class="output-message__text" data-id="message-4"></p>
+      </footer>
     </article>
 
     <article class="exercise">
@@ -207,11 +198,11 @@ import "./index.css";
             Combinar cadenas
           </button>
         </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-5"></p>
-        </label>
       </section>
+      <footer class="output-message">
+        <h3 class="output-message__title">Resultado:</h3>
+        <p class="output-message__text" data-id="message-5"></p>
+      </footer>
     </article>
 
     <article class="exercise">
@@ -281,11 +272,11 @@ import "./index.css";
             Calcular áreas
           </button>
         </form>
-        <label class="output-message">
-          <h3 class="output-message__title">Resultado:</h3>
-          <p class="output-message__text" data-id="message-6"></p>
-        </label>
       </section>
+      <footer class="output-message">
+        <h3 class="output-message__title">Resultado:</h3>
+        <p class="output-message__text" data-id="message-6"></p>
+      </footer>
     </article>
   </main>
 

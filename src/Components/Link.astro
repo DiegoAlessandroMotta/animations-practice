@@ -5,42 +5,44 @@ interface Props {
 }
 
 const { to = "#", class: className, ...rest } = Astro.props;
+
+
+// <script is:inline type="module">
+//   const $links = document.querySelectorAll("a.link");
+//   let currentPath = window.location.pathname;
+
+//   const updateCurrentLink = () => {
+//     const classToAdd = "link--current";
+
+//     $links.forEach(($link) => {
+//       const href = $link.getAttribute("href");
+
+//       if (href === currentPath) {
+//         $link.classList.add(classToAdd);
+//       } else {
+//         $link.classList.remove(classToAdd);
+//       }
+//     });
+//   };
+
+//   $links.forEach(($link) => {
+//     $link.addEventListener("click", () => {
+//       updateCurrentLink();
+//       console.log('dasda');
+//     });
+//   });
+
+//   updateCurrentLink();
+// </script>
+
+// <style is:global>
+//   a.link--current {
+//     background-color: hsla(0, 0%, 100%, 7%);
+//     color: hsl(0, 0%, 100%);
+//   }
+// </style>
 ---
 
 <a class={className} href={to} {...rest}>
   <slot />
 </a>
-<!-- <script is:inline type="module">
-  const $links = document.querySelectorAll("a.link");
-  let currentPath = window.location.pathname;
-
-  const updateCurrentLink = () => {
-    const classToAdd = "link--current";
-
-    $links.forEach(($link) => {
-      const href = $link.getAttribute("href");
-
-      if (href === currentPath) {
-        $link.classList.add(classToAdd);
-      } else {
-        $link.classList.remove(classToAdd);
-      }
-    });
-  };
-
-  $links.forEach(($link) => {
-    $link.addEventListener("click", () => {
-      updateCurrentLink();
-      console.log('dasda');
-    });
-  });
-
-  updateCurrentLink();
-</script>
-
-<style is:global>
-  a.link--current {
-    background-color: hsla(0, 0%, 100%, 7%);
-    color: hsl(0, 0%, 100%);
-  }
-</style> -->

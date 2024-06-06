@@ -1,0 +1,22 @@
+---
+import ExerciseBox from "@/Components/Exercise/ExerciseBox.astro";
+import ExerciseContent from "@/Components/Exercise/ExerciseContent.astro";
+import ExerciseFooter from "@/Components/Exercise/ExerciseFooter.astro";
+import ExerciseHeader from "@/Components/Exercise/ExerciseHeader.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  messageId: string;
+}
+
+const { title, description, messageId } = Astro.props;
+---
+
+<ExerciseBox>
+  <ExerciseHeader {title} {description} />
+  <ExerciseContent>
+    <slot />
+  </ExerciseContent>
+  <ExerciseFooter {messageId} />
+</ExerciseBox>

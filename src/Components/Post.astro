@@ -43,7 +43,12 @@ const countToString = (count: number) => {
   <div class="post-container">
     <aside class="post-aside">
       <figure class="user-avatar">
-        <img class="user-avatar__image" src={avatarUrl} alt="avatar" />
+        <img
+          class="user-avatar__image"
+          src={avatarUrl}
+          alt="avatar"
+          loading="lazy"
+        />
       </figure>
     </aside>
     <div class="post-content">
@@ -66,7 +71,12 @@ const countToString = (count: number) => {
         </PostContent>
       </div>
       <figure class="post__image-container">
-        <img class="post__image" src={postImgUrl} alt="post-image" />
+        <img
+          class="post__image"
+          src={postImgUrl}
+          alt="post-image"
+          loading="lazy"
+        />
       </figure>
       <footer class="post-footer">
         <div class="icons-container">
@@ -166,7 +176,7 @@ const countToString = (count: number) => {
     text-underline-offset: 2px;
     text-decoration-color: transparent;
     transition: 0.2s;
-    
+
     &:hover {
       text-decoration-color: currentColor;
       cursor: pointer;

@@ -1,40 +1,23 @@
+---
+import Link from "./Link.astro";
+---
+
 <nav class="navbar-horizontal">
   <ul class="horizontal-links">
     <li class="link-container">
-      <a class="link" href="/">Home</a>
+      <Link class="link" to="/">Home</Link>
     </li>
     <li class="link-container">
-      <a class="link" href="/js">Javascript</a>
+      <Link class="link" to="/js">Javascript</Link>
     </li>
     <li class="link-container">
-      <a class="link link--hoverable" href="/grid">Grid</a>
-      <ul class="vertical-links--collapsed">
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/grid/areas">Areas</a>
-        </li>
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/grid/align">Align</a>
-        </li>
-      </ul>
+      <Link class="link" to="/gallery">Gallery</Link>
     </li>
     <li class="link-container">
-      <a class="link link--hoverable" href="#">General</a>
-      <ul class="vertical-links--collapsed">
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/gallery">Gallery</a>
-        </li>
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/oocss">OOCSS</a>
-        </li>
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/microsoft-web"
-            >Microsoft web</a
-          >
-        </li>
-        <li class="link-container">
-          <a class="vertical-links__link link" href="/twitter-web">Twitter</a>
-        </li>
-      </ul>
+      <Link class="link" to="/microsoft-web">Microsoft web</Link>
+    </li>
+    <li class="link-container">
+      <Link class="link" to="/twitter-web">Twitter</Link>
     </li>
   </ul>
 </nav>
@@ -75,15 +58,16 @@
     }
   }
 
-  a.horizontal-links__link--current {
-    background-color: hsla(0, 0%, 100%, 7%);
-    color: hsl(0, 0%, 100%);
-  }
-
-  li.link-container:hover > ul.vertical-links--collapsed {
-    visibility: visible;
-    background-color: hsl(0, 0%, 5%);
-    opacity: 1;
+  li.link-container:hover,
+  li.link-container:active,
+  li.link-container:target,
+  li.link-container:focus-visible,
+  li.link-container:focus {
+    > ul.vertical-links--collapsed {
+      visibility: visible;
+      background-color: hsl(0, 0%, 5%);
+      opacity: 1;
+    }
   }
 
   ul.vertical-links--collapsed {

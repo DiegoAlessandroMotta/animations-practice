@@ -1,0 +1,106 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const images = [1, 2, 3, 5, 4, 6, 7, 9, 8];
+---
+
+<Layout title="Gallery">
+  <main class="flex justify-center min-h-dvh p-8">
+    <section class="gallery grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] auto-rows-auto gap-4 max-w-7xl min-w-0 w-full">
+      {
+        images.map((code) => (
+          <figure class="image-container w-full min-w-[300px] flex overflow-hidden relative rounded-lg hover:shadow-md hover:shadow-black transition-shadow duration-500 cursor-pointer">
+            <img 
+              class="grayscale transition-[filter,_rotate,_scale,_transform] duration-500 object-cover hover:rotate-[0.5deg] hover:grayscale-0 hover:scale-105"
+              src={`/img/${code}.webp`} 
+              alt={`persona ${code}`} 
+            />
+            <p class="absolute py-1 px-2 text-lg text-white bg-black/50">
+              {code}
+            </p>
+          </figure>
+        ))
+      }
+    </section>
+  </main>
+
+  <div class="layers">
+    <div id="post-viewer"></div>
+  </div>
+
+  <script is:inline type="module">
+    const appendHTML = ({ parentElement, htmlContent }) => {
+      parentElement.innerHTML += htmlContent;
+    };
+
+    const removeElement = ({ selector }) => {
+      const $element = document.querySelector(selector);
+
+      if ($element !== null) {
+        $element.remove();
+        return;
+      }
+
+      console.log("element not found");
+    };
+
+    const $imagesContainer = document.querySelectorAll(".image-container");
+    const $postViewer = document.querySelector("#post-viewer");
+
+    $imagesContainer.forEach(($imageContainer) => {
+      $imageContainer.addEventListener("click", (event) => {
+        const $img = event.target.closest("img");
+
+        if ($img instanceof HTMLImageElement) {
+          const imgUrl = $img.getAttribute("src");
+
+          appendHTML({
+            parentElement: $postViewer,
+            htmlContent: ImageViewer({ imgUrl }),
+          });
+        }
+      });
+    });
+
+    $postViewer?.addEventListener("click", (event) => {
+      if (event.target !== event.target.closest("img")) {
+        const selector = "[data-id=img-viewer]";
+        const $element = document.querySelector(selector);
+
+        $element.classList.toggle("animate-fade-in");
+        $element.classList.toggle("animate-fade-out");
+
+        setTimeout(() => {
+          removeElement({ selector });
+        }, 300);
+      }
+    });
+
+    const ImageViewer = ({ imgUrl }) => {
+      return `
+        <div 
+          class="viewer animate-fade-in animate-duration-faster" 
+          data-id="img-viewer"
+        >
+          <figure class="viewer__image-container">
+            <img
+              class="viewer__image"
+              src="${imgUrl}"
+              alt="anything"
+            />
+          </figure>
+        </div>
+      `;
+    };
+  </script>
+</Layout>
+
+<style>
+  .gallery {
+    .image-container:nth-child(1),
+    .image-container:nth-child(5),
+    .image-container:nth-child(9) {
+      grid-column: span 2;
+    }
+  }
+</style>

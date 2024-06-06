@@ -1,21 +1,19 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import Header from '../Components/Header.astro';
+import { ViewTransitions } from "astro:transitions";
+import Header from "@/Components/Header.astro";
 interface Props {
   title: string;
   favicon?: string;
 }
 
-const { 
-  title, 
-  favicon =  "/favicon.svg"
-  } = Astro.props;
+const { title, favicon = "/favicon.svg" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="description" content="TODO" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon} />
@@ -38,6 +36,10 @@ const {
     box-sizing: border-box;
   }
 
+  html {
+    scrollbar-width: thin;
+  }
+
   body {
     min-height: 100dvh;
     font-family:
@@ -52,6 +54,36 @@ const {
       "Open Sans",
       "Helvetica Neue",
       sans-serif;
+      overflow-x: hidden;
+  
+    &:has([data-id="img-viewer"]) {
+      overflow: hidden;
+    }
+  }
+
+  .viewer {
+    position: fixed;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: hsla(0, 0%, 0%, 60%);
+    backdrop-filter: blur(5px);
+    left: 0;
+    top: 0;
+  }
+
+  .viewer__image-container {
+    height: 100dvh;
+    max-width: 95dvw;
+    width: 100%;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+
+  .viewer__image {
+    max-height: 95%;
+    max-width: 100%;
   }
 </style>

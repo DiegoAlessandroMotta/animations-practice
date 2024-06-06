@@ -6,11 +6,9 @@ const posts = [
   {
     username: "ひろ@C103/1日目東モ08a",
     accountName: "habanero_mgmg",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1350790885244485633/5DYTStYq_400x400.jpg",
-    // postImgUrl: "https://pbs.twimg.com/media/GPJAr8SbkAAk8o1?format=jpg&name=large",
-    postImgUrl:
-      "https://pbs.twimg.com/media/GPNxHcsacAAficI?format=jpg&name=900x900",
+    avatarUrl: "/img/user1.webp",
+    // postImgUrl: "/img/post4.webp",
+    postImgUrl: "/img/post1.webp",
     repliesCount: 18,
     repostsCount: 4219,
     likesCount: 29415,
@@ -20,11 +18,9 @@ const posts = [
   {
     username: "さ",
     accountName: "iorikawawa",
-    avatarUrl:
-      "https://pbs.twimg.com/profile_images/1691080601955385344/tuAfJ3Qy_400x400.jpg",
-    // postImgUrl:"https://pbs.twimg.com/media/F0QvSJraEAAe66C?format=jpg&name=4096x4096",
-    postImgUrl:
-      "https://pbs.twimg.com/media/GPJm6jxaoAAdoKr?format=jpg&name=small",
+    avatarUrl: "/img/user2.webp",
+    // postImgUrl: "/img/post5.webp",
+    postImgUrl: "/img/post2.webp",
     repliesCount: 7,
     repostsCount: 2217,
     likesCount: 13612,
@@ -34,9 +30,8 @@ const posts = [
   {
     username: "Randomuser",
     accountName: "randomuser",
-    avatarUrl: "https://avatars.githubusercontent.com/u/153887376?v=4",
-    postImgUrl:
-      "https://i.pinimg.com/736x/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg",
+    avatarUrl: "/img/user3.webp",
+    postImgUrl: "/img/post3.webp",
     repliesCount: 4,
     repostsCount: 812,
     likesCount: 6612,
@@ -44,27 +39,52 @@ const posts = [
     contentPost:
       'This is a simple post <a class="post-link" href="/">#Go to home</a>',
   },
+  {
+    username: "ひろ@C103/1日目東モ08a",
+    accountName: "habanero_mgmg",
+    avatarUrl: "/img/user1.webp",
+    postImgUrl: "/img/post4.webp",
+    repliesCount: 18,
+    repostsCount: 4219,
+    likesCount: 29415,
+    analiticsCount: 368193,
+    contentPost: "ヴェールヌイ",
+  },
+  {
+    username: "日目東モ",
+    accountName: "iorikawawa",
+    avatarUrl: "/img/user2.webp",
+    postImgUrl: "/img/post5.webp",
+    repliesCount: 7,
+    repostsCount: 2217,
+    likesCount: 13612,
+    analiticsCount: 292461,
+    contentPost: "ヴェールヌイ",
+  },
 ];
 ---
 
 <Layout title="Twitter" favicon="/ico/twitter.ico">
-  <main>
+  <main class="p-6 bg-black border-t border-white/20">
     {
-      posts.map((post) => (
-        <Post
-          username={post.username}
-          accountName={post.accountName}
-          avatarUrl={post.avatarUrl}
-          postImgUrl={post.postImgUrl}
-          repliesCount={post.repliesCount}
-          repostsCount={post.repostsCount}
-          likesCount={post.likesCount}
-          analiticsCount={post.analiticsCount}
-          set:html={post.contentPost}
-        />
-      ))
+      posts
+        .slice(0, 3)
+        .map((post) => (
+          <Post
+            username={post.username}
+            accountName={post.accountName}
+            avatarUrl={post.avatarUrl}
+            postImgUrl={post.postImgUrl}
+            repliesCount={post.repliesCount}
+            repostsCount={post.repostsCount}
+            likesCount={post.likesCount}
+            analiticsCount={post.analiticsCount}
+            set:html={post.contentPost}
+          />
+        ))
     }
   </main>
+
   <div class="layers">
     <div id="post-viewer"></div>
   </div>
@@ -74,12 +94,10 @@ const posts = [
       parentElement.innerHTML += htmlContent;
     };
 
-    const removeElement = ({ elementId }) => {
-      // const $element = document.getElementById(elementId);
-      const $element = document.querySelector(elementId);
+    const removeElement = ({ selector }) => {
+      const $element = document.querySelector(selector);
 
       if ($element !== null) {
-        // $element.remove();
         $element.remove();
         return;
       }
@@ -107,20 +125,24 @@ const posts = [
 
     $postViewer?.addEventListener("click", (event) => {
       if (event.target !== event.target.closest("img")) {
-        const elementId = "[data-id=img-viewer]";
-        const $element = document.querySelector(elementId);
+        const selector = "[data-id=img-viewer]";
+        const $element = document.querySelector(selector);
 
-        $element.classList.toggle("fade-out");
+        $element.classList.toggle("animate-fade-in");
+        $element.classList.toggle("animate-fade-out");
 
         setTimeout(() => {
-          removeElement({ elementId });
-        }, 200);
+          removeElement({ selector });
+        }, 300);
       }
     });
 
     const ImageViewer = ({ imgUrl }) => {
       return `
-        <div class="viewer fade-in" data-id="img-viewer">
+        <div 
+          class="viewer animate-fade-in animate-duration-faster" 
+          data-id="img-viewer"
+        >
           <figure class="viewer__image-container">
             <img
               class="viewer__image"
@@ -133,79 +155,3 @@ const posts = [
     };
   </script>
 </Layout>
-
-<style is:inline>
-  body:has([data-id="img-viewer"]) {
-    overflow: hidden;
-  }
-
-  .viewer {
-    position: fixed;
-    width: 100dvw;
-    height: 100dvh;
-    background-color: hsla(0, 0%, 0%, 60%);
-    backdrop-filter: blur(5px);
-    left: 0;
-    top: 0;
-  }
-
-  .viewer__image-container {
-    height: 100dvh;
-    max-width: 95dvw;
-    width: 100%;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-  }
-
-  .viewer__image {
-    max-height: 95%;
-    max-width: 100%;
-  }
-
-  .fade-in {
-    animation: fade-in;
-    animation-duration: 0.2s;
-    animation-fill-mode: forwards;
-  }
-
-  .fade-out {
-    animation: fade-out;
-    animation-duration: 0.2s;
-    animation-fill-mode: forwards;
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fade-out {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-    }
-  }
-</style>
-
-<style>
-  html {
-    scrollbar-width: thin;
-  }
-
-  main {
-    padding: 24px;
-    background-color: black;
-    border-top: 1px solid hsla(0, 0%, 100%, 20%);
-  }
-</style>

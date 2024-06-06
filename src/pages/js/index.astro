@@ -1,0 +1,326 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import './index.css'
+---
+
+<Layout title="Javascript" favicon="/ico/js.svg">
+  <main class="main-content">
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">Ejercicio 1</h2>
+        <p class="exercise__description">
+          Crea un programa que solicite al usuario su nombre, apellido y edad
+          para luego presentar un saludo amigable, mostrando la información
+          ingresada. Por ejemplo: "Buen día, soy Denys Jaramillo y tengo 41
+          años." El resultado se mostrará en una alerta o en la consola
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form" id="form-1">
+          <label class="input-container">
+            Nombres:
+            <input
+              class="exercise__input transition-3"
+              name="firstname"
+              type="text"
+              pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <label class="input-container">
+            Apellidos:
+            <input
+              class="exercise__input transition-3"
+              name="lastname"
+              type="text"
+              pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <label class="input-container">
+            Edad:
+            <input
+              class="exercise__input transition-3"
+              type="number"
+              name="age"
+              pattern="[0-9]{1,36}"
+              min="5"
+              max="100"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <button class="button mt-1 transition-3" type="submit">
+            Mostrar saludo
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Respuesta:</h3>
+          <p class="output-message__text" data-id="message-1"></p>
+        </label>
+      </section>
+    </article>
+
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">Ejercicio 2</h2>
+        <p class="exercise__description">
+          Escribe un programa que solicite al usuario un número y determine si
+          es positivo, negativo o cero, imprimiendo el resultado
+          correspondiente.
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form" id="form-2">
+          <label class="input-container">
+            Número:
+            <input
+              class="exercise__input transition-3"
+              type="number"
+              name="num"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <button class="button mt-1 transition-3" type="submit">
+            Evaluar
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Respuesta:</h3>
+          <p class="output-message__text" data-id="message-2"></p>
+        </label>
+      </section>
+    </article>
+
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">
+          Ejercicio 3 "Validación del formato del numero pendiente"
+        </h2>
+        <p class="exercise__description">
+          Crea un programa que reciba un monto a pagar y calcule su precio
+          final, incluyendo un impuesto al valor agregado (IGV) del 18%. El
+          programa mostrará el monto total a pagar después de aplicar el
+          impuesto.
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form" id="form-3">
+          <label class="input-container">
+            Monto a pagar:
+            <input
+              class="exercise__input transition-3"
+              type="text"
+              name="amount"
+              autocomplete="off"
+              pattern="[0-9]{1,6}.[0-9]{1,2}|[0-9]{1,6}"
+              required
+            />
+          </label>
+          <button class="button mt-1 transition-3" type="submit">
+            Calcular
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Respuesta:</h3>
+          <p class="output-message__text" data-id="message-3"></p>
+        </label>
+      </section>
+    </article>
+
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">Ejercicio 4</h2>
+        <p class="exercise__description">
+          Desarrolla un programa que determine el monto equitativo a pagar por
+          cada uno de los 3 amigos después de salir a comer. El programa
+          solicitará el monto total a pagar y calculará cuánto debe pagar cada
+          amigo para que todos contribuyan por igual. Luego, mostrará el
+          resultado mediante una alerta o en la consola.
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form" id="form-4">
+          <label class="input-container">
+            Monto total:
+            <input
+              class="exercise__input transition-3"
+              type="text"
+              name="amount"
+              autocomplete="off"
+              pattern="[0-9]{1,6}.[0-9]{1,2}|[0-9]{1,6}"
+              required
+            />
+          </label>
+          <button class="button mt-1 transition-3" type="submit">
+            Calcular
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Respuesta:</h3>
+          <p class="output-message__text" data-id="message-4"></p>
+        </label>
+      </section>
+    </article>
+
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">Ejercicio 5</h2>
+        <p class="exercise__description">
+          Desarrolla un programa que reciba dos cadenas de texto, 'a' y 'b', 
+          y devuelva una nueva cadena combinando ambas de la siguiente manera: 
+          corta + larga + corta. 
+          La cadena más corta estará en el exterior y la más larga en el interior. 
+          Por ejemplo, si las cadenas son "bye" y "adios", el resultado sería "byeadiosbye".
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form" id="form-5">
+          <label class="input-container">
+            Cadena A:
+            <input
+              class="exercise__input transition-3"
+              type="text"
+              name="stringA"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <label class="input-container">
+            Cadena B:
+            <input
+              class="exercise__input transition-3"
+              type="text"
+              name="stringB"
+              autocomplete="off"
+              required
+            />
+          </label>
+          <button class="button mt-1 transition-3" type="submit">
+            Combinar cadenas
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Respuesta:</h3>
+          <p class="output-message__text" data-id="message-5"></p>
+        </label>
+      </section>
+    </article>
+
+
+  </main>
+  <script is:inline type="module">
+    const displayTextMessage = ({ $element, message }) => {
+      console.log(message);
+      $element.innerText = message;
+    };
+
+    const displayHTMLMessage = ({ $element, content }) => {
+      console.log(content);
+      $element.innerHTML = content;
+    };
+
+    // Ejercicio 1
+    const $form1 = document.getElementById("form-1");
+
+    $form1.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-1"]');
+      const formData = new FormData($form1);
+      const { firstname, lastname, age } = Object.fromEntries(formData);
+
+      const message = `Buen día, soy ${firstname} ${lastname} y tengo ${age} años`;
+
+      displayTextMessage({ $element: $message, message });
+      $form1.reset();
+    });
+
+    // Ejercicio 2
+    const $form2 = document.getElementById("form-2");
+
+    $form2.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-2"]');
+      const formData = new FormData($form2);
+      const { num } = Object.fromEntries(formData);
+      const numValue = Number(num);
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}"" no es un numero`
+        : numValue == 0
+          ? `el numero es igual a 0`
+          : numValue > 0
+            ? `el numero ${numValue} es positivo`
+            : `el numero ${numValue} es negativo`;
+
+      displayTextMessage({ $element: $message, message });
+      $form2.reset();
+    });
+
+    // Ejercicio 3
+    const $form3 = document.getElementById("form-3");
+
+    $form3.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-3"]');
+      const formData = new FormData($form3);
+      const { amount } = Object.fromEntries(formData);
+      const numValue = Number(amount);
+      const igv = 0.18;
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}"" no es un numero`
+        : `
+          Monto a pagar (Sin IGV): S/. ${numValue}<br>
+          Monto a pagar (IGV 18% incluido): S/. ${numValue + numValue * igv}
+        `;
+
+      displayHTMLMessage({ $element: $message, content: message });
+      $form3.reset();
+    });
+
+    // Ejercicio 4
+    const $form4 = document.getElementById("form-4");
+
+    $form4.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-4"]');
+      const formData = new FormData($form4);
+      const { amount } = Object.fromEntries(formData);
+      const numValue = Number(amount);
+      const friendsCount = 3;
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}"" no es un numero`
+        : `
+          Monto a pagar total: S/. ${numValue}<br>
+          Monto a pagar por cada amigo: S/. ${(numValue / friendsCount).toFixed(2)}
+        `;
+
+      displayHTMLMessage({ $element: $message, content: message });
+      $form4.reset();
+    });
+
+    // Ejercicio 5
+    const $form5 = document.getElementById("form-5");
+
+    $form5.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-5"]');
+      const formData = new FormData($form5);
+      const { stringA, stringB } = Object.fromEntries(formData);
+
+      const isStringALongest = stringA.length > stringB.length
+
+      const message = isStringALongest
+        ? stringB + stringA + stringB
+        : stringA + stringB + stringA;
+
+      displayTextMessage({ $element: $message, message });
+      $form5.reset();
+    });
+  </script>
+</Layout>

@@ -1,0 +1,110 @@
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.transition-3 {
+  transition: 0.3s;
+}
+
+.main-content {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding: 24px 8px;
+  padding-bottom: 64px;
+  gap: 24px;
+}
+
+.exercise {
+  background-color: hsl(0, 0%, 8%);
+  border: 2px solid hsla(0, 0%, 100%, 20%);
+  max-width: 1280px;
+  min-width: 0px;
+  width: 100%;
+}
+
+.exercise-header {
+  background-color: hsla(0, 0%, 0%, 40%);
+  padding: 0px 12px;
+}
+
+.exercise__title {
+  font-weight: 500;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
+  color: lightskyblue;
+}
+
+.exercise__description {
+  color: hsla(0, 0%, 100%, 70%);
+  padding: 8px 0px;
+}
+
+.exercise-content {
+  padding: 16px 12px;
+}
+
+.exercise-form {
+  max-width: 256px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.input-container {
+  display: flex;
+  gap: 0.2rem;
+  flex-flow: column nowrap;
+
+  &:has(+ .input-container) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.exercise__input {
+  display: block;
+  font-family: inherit;
+  font-size: 0.9em;
+  padding: 0.5rem 0.8rem;
+  background-color: hsl(0, 0%, 15%);
+  border: none;
+  outline: none;
+  border-radius: 0.3rem;
+  color: hsla(0, 0%, 100%, 80%);
+
+  &:focus,
+  &:hover {
+    background-color: hsl(0, 0%, 20%);
+  }
+}
+
+.button {
+  border: none;
+  background-color: hsl(200, 100%, 30%);
+  padding: 12px 20px;
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+
+  &:hover {
+    background-color: hsl(200, 100%, 40%);
+  }
+}
+
+.output-message {
+  display: block;
+  min-height: 5rem;
+  margin-top: 2rem;
+}
+
+.output-message__title {
+  font-weight: 600;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.output-message__text {
+  color: hsla(0, 0%, 100%, 80%);
+  font-size: 1.1em;
+  text-align: center;
+}

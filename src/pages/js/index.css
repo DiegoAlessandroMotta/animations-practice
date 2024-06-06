@@ -21,6 +21,8 @@
   max-width: 1280px;
   min-width: 0px;
   width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .exercise-header {
@@ -32,12 +34,14 @@
   font-weight: 500;
   font-size: 1.5em;
   text-align: center;
+  text-wrap: balance;
   padding: 8px 12px;
   border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
   color: lightskyblue;
 }
 
 .exercise__description {
+  text-wrap: pretty;
   color: hsla(0, 0%, 100%, 70%);
   padding: 8px 0px;
 }
@@ -50,13 +54,15 @@
   max-width: 256px;
   width: 100%;
   margin: 0 auto;
+  height: fit-content;
 }
 
 .input-container {
   display: flex;
   gap: 0.2rem;
   flex-flow: column nowrap;
-
+  min-width: 200px;
+  
   &:has(+ .input-container) {
     margin-bottom: 0.5rem;
   }
@@ -65,7 +71,7 @@
 .exercise__input {
   display: block;
   font-family: inherit;
-  font-size: 0.9em;
+  font-size: inherit;
   padding: 0.5rem 0.8rem;
   background-color: hsl(0, 0%, 15%);
   border: none;
@@ -81,19 +87,20 @@
 
 .button {
   border: none;
-  background-color: hsl(200, 100%, 30%);
+  background-color: hsl(200, 100%, 40%);
   padding: 12px 20px;
   border-radius: 0.3rem;
-  font-size: 0.9em;
+  font-family: inherit;
+  font-size: inherit;
 
   &:hover {
-    background-color: hsl(200, 100%, 40%);
+    background-color: hsl(200, 100%, 45%);
   }
 }
 
 .output-message {
   display: block;
-  min-height: 5rem;
+  min-height: 6rem;
   margin-top: 2rem;
 }
 
@@ -107,4 +114,27 @@
   color: hsla(0, 0%, 100%, 80%);
   font-size: 1.1em;
   text-align: center;
+}
+
+.cols {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.max-w-600 {
+  max-width: 600px;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.exercise-form__subtitle {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
 }

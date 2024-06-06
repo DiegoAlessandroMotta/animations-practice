@@ -1,86 +1,104 @@
-<nav>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li>
-      <a href="/js">Javascript</a>
+<nav class="navbar-horizontal">
+  <ul class="horizontal-links">
+    <li class="link-container">
+      <a class="link" href="/">Home</a>
     </li>
-    <li>
-      <a href="/grid">Grid</a>
-      <ul>
-        <li><a href="/grid/areas">Areas</a></li>
-        <li><a href="/grid/align">Align</a></li>
+    <li class="link-container">
+      <a class="link" href="/js">Javascript</a>
+    </li>
+    <li class="link-container">
+      <a class="link link--hoverable" href="/grid">Grid</a>
+      <ul class="vertical-links--collapsed">
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/grid/areas">Areas</a>
+        </li>
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/grid/align">Align</a>
+        </li>
       </ul>
     </li>
-    <li>
-      <a href="#">General</a>
-      <ul>
-        <li><a href="/gallery">Gallery</a></li>
-        <li><a href="/oocss">OOCSS</a></li>
-        <li><a href="/microsoft-web">Microsoft web</a></li>
-        <li><a href="/twitter-web">Twitter</a></li>
+    <li class="link-container">
+      <a class="link link--hoverable" href="#">General</a>
+      <ul class="vertical-links--collapsed">
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/gallery">Gallery</a>
+        </li>
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/oocss">OOCSS</a>
+        </li>
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/microsoft-web"
+            >Microsoft web</a
+          >
+        </li>
+        <li class="link-container">
+          <a class="vertical-links__link link" href="/twitter-web">Twitter</a>
+        </li>
       </ul>
     </li>
-    <li><a href="/bootstrap">Bootstrap</a></li>
   </ul>
 </nav>
 
 <style>
-  nav {
-    align-content: center;
+  .navbar-horizontal {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 24px;
   }
 
-  ul {
+  ul.horizontal-links {
     list-style: none;
     display: flex;
-    align-content: center;
-
-    li {
-      display: flex;
-      padding: 0;
-    }
+    flex-flow: row wrap;
+    align-items: center;
   }
 
-  a {
+  .link-container {
+    display: flex;
+  }
+
+  a.link {
+    padding: 0.7rem 1rem;
     color: hsl(0, 0%, 80%);
-    font-size: 1em;
-    padding: 12px 24px;
+    font-size: small;
     transition: 0.3s;
-    border-bottom: 2px solid transparent;
-    width: 100%;
-    text-decoration: none;
-    color: hsl(0, 0%, 100%);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
 
     &:hover {
-      background-color: hsl(0, 0%, 10%);
-      color: white;
-      border-color: white;
-      cursor: pointer;
+      background-color: hsla(200, 100%, 50%, 12%);
+      text-decoration-color: hsl(200, 100%, 40%);
+      color: hsl(200, 100%, 40%);
     }
   }
 
-  li {
-    > ul {
-      list-style: none;
-      position: absolute;
-      visibility: collapse;
-      opacity: 0;
-      display: flex;
-      flex-flow: column nowrap;
-      align-content: center;
-    }
+  a.horizontal-links__link--current {
+    background-color: hsla(0, 0%, 100%, 7%);
+    color: hsl(0, 0%, 100%);
+  }
 
-    &:hover > ul {
-      visibility: visible;
-      margin-top: 2.5em;
-      background-color: hsl(0, 0%, 5%);
-      opacity: 1;
-      z-index: 1;
+  li.link-container:hover > ul.vertical-links--collapsed {
+    visibility: visible;
+    background-color: hsl(0, 0%, 5%);
+    opacity: 1;
+  }
 
-      > li {
-        a {
-          border: none;
-        }
-      }
-    }
+  ul.vertical-links--collapsed {
+    position: absolute;
+    visibility: collapse;
+    opacity: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    z-index: 1;
+    transition: 0.2s;
+    margin-top: 2.2rem;
+  }
+
+  a.vertical-links__link {
+    width: 100%;
   }
 </style>

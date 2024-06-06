@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import './index.css'
+import "./index.css";
 ---
 
 <Layout title="Javascript" favicon="/ico/js.svg">
@@ -24,6 +24,7 @@ import './index.css'
               name="firstname"
               type="text"
               pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+              title="ingrese sus nombres"
               autocomplete="off"
               required
             />
@@ -35,6 +36,7 @@ import './index.css'
               name="lastname"
               type="text"
               pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+              title="ingrese sus apellidos"
               autocomplete="off"
               required
             />
@@ -48,6 +50,7 @@ import './index.css'
               pattern="[0-9]{1,36}"
               min="5"
               max="100"
+              title="ingrese su edad"
               autocomplete="off"
               required
             />
@@ -57,7 +60,7 @@ import './index.css'
           </button>
         </form>
         <label class="output-message">
-          <h3 class="output-message__title">Respuesta:</h3>
+          <h3 class="output-message__title">Resultado:</h3>
           <p class="output-message__text" data-id="message-1"></p>
         </label>
       </section>
@@ -89,7 +92,7 @@ import './index.css'
           </button>
         </form>
         <label class="output-message">
-          <h3 class="output-message__title">Respuesta:</h3>
+          <h3 class="output-message__title">Resultado:</h3>
           <p class="output-message__text" data-id="message-2"></p>
         </label>
       </section>
@@ -98,7 +101,7 @@ import './index.css'
     <article class="exercise">
       <header class="exercise-header">
         <h2 class="exercise__title">
-          Ejercicio 3 "Validación del formato del numero pendiente"
+          Ejercicio 3
         </h2>
         <p class="exercise__description">
           Crea un programa que reciba un monto a pagar y calcule su precio
@@ -116,7 +119,8 @@ import './index.css'
               type="text"
               name="amount"
               autocomplete="off"
-              pattern="[0-9]{1,6}.[0-9]{1,2}|[0-9]{1,6}"
+              pattern="[0-9]{1,6}[.][0-9]{1,2}|[0-9]{1,6}"
+              title="ingrese un valor entre 0 y 1000000"
               required
             />
           </label>
@@ -125,7 +129,7 @@ import './index.css'
           </button>
         </form>
         <label class="output-message">
-          <h3 class="output-message__title">Respuesta:</h3>
+          <h3 class="output-message__title">Resultado:</h3>
           <p class="output-message__text" data-id="message-3"></p>
         </label>
       </section>
@@ -160,7 +164,7 @@ import './index.css'
           </button>
         </form>
         <label class="output-message">
-          <h3 class="output-message__title">Respuesta:</h3>
+          <h3 class="output-message__title">Resultado:</h3>
           <p class="output-message__text" data-id="message-4"></p>
         </label>
       </section>
@@ -170,11 +174,11 @@ import './index.css'
       <header class="exercise-header">
         <h2 class="exercise__title">Ejercicio 5</h2>
         <p class="exercise__description">
-          Desarrolla un programa que reciba dos cadenas de texto, 'a' y 'b', 
-          y devuelva una nueva cadena combinando ambas de la siguiente manera: 
-          corta + larga + corta. 
-          La cadena más corta estará en el exterior y la más larga en el interior. 
-          Por ejemplo, si las cadenas son "bye" y "adios", el resultado sería "byeadiosbye".
+          Desarrolla un programa que reciba dos cadenas de texto, 'a' y 'b', y
+          devuelva una nueva cadena combinando ambas de la siguiente manera:
+          corta + larga + corta. La cadena más corta estará en el exterior y la
+          más larga en el interior. Por ejemplo, si las cadenas son "bye" y
+          "adios", el resultado sería "byeadiosbye".
         </p>
       </header>
       <section class="exercise-content">
@@ -204,14 +208,87 @@ import './index.css'
           </button>
         </form>
         <label class="output-message">
-          <h3 class="output-message__title">Respuesta:</h3>
+          <h3 class="output-message__title">Resultado:</h3>
           <p class="output-message__text" data-id="message-5"></p>
         </label>
       </section>
     </article>
 
-
+    <article class="exercise">
+      <header class="exercise-header">
+        <h2 class="exercise__title">Ejercicio 6</h2>
+        <p class="exercise__description">
+          Desarrolla un programa que solicite la base y la altura de dos
+          triángulos. Luego calculará y comparará el área de ambos triángulos,
+          mostrando también cuál de ellos tiene el área más grande.
+        </p>
+      </header>
+      <section class="exercise-content">
+        <form class="exercise-form max-w-600" id="form-6">
+          <div class="cols gap-1">
+            <div class="flex-grow">
+              <p class="exercise-form__subtitle">Triangulo A</p>
+              <label class="input-container">
+                Base:
+                <input
+                  class="exercise__input transition-3"
+                  type="number"
+                  name="baseA"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </label>
+              <label class="input-container">
+                Altura:
+                <input
+                  class="exercise__input transition-3"
+                  type="number"
+                  name="heightA"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </label>
+            </div>
+            <div class="flex-grow">
+              <p class="exercise-form__subtitle">Triangulo B</p>
+              <label class="input-container">
+                Base:
+                <input
+                  class="exercise__input transition-3"
+                  type="number"
+                  name="baseB"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </label>
+              <label class="input-container">
+                Altura:
+                <input
+                  class="exercise__input transition-3"
+                  type="number"
+                  name="heightB"
+                  autocomplete="off"
+                  min="1"
+                  required
+                />
+              </label>
+            </div>
+          </div>
+          <button class="button mt-1 transition-3" type="submit">
+            Calcular áreas
+          </button>
+        </form>
+        <label class="output-message">
+          <h3 class="output-message__title">Resultado:</h3>
+          <p class="output-message__text" data-id="message-6"></p>
+        </label>
+      </section>
+    </article>
   </main>
+
   <script is:inline type="module">
     const displayTextMessage = ({ $element, message }) => {
       console.log(message);
@@ -246,6 +323,7 @@ import './index.css'
       const $message = document.querySelector('[data-id="message-2"]');
       const formData = new FormData($form2);
       const { num } = Object.fromEntries(formData);
+
       const numValue = Number(num);
 
       const message = isNaN(numValue)
@@ -268,6 +346,7 @@ import './index.css'
       const $message = document.querySelector('[data-id="message-3"]');
       const formData = new FormData($form3);
       const { amount } = Object.fromEntries(formData);
+
       const numValue = Number(amount);
       const igv = 0.18;
 
@@ -275,7 +354,7 @@ import './index.css'
         ? `El valor "${numValue}"" no es un numero`
         : `
           Monto a pagar (Sin IGV): S/. ${numValue}<br>
-          Monto a pagar (IGV 18% incluido): S/. ${numValue + numValue * igv}
+          Monto a pagar (IGV 18% incluido): S/. ${(numValue + numValue * igv).toFixed(2)}
         `;
 
       displayHTMLMessage({ $element: $message, content: message });
@@ -290,6 +369,7 @@ import './index.css'
       const $message = document.querySelector('[data-id="message-4"]');
       const formData = new FormData($form4);
       const { amount } = Object.fromEntries(formData);
+
       const numValue = Number(amount);
       const friendsCount = 3;
 
@@ -297,7 +377,7 @@ import './index.css'
         ? `El valor "${numValue}"" no es un numero`
         : `
           Monto a pagar total: S/. ${numValue}<br>
-          Monto a pagar por cada amigo: S/. ${(numValue / friendsCount).toFixed(2)}
+          Monto a pagar por cada amigo: S/. ${(numValue / friendsCount)(numValue / friendsCount).toFixed(2)}
         `;
 
       displayHTMLMessage({ $element: $message, content: message });
@@ -313,14 +393,55 @@ import './index.css'
       const formData = new FormData($form5);
       const { stringA, stringB } = Object.fromEntries(formData);
 
-      const isStringALongest = stringA.length > stringB.length
+      const [shortString, longString] = [stringA, stringB].toSorted(
+        (a, b) => a.length - b.length,
+      );
 
-      const message = isStringALongest
-        ? stringB + stringA + stringB
-        : stringA + stringB + stringA;
+      const message = shortString + longString + shortString;
 
       displayTextMessage({ $element: $message, message });
       $form5.reset();
+    });
+
+    // Ejercicio 6
+    const getTriangleArea = ({ base, height }) => {
+      const baseNumber = Number(base);
+      const heightNumber = Number(height);
+
+      if (isNaN(baseNumber) || isNaN(heightNumber)) {
+        return 0;
+      }
+
+      return (baseNumber * heightNumber) / 2;
+    };
+
+    const $form6 = document.getElementById("form-6");
+
+    $form6.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('[data-id="message-6"]');
+      const formData = new FormData($form6);
+      const { baseA, heightA, baseB, heightB } = Object.fromEntries(formData);
+
+      const areaA = getTriangleArea({ base: baseA, height: heightA });
+      const areaB = getTriangleArea({ base: baseB, height: heightB });
+
+      const message = `
+        Área A: ${areaA}<br>
+        Área B: ${areaB}<br>
+        ${
+          areaA === areaB
+            ? "Las áreas son iguales"
+            : `Área más grande: ${
+                areaA > areaB
+                  ? areaA + " (Triángulo A)"
+                  : areaB + " (Triángulo B)"
+              }`
+        }
+      `;
+
+      displayHTMLMessage({ $element: $message, content: message });
+      $form6.reset();
     });
   </script>
 </Layout>

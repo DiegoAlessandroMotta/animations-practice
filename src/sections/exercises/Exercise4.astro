@@ -1,0 +1,29 @@
+---
+import Exercise from "@/Components/Exercise/Exercise.astro";
+---
+
+<Exercise
+  title="Ejercicio 4"
+  description=`
+    Desarrolla un programa que determine el monto equitativo a pagar por
+    cada uno de los 3 amigos después de salir a comer. El programa
+    solicitará el monto total a pagar y calculará cuánto debe pagar cada
+    amigo para que todos contribuyan por igual. Luego, mostrará el
+    resultado mediante una alerta o en la consola.`
+  messageId="message-4"
+>
+  <form class="exercise-form" id="form-4">
+    <label class="input-container">
+      Monto total:
+      <input
+        class="exercise__input transition-3"
+        type="text"
+        name="amount"
+        autocomplete="off"
+        pattern="[0-9]{1,6}.[0-9]{1,2}|[0-9]{1,6}"
+        required
+      />
+    </label>
+    <button class="button mt-1 transition-3" type="submit"> Calcular </button>
+  </form>
+</Exercise>

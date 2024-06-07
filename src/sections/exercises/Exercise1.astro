@@ -1,66 +1,56 @@
 ---
-import ExerciseBox from "@/Components/Exercise/ExerciseBox.astro";
-import ExerciseContent from "@/Components/Exercise/ExerciseContent.astro";
-import ExerciseFooter from "@/Components/Exercise/ExerciseFooter.astro";
-import ExerciseHeader from "@/Components/Exercise/ExerciseHeader.astro";
+import Exercise from "@/Components/Exercise/Exercise.astro";
 ---
 
-<ExerciseBox>
-  <ExerciseHeader
-    title="Ejercicio 1"
-    description=`
-      Crea un programa que solicite al usuario su nombre, apellido y edad
-      para luego presentar un saludo amigable, mostrando la información
-      ingresada. Por ejemplo: "Buen día, soy Denys Jaramillo y tengo 41
-      años." El resultado se mostrará en una alerta o en la consola`
-  />
-  <ExerciseContent>
-    <form class="exercise-form" id="form-1">
-      <label class="input-container">
-        Nombres:
-        <input
-          class="exercise__input transition-3"
-          name="firstname"
-          type="text"
-          pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
-          title="ingrese sus nombres"
-          autocomplete="off"
-          required
-        />
-      </label>
-      <label class="input-container">
-        Apellidos:
-        <input
-          class="exercise__input transition-3"
-          name="lastname"
-          type="text"
-          pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
-          title="ingrese sus apellidos"
-          autocomplete="off"
-          required
-        />
-      </label>
-      <label class="input-container">
-        Edad:
-        <input
-          class="exercise__input transition-3"
-          type="number"
-          name="age"
-          pattern="[0-9]{1,36}"
-          min="5"
-          max="100"
-          title="ingrese su edad"
-          autocomplete="off"
-          required
-        />
-      </label>
-      <button class="button mt-1 transition-3" type="submit">
-        Mostrar saludo
-      </button>
-    </form>
-  </ExerciseContent>
-  <ExerciseFooter
-    messageTitle="Resultado:"
-    messageId="message-1"
-   />
-</ExerciseBox>
+<Exercise
+  title="Ejercicio 1"
+  description=`Crea un programa que solicite al usuario su nombre, apellido y edad
+    para luego presentar un saludo amigable, mostrando la información
+    ingresada. Por ejemplo: "Buen día, soy Denys Jaramillo y tengo 41
+    años." El resultado se mostrará en una alerta o en la consola`
+  messageId="message-1"
+>
+  <form class="exercise-form" id="form-1">
+    <label class="input-container">
+      Nombres:
+      <input
+        class="exercise__input transition-3"
+        name="firstname"
+        type="text"
+        pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+        title="ingrese sus nombres"
+        autocomplete="off"
+        required
+      />
+    </label>
+    <label class="input-container">
+      Apellidos:
+      <input
+        class="exercise__input transition-3"
+        name="lastname"
+        type="text"
+        pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
+        title="ingrese sus apellidos"
+        autocomplete="off"
+        required
+      />
+    </label>
+    <label class="input-container">
+      Edad:
+      <input
+        class="exercise__input transition-3"
+        type="number"
+        name="age"
+        pattern="[0-9]{1,36}"
+        min="5"
+        max="100"
+        title="ingrese su edad"
+        autocomplete="off"
+        required
+      />
+    </label>
+    <button class="button mt-1 transition-3" type="submit">
+      Mostrar saludo
+    </button>
+  </form>
+</Exercise>

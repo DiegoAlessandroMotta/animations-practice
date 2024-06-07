@@ -1,0 +1,21 @@
+---
+interface Props {
+  accentColor: string;
+}
+
+const { accentColor } = Astro.props;
+---
+
+<div class="">
+  <slot />
+</div>
+
+<style define:vars={{ accentColor }}>
+  div {
+    color: hsla(0, 0%, 100%, 50%)
+
+    &:hover {
+      color: var(--accentColor);
+    }
+  }
+</style>

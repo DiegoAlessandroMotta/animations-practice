@@ -7,6 +7,7 @@ import OptionsIcon from "./Icons/OptionsIcon.astro";
 import AnaliticsIcon from "./Icons/AnaliticsIcon.astro";
 import PostButton from "./PostButton.astro";
 import PostContent from "./PostContent.astro";
+import IconContainer from "./IconContainer.astro";
 
 interface Props {
   username: string;
@@ -92,10 +93,20 @@ const countToString = (count: number) => {
             <LikeIcon slot="icon" />
             {countToString(likesCount)}
           </PostButton>
-          <PostButton hoverColor="bluesky">
-            <AnaliticsIcon slot="icon" />
+          <button class="bg-transparent flex items-stretch cursor-pointer text-white/50 transition duration-300 hover:text-[hsl(204,_88%,_53%)] [&:hover_span:first-child]:before:opacity-[0.08]">
+            <span class="bg-transparent flex justify-center items-center text-current before:content-[''] before:w-9 before:h-9 before:absolute before:rounded-full before:bg-current before:opacity-[0.0] before:transition-[colors,_opacity] before:duration-300">
+              <AnaliticsIcon class="h-5 w-5 text-current transition-colors duration-[inherit]" />
+            </span>
+            <span class="text-current py-0 px-2 content-center text-sm">
+              {countToString(analiticsCount)}
+            </span>
+          </button>
+          <!-- <PostButton hoverColor="bluesky">
+            <IconContainer accentColor="hsl(204, 88%, 53%)">
+              <AnaliticsIcon />
+            </IconContainer>
             {countToString(analiticsCount)}
-          </PostButton>
+          </PostButton> -->
           <PostButton hoverColor="bluesky">
             <ShareIcon />
           </PostButton>
@@ -184,8 +195,7 @@ const countToString = (count: number) => {
   }
 
   .user-information__account-name {
-    font-weight: 400;
-
+    font-weight: 500;
     &:hover {
       cursor: pointer;
     }

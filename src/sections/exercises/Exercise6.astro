@@ -1,0 +1,70 @@
+---
+import Exercise from "@/Components/Exercise/Exercise.astro";
+---
+
+<Exercise
+  title="Ejercicio 6"
+  description=`
+    Desarrolla un programa que solicite la base y la altura de dos
+    triángulos. Luego calculará y comparará el área de ambos triángulos,
+    mostrando también cuál de ellos tiene el área más grande.`
+  messageId="message-6"
+>
+  <form class="exercise-form max-w-600" id="form-6">
+    <div class="cols gap-1">
+      <div class="flex-grow">
+        <p class="exercise-form__subtitle">Triangulo A</p>
+        <label class="input-container">
+          Base:
+          <input
+            class="exercise__input transition-3"
+            type="number"
+            name="baseA"
+            autocomplete="off"
+            min="1"
+            required
+          />
+        </label>
+        <label class="input-container">
+          Altura:
+          <input
+            class="exercise__input transition-3"
+            type="number"
+            name="heightA"
+            autocomplete="off"
+            min="1"
+            required
+          />
+        </label>
+      </div>
+      <div class="flex-grow">
+        <p class="exercise-form__subtitle">Triangulo B</p>
+        <label class="input-container">
+          Base:
+          <input
+            class="exercise__input transition-3"
+            type="number"
+            name="baseB"
+            autocomplete="off"
+            min="1"
+            required
+          />
+        </label>
+        <label class="input-container">
+          Altura:
+          <input
+            class="exercise__input transition-3"
+            type="number"
+            name="heightB"
+            autocomplete="off"
+            min="1"
+            required
+          />
+        </label>
+      </div>
+    </div>
+    <button class="button mt-1 transition-3" type="submit">
+      Calcular áreas
+    </button>
+  </form>
+</Exercise>

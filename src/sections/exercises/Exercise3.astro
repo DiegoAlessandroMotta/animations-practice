@@ -1,0 +1,29 @@
+---
+import Exercise from "@/Components/Exercise/Exercise.astro";
+---
+
+<Exercise
+  title="Ejercicio 3"
+  description=`
+    Crea un programa que reciba un monto a pagar y calcule su precio
+    final, incluyendo un impuesto al valor agregado (IGV) del 18%. El
+    programa mostrará el monto total a pagar después de aplicar el
+    impuesto.`
+  messageId="message-3"
+>
+  <form class="exercise-form" id="form-3">
+    <label class="input-container">
+      Monto a pagar:
+      <input
+        class="exercise__input transition-3"
+        type="text"
+        name="amount"
+        autocomplete="off"
+        pattern="[0-9]{1,6}[.][0-9]{1,2}|[0-9]{1,6}"
+        title="ingrese un valor entre 0 y 1000000"
+        required
+      />
+    </label>
+    <button class="button mt-1 transition-3" type="submit"> Calcular </button>
+  </form>
+</Exercise>

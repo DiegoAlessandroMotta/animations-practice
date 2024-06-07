@@ -1,18 +1,23 @@
 ---
-import "./Icons.css";
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
-<span class="icon-container">
-  <svg
-    fill="currentColor"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="none"
-  >
-    <g>
-      <path
-        d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"
-      ></path>
-    </g>
-  </svg>
-</span>
+<svg
+  fill="currentColor"
+  viewBox="0 0 24 24"
+  stroke-width="1.5"
+  stroke="none"
+  width="2em"
+  height="2em"
+  class={className}
+>
+  <g>
+    <path
+      d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"
+    ></path>
+  </g>
+</svg>

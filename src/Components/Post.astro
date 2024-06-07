@@ -7,7 +7,7 @@ import OptionsIcon from "./Icons/OptionsIcon.astro";
 import AnaliticsIcon from "./Icons/AnaliticsIcon.astro";
 import PostButton from "./PostButton.astro";
 import PostContent from "./PostContent.astro";
-import IconContainer from "./IconContainer.astro";
+import IconText from "./IconText.astro";
 
 interface Props {
   username: string;
@@ -61,8 +61,8 @@ const countToString = (count: number) => {
           <span class="post-time-ago">17h</span>
         </span>
         <span class="post-options">
-          <PostButton hoverColor="bluesky">
-            <OptionsIcon />
+          <PostButton class="hover:text-icon-skyblue">
+            <OptionsIcon slot="icon" />
           </PostButton>
         </span>
       </header>
@@ -81,34 +81,24 @@ const countToString = (count: number) => {
       </figure>
       <footer class="post-footer">
         <div class="icons-container">
-          <PostButton hoverColor="bluesky">
+          <PostButton class="hover:text-icon-skyblue">
             <ReplyIcon slot="icon" />
-            {countToString(repliesCount)}
+            <IconText>{countToString(repliesCount)}</IconText>
           </PostButton>
-          <PostButton hoverColor="lightGreen">
+          <PostButton class="hover:text-icon-lightGreen">
             <RepostIcon slot="icon" />
-            {countToString(repostsCount)}
+            <IconText>{countToString(repostsCount)}</IconText>
           </PostButton>
-          <PostButton hoverColor="carmesi">
+          <PostButton class="hover:text-icon-carmesi">
             <LikeIcon slot="icon" />
-            {countToString(likesCount)}
+            <IconText>{countToString(likesCount)}</IconText>
           </PostButton>
-          <button class="bg-transparent flex items-stretch cursor-pointer text-white/50 transition duration-300 hover:text-[hsl(204,_88%,_53%)] [&:hover_span:first-child]:before:opacity-[0.08]">
-            <span class="bg-transparent flex justify-center items-center text-current before:content-[''] before:w-9 before:h-9 before:absolute before:rounded-full before:bg-current before:opacity-[0.0] before:transition-[colors,_opacity] before:duration-300">
-              <AnaliticsIcon class="h-5 w-5 text-current transition-colors duration-[inherit]" />
-            </span>
-            <span class="text-current py-0 px-2 content-center text-sm">
-              {countToString(analiticsCount)}
-            </span>
-          </button>
-          <!-- <PostButton hoverColor="bluesky">
-            <IconContainer accentColor="hsl(204, 88%, 53%)">
-              <AnaliticsIcon />
-            </IconContainer>
-            {countToString(analiticsCount)}
-          </PostButton> -->
-          <PostButton hoverColor="bluesky">
-            <ShareIcon />
+          <PostButton class="hover:text-icon-skyblue">
+            <AnaliticsIcon slot="icon" class="text-current" />
+            <IconText>{countToString(analiticsCount)}</IconText>
+          </PostButton>
+          <PostButton class="hover:text-icon-skyblue">
+            <ShareIcon slot="icon" />
           </PostButton>
         </div>
       </footer>
@@ -136,7 +126,7 @@ const countToString = (count: number) => {
     }
 
     &:hover {
-      background-color: hsla(0, 0%, 100%, 3%);
+      background-color: hsl(0, 0%, 3%);
     }
   }
 

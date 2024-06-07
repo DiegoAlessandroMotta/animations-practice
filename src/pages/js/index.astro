@@ -10,7 +10,7 @@ import Exercise6 from "@/sections/exercises/Exercise6.astro";
 ---
 
 <Layout title="Javascript" favicon="/ico/js.svg">
-  <main class="main-content">
+  <main class="flex flex-col items-center py-6 px-2 pb-12 gap-6 text-slate-300">
     <Exercise1 />
     <Exercise2 />
     <Exercise3 />
@@ -18,145 +18,146 @@ import Exercise6 from "@/sections/exercises/Exercise6.astro";
     <Exercise5 />
     <Exercise6 />
   </main>
+</Layout>
 
-  <script is:inline type="module">
-    const displayTextMessage = ({ $element, message }) => {
-      console.log(message);
-      $element.innerText = message;
-    };
+<script is:inline type="module">
+  const displayTextMessage = ({ $element, message }) => {
+    console.log(message);
+    $element.innerText = message;
+  };
 
-    const displayHTMLMessage = ({ $element, content }) => {
-      console.log(content);
-      $element.innerHTML = content;
-    };
+  const displayHTMLMessage = ({ $element, content }) => {
+    console.log(content);
+    $element.innerHTML = content;
+  };
 
-    // Ejercicio 1
-    const $form1 = document.getElementById("form-1");
+  // Ejercicio 1
+  const $form1 = document.getElementById("form-1");
 
-    $form1.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-1"]');
-      const formData = new FormData($form1);
-      const { firstname, lastname, age } = Object.fromEntries(formData);
+  $form1.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-1"]');
+    const formData = new FormData($form1);
+    const { firstname, lastname, age } = Object.fromEntries(formData);
 
-      const message = `Buen día, soy ${firstname} ${lastname} y tengo ${age} años`;
+    const message = `Buen día, soy ${firstname} ${lastname} y tengo ${age} años`;
 
-      displayTextMessage({ $element: $message, message });
-      $form1.reset();
-    });
+    displayTextMessage({ $element: $message, message });
+    $form1.reset();
+  });
 
-    // Ejercicio 2
-    const $form2 = document.getElementById("form-2");
+  // Ejercicio 2
+  const $form2 = document.getElementById("form-2");
 
-    $form2.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-2"]');
-      const formData = new FormData($form2);
-      const { num } = Object.fromEntries(formData);
+  $form2.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-2"]');
+    const formData = new FormData($form2);
+    const { num } = Object.fromEntries(formData);
 
-      const numValue = Number(num);
+    const numValue = Number(num);
 
-      const message = isNaN(numValue)
-        ? `El valor "${numValue}"" no es un numero`
-        : numValue == 0
-          ? `el numero es igual a 0`
-          : numValue > 0
-            ? `el numero ${numValue} es positivo`
-            : `el numero ${numValue} es negativo`;
+    const message = isNaN(numValue)
+      ? `El valor "${numValue}"" no es un numero`
+      : numValue == 0
+        ? `el numero es igual a 0`
+        : numValue > 0
+          ? `el numero ${numValue} es positivo`
+          : `el numero ${numValue} es negativo`;
 
-      displayTextMessage({ $element: $message, message });
-      $form2.reset();
-    });
+    displayTextMessage({ $element: $message, message });
+    $form2.reset();
+  });
 
-    // Ejercicio 3
-    const $form3 = document.getElementById("form-3");
+  // Ejercicio 3
+  const $form3 = document.getElementById("form-3");
 
-    $form3.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-3"]');
-      const formData = new FormData($form3);
-      const { amount } = Object.fromEntries(formData);
+  $form3.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-3"]');
+    const formData = new FormData($form3);
+    const { amount } = Object.fromEntries(formData);
 
-      const numValue = Number(amount);
-      const igv = 0.18;
+    const numValue = Number(amount);
+    const igv = 0.18;
 
-      const message = isNaN(numValue)
-        ? `El valor "${numValue}"" no es un numero`
-        : `
+    const message = isNaN(numValue)
+      ? `El valor "${numValue}"" no es un numero`
+      : `
           Monto a pagar (Sin IGV): S/. ${numValue}<br>
           Monto a pagar (IGV 18% incluido): S/. ${(numValue + numValue * igv).toFixed(2)}
         `;
 
-      displayHTMLMessage({ $element: $message, content: message });
-      $form3.reset();
-    });
+    displayHTMLMessage({ $element: $message, content: message });
+    $form3.reset();
+  });
 
-    // Ejercicio 4
-    const $form4 = document.getElementById("form-4");
+  // Ejercicio 4
+  const $form4 = document.getElementById("form-4");
 
-    $form4.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-4"]');
-      const formData = new FormData($form4);
-      const { amount } = Object.fromEntries(formData);
+  $form4.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-4"]');
+    const formData = new FormData($form4);
+    const { amount } = Object.fromEntries(formData);
 
-      const numValue = Number(amount);
-      const friendsCount = 3;
+    const numValue = Number(amount);
+    const friendsCount = 3;
 
-      const message = isNaN(numValue)
-        ? `El valor "${numValue}"" no es un numero`
-        : `
+    const message = isNaN(numValue)
+      ? `El valor "${numValue}"" no es un numero`
+      : `
           Monto a pagar total: S/. ${numValue}<br>
           Monto a pagar por cada amigo: S/. ${(numValue / friendsCount).toFixed(2)}
         `;
 
-      displayHTMLMessage({ $element: $message, content: message });
-      $form4.reset();
-    });
+    displayHTMLMessage({ $element: $message, content: message });
+    $form4.reset();
+  });
 
-    // Ejercicio 5
-    const $form5 = document.getElementById("form-5");
+  // Ejercicio 5
+  const $form5 = document.getElementById("form-5");
 
-    $form5.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-5"]');
-      const formData = new FormData($form5);
-      const { stringA, stringB } = Object.fromEntries(formData);
+  $form5.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-5"]');
+    const formData = new FormData($form5);
+    const { stringA, stringB } = Object.fromEntries(formData);
 
-      const [shortString, longString] = [stringA, stringB].toSorted(
-        (a, b) => a.length - b.length,
-      );
+    const [shortString, longString] = [stringA, stringB].toSorted(
+      (a, b) => a.length - b.length,
+    );
 
-      const message = shortString + longString + shortString;
+    const message = shortString + longString + shortString;
 
-      displayTextMessage({ $element: $message, message });
-      $form5.reset();
-    });
+    displayTextMessage({ $element: $message, message });
+    $form5.reset();
+  });
 
-    // Ejercicio 6
-    const getTriangleArea = ({ base, height }) => {
-      const baseNumber = Number(base);
-      const heightNumber = Number(height);
+  // Ejercicio 6
+  const getTriangleArea = ({ base, height }) => {
+    const baseNumber = Number(base);
+    const heightNumber = Number(height);
 
-      if (isNaN(baseNumber) || isNaN(heightNumber)) {
-        return 0;
-      }
+    if (isNaN(baseNumber) || isNaN(heightNumber)) {
+      return 0;
+    }
 
-      return (baseNumber * heightNumber) / 2;
-    };
+    return (baseNumber * heightNumber) / 2;
+  };
 
-    const $form6 = document.getElementById("form-6");
+  const $form6 = document.getElementById("form-6");
 
-    $form6.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-6"]');
-      const formData = new FormData($form6);
-      const { baseA, heightA, baseB, heightB } = Object.fromEntries(formData);
+  $form6.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const $message = document.querySelector('p[data-id="message-6"]');
+    const formData = new FormData($form6);
+    const { baseA, heightA, baseB, heightB } = Object.fromEntries(formData);
 
-      const areaA = getTriangleArea({ base: baseA, height: heightA });
-      const areaB = getTriangleArea({ base: baseB, height: heightB });
+    const areaA = getTriangleArea({ base: baseA, height: heightA });
+    const areaB = getTriangleArea({ base: baseB, height: heightB });
 
-      const message = `
+    const message = `
         Área A: ${areaA}<br>
         Área B: ${areaB}<br>
         ${
@@ -170,8 +171,7 @@ import Exercise6 from "@/sections/exercises/Exercise6.astro";
         }
       `;
 
-      displayHTMLMessage({ $element: $message, content: message });
-      $form6.reset();
-    });
-  </script>
-</Layout>
+    displayHTMLMessage({ $element: $message, content: message });
+    $form6.reset();
+  });
+</script>

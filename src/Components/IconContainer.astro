@@ -1,21 +1,5 @@
----
-interface Props {
-  accentColor: string;
-}
-
-const { accentColor } = Astro.props;
----
-
-<div class="">
+<figure
+  class="bg-transparent flex justify-center items-center text-current before:content-[''] before:w-9 before:h-9 before:absolute before:rounded-full before:bg-current before:opacity-[0.0] before:transition-[colors,_opacity] before:duration-300"
+>
   <slot />
-</div>
-
-<style define:vars={{ accentColor }}>
-  div {
-    color: hsla(0, 0%, 100%, 50%)
-
-    &:hover {
-      color: var(--accentColor);
-    }
-  }
-</style>
+</figure>

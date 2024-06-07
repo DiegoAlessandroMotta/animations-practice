@@ -14,7 +14,7 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
     <label class="input-container">
       Nombres:
       <input
-        class="exercise__input transition-3"
+        class="transition-3 exercise__input"
         name="firstname"
         type="text"
         pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
@@ -26,7 +26,7 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
     <label class="input-container">
       Apellidos:
       <input
-        class="exercise__input transition-3"
+        class="transition-3 exercise__input"
         name="lastname"
         type="text"
         pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
@@ -38,12 +38,12 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
     <label class="input-container">
       Edad:
       <input
-        class="exercise__input transition-3"
+        class="transition-3 exercise__input"
         type="number"
         name="age"
         pattern="[0-9]{1,36}"
         min="5"
-        max="100"
+        max="120"
         title="ingrese su edad"
         autocomplete="off"
         required

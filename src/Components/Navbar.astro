@@ -20,7 +20,41 @@ import Link from "./Link.astro";
       <Link class="link" to="/twitter-web">Twitter</Link>
     </li>
   </ul>
+
+  <!-- <div
+    id="menu-backdrop"
+    class="absolute bg-sky-500/[0.14] rounded translate-x-[var(--left)] translate-y-[var(--top)] left-0 top-0 w-[var(--width)] h-[var(--height)] transition-all duration-300 ease-in-out opacity-0"
+  >
+  </div> -->
 </nav>
+
+<!-- <script>
+  const listItems = document.querySelectorAll(".link-container");
+  const $menuBackdrop = document.querySelector("#menu-backdrop") as HTMLElement;
+
+  listItems.forEach(($item) => {
+    if ($menuBackdrop === null) {
+      console.error("menu-backdrop not found");
+      return;
+    }
+
+    $item.addEventListener("mouseenter", () => {
+      const { left, top, width, height } = $item.getBoundingClientRect();
+
+      $menuBackdrop.style.setProperty("--left", `${left}px`);
+      $menuBackdrop.style.setProperty("--top", `${top}px`);
+      $menuBackdrop.style.setProperty("--width", `${width}px`);
+      $menuBackdrop.style.setProperty("--height", `${height}px`);
+      $menuBackdrop.style.opacity = "1";
+      $menuBackdrop.style.visibility = "visible";
+    });
+
+    $item.addEventListener("mouseleave", () => {
+      $menuBackdrop.style.opacity = "0";
+      $menuBackdrop.style.visibility = "hidden";
+    });
+  });
+</script> -->
 
 <style>
   .navbar-horizontal {
@@ -39,6 +73,7 @@ import Link from "./Link.astro";
 
   .link-container {
     display: flex;
+    /* z-index: 1; */
   }
 
   a.link {

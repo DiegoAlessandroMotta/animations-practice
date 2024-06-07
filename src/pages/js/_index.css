@@ -6,50 +6,6 @@
   transition: 0.3s;
 }
 
-.main-content {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  padding: 24px 8px;
-  padding-bottom: 64px;
-  gap: 24px;
-}
-
-.exercise {
-  background-color: hsl(0, 0%, 8%);
-  border: 2px solid hsla(0, 0%, 100%, 20%);
-  max-width: 1280px;
-  min-width: 0px;
-  width: 100%;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-.exercise-header {
-  background-color: hsla(0, 0%, 0%, 40%);
-  padding: 0px 12px;
-}
-
-.exercise__title {
-  font-weight: 500;
-  font-size: 1.5em;
-  text-align: center;
-  text-wrap: balance;
-  padding: 8px 12px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
-  color: lightskyblue;
-}
-
-.exercise__description {
-  text-wrap: pretty;
-  color: hsla(0, 0%, 100%, 70%);
-  padding: 8px 0px;
-}
-
-.exercise-content {
-  padding: 16px 12px;
-}
-
 .exercise-form {
   max-width: 256px;
   width: 100%;
@@ -73,46 +29,29 @@
   font-family: inherit;
   font-size: inherit;
   padding: 0.5rem 0.8rem;
-  background-color: hsl(0, 0%, 15%);
-  border: none;
+  background-color: rgb(55, 65, 81);
+  border: 1px solid rgb(75, 85, 99);
   outline: none;
   border-radius: 0.3rem;
   color: hsla(0, 0%, 100%, 80%);
 
   &:focus,
   &:hover {
-    background-color: hsl(0, 0%, 20%);
+    border-color: rgb(59, 130, 246);
   }
 }
 
 .button {
   border: none;
-  background-color: hsl(200, 100%, 40%);
+  background-color: rgb(29, 78, 216);
   padding: 12px 20px;
   border-radius: 0.3rem;
   font-family: inherit;
   font-size: inherit;
 
   &:hover {
-    background-color: hsl(200, 100%, 45%);
+    background-color: rgb(30, 64, 175);
   }
-}
-
-.output-message {
-  display: block;
-  min-height: 8rem;
-}
-
-.output-message__title {
-  font-weight: 600;
-  font-size: 1.3em;
-  text-align: center;
-}
-
-.output-message__text {
-  color: hsla(0, 0%, 100%, 80%);
-  font-size: 1.1em;
-  text-align: center;
 }
 
 .cols {

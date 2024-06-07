@@ -6,7 +6,7 @@ interface Props {
 const { messageId } = Astro.props;
 ---
 
-<footer class="output-message">
-  <h3 class="output-message__title">Resultado:</h3>
-  <p class="output-message__text" data-id={messageId}></p>
+<footer class="min-h-32">
+  <h3 class="font-medium text-lg text-center text-slate-200">Resultado:</h3>
+  <p class="text-center text-slate-400 mt-2" data-id={messageId}></p>
 </footer>

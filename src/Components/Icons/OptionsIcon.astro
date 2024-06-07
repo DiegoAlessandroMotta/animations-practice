@@ -1,5 +1,9 @@
 ---
-import "./Icons.css";
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
 <span class="icon-container">
@@ -9,6 +13,10 @@ import "./Icons.css";
     viewBox="0 0 24 24"
     stroke-width="2"
     stroke="currentColor"
+    width="1.25rem"
+    height="1.25rem"
+    class={className ??
+      "h-5 w-5 text-current transition-colors duration-[inherit]"}
   >
     <path
       stroke-linecap="round"

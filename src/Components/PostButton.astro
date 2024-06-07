@@ -1,73 +1,19 @@
 ---
-const colors = {
-  bluesky: 'bluesky',
-  lightGreen: 'lightGreen',
-  carmesi: 'carmesi'
-} as const
-
-type HoverColor = typeof colors[keyof typeof colors];
+import IconContainer from "./IconContainer.astro";
 
 interface Props {
-  hoverColor: HoverColor;
+  class?: string;
 }
 
-const { hoverColor } = Astro.props;
+const { class: className } = Astro.props;
 ---
 
-<button class=`icon-button ${hoverColor}`>
-  <slot name="icon" />
-  <span class="icon-button__content text-sm">
-    <slot />
-  </span>
+<button
+  class=`bg-transparent flex items-stretch cursor-pointer text-white/50 transition duration-300 [&:hover>figure]:before:opacity-10 ${className}`
+>
+  <slot name="before" />
+  <IconContainer>
+    <slot name="icon" />
+  </IconContainer>
+  <slot />
 </button>
-
-<style is:global>
-  .icon-button {
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: stretch;
-    cursor: pointer;
-    color: hsla(0, 0%, 100%, 50%);
-    transition: 0.3s;
-
-    &:hover {
-      .icon-container::before {
-        opacity: 0.08;
-      }
-    }
-  }
-
-  .icon-container {
-    color: currentColor;
-
-    &::before {
-      content: "";
-      width: 2.2rem;
-      height: 2.2rem;
-      position: absolute;
-      border-radius: 50%;
-      background-color: currentColor;
-      opacity: 0;
-      transition: 0.3s;
-    }
-  }
-
-  .icon-button__content {
-    color: currentColor;
-    padding: 0 0.3rem;
-    align-content: center;
-  }
-
-  .bluesky:hover {
-    color: hsl(204, 88%, 53%);
-  }
-
-  .lightGreen:hover {
-    color: hsl(160, 100%, 36%);
-  }
-
-  .carmesi:hover {
-    color: hsl(332, 95%, 54%);
-  }
-</style>

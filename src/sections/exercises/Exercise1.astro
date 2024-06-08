@@ -1,5 +1,8 @@
 ---
+import Button from "@/Components/Button.astro";
 import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
 ---
 
 <Exercise
@@ -11,10 +14,9 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
   messageId="message-1"
 >
   <form class="exercise-form" id="form-1">
-    <label class="input-container">
+    <Label>
       Nombres:
-      <input
-        class="transition-3 exercise__input"
+      <Input
         name="firstname"
         type="text"
         pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
@@ -22,11 +24,10 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
         autocomplete="off"
         required
       />
-    </label>
-    <label class="input-container">
+    </Label>
+    <Label>
       Apellidos:
-      <input
-        class="transition-3 exercise__input"
+      <Input
         name="lastname"
         type="text"
         pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,36}"
@@ -34,11 +35,10 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
         autocomplete="off"
         required
       />
-    </label>
-    <label class="input-container">
+    </Label>
+    <Label>
       Edad:
-      <input
-        class="transition-3 exercise__input"
+      <Input
         type="number"
         name="age"
         pattern="[0-9]{1,36}"
@@ -48,9 +48,7 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
         autocomplete="off"
         required
       />
-    </label>
-    <button class="button mt-1 transition-3" type="submit">
-      Mostrar saludo
-    </button>
+    </Label>
+    <Button type="submit"> Mostrar saludo </Button>
   </form>
 </Exercise>

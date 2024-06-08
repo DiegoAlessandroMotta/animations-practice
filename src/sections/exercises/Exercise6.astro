@@ -1,5 +1,8 @@
 ---
+import Button from "@/Components/Button.astro";
 import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
 ---
 
 <Exercise
@@ -10,61 +13,55 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
     mostrando también cuál de ellos tiene el área más grande.`
   messageId="message-6"
 >
-  <form class="exercise-form max-w-600" id="form-6">
-    <div class="cols gap-1">
+  <form class="flex flex-col max-w-xl mx-auto" id="form-6">
+    <div class="flex flex-wrap gap-4 mb-5">
       <div class="flex-grow">
-        <p class="exercise-form__subtitle">Triangulo A</p>
-        <label class="input-container">
+        <p class="border-b border-zinc-700 mb-3 pb-1">Triangulo A</p>
+        <Label>
           Base:
-          <input
-            class="exercise__input transition-3"
+          <Input
             type="number"
             name="baseA"
             autocomplete="off"
             min="1"
             required
           />
-        </label>
-        <label class="input-container">
+        </Label>
+        <Label>
           Altura:
-          <input
-            class="exercise__input transition-3"
+          <Input
             type="number"
             name="heightA"
             autocomplete="off"
             min="1"
             required
           />
-        </label>
+        </Label>
       </div>
       <div class="flex-grow">
-        <p class="exercise-form__subtitle">Triangulo B</p>
-        <label class="input-container">
+        <p class="border-b border-zinc-700 mb-3 pb-1">Triangulo B</p>
+        <Label>
           Base:
-          <input
-            class="exercise__input transition-3"
+          <Input
             type="number"
             name="baseB"
             autocomplete="off"
             min="1"
             required
           />
-        </label>
-        <label class="input-container">
+        </Label>
+        <Label>
           Altura:
-          <input
-            class="exercise__input transition-3"
+          <Input
             type="number"
             name="heightB"
             autocomplete="off"
             min="1"
             required
           />
-        </label>
+        </Label>
       </div>
     </div>
-    <button class="button mt-1 transition-3" type="submit">
-      Calcular áreas
-    </button>
+    <Button type="submit"> Calcular áreas </Button>
   </form>
 </Exercise>

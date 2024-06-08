@@ -1,5 +1,8 @@
 ---
+import Button from "@/Components/Button.astro";
 import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
 ---
 
 <Exercise
@@ -13,17 +16,16 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
   messageId="message-4"
 >
   <form class="exercise-form" id="form-4">
-    <label class="input-container">
+    <Label>
       Monto total:
-      <input
-        class="exercise__input transition-3"
+      <Input
         type="text"
         name="amount"
         autocomplete="off"
         pattern="[0-9]{1,6}.[0-9]{1,2}|[0-9]{1,6}"
         required
       />
-    </label>
-    <button class="button mt-1 transition-3" type="submit"> Calcular </button>
+    </Label>
+    <Button type="submit"> Calcular </Button>
   </form>
 </Exercise>

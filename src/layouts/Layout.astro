@@ -1,6 +1,8 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Header from "@/Components/Header.astro";
+import "@fontsource-variable/inter";
+
 interface Props {
   title: string;
   favicon?: string;
@@ -43,6 +45,7 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
   body {
     min-height: 100dvh;
     font-family:
+      "Inter Variable",
       system-ui,
       -apple-system,
       BlinkMacSystemFont,
@@ -54,8 +57,9 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
       "Open Sans",
       "Helvetica Neue",
       sans-serif;
-      overflow-x: hidden;
-  
+
+    overflow-x: hidden;
+
     &:has([data-id="img-viewer"]) {
       overflow: hidden;
     }

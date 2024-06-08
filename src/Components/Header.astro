@@ -1,12 +1,51 @@
 ---
-import Navbar from "./Navbar.astro";
+import DevIcon from "./Icons/DevIcon.astro";
+import ThemeIcon from "./Icons/ThemeIcon.astro";
 ---
 
-<header class="bg-black text-white flex flex-wrap content-center p-4 gap-6 relative">
-  <div class="my-auto">
-    <a href="/">
-      <h1 class="text-2xl">Web Dev practice</h1>
-    </a>
+<header
+  class="flex flex-wrap content-center px-5 py-3 gap-6 border-b border-zinc-800 items-center justify-between bg-zinc-950 w-dvw z-50"
+>
+  <div class="flex flex-wrap gap-y-1.5 gap-x-3">
+    <div class="contents">
+      <a class="mx-auto flex content-center" href="/">
+        <div class="content-center mr-1">
+          <DevIcon class="text-portage-400 w-5 h-5" />
+        </div>
+        <p class="text-xl font-semibold text-portage-100">Practice</p>
+      </a>
+    </div>
+    <nav>
+      <ul
+        class="flex flex-wrap items-center font-medium text-zinc-400
+        [&>li]:contents [&>li>a]:inline-block
+        [&>li>a]:text-sm [&>li>a]:px-2 [&>li>a]:py-1 [&>li>a:hover]:text-portage-200
+        [&>li>a]:transition-colors"
+      >
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/js">Javascript</a>
+        </li>
+        <li>
+          <a href="/gallery">Gallery</a>
+        </li>
+        <li>
+          <a href="/microsoft-web">Microsoft web</a>
+        </li>
+        <li>
+          <a href="/twitter-web">Twitter</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <Navbar />
+
+  <div class="flex">
+    <button
+      class="text-sm hover:bg-zinc-900 flex px-4 py-1 rounded-full transition-colors [&:hover>svg]:text-zinc-200"
+    >
+      <ThemeIcon class="w-5 h-5 text-zinc-400 transition-colors" />
+    </button>
+  </div>
 </header>

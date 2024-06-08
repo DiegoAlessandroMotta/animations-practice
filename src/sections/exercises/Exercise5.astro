@@ -1,5 +1,8 @@
 ---
+import Button from "@/Components/Button.astro";
 import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
 ---
 
 <Exercise
@@ -13,28 +16,14 @@ import Exercise from "@/Components/Exercise/Exercise.astro";
   messageId="message-5"
 >
   <form class="exercise-form" id="form-5">
-    <label class="input-container">
+    <Label>
       Cadena A:
-      <input
-        class="exercise__input transition-3"
-        type="text"
-        name="stringA"
-        autocomplete="off"
-        required
-      />
-    </label>
-    <label class="input-container">
+      <Input type="text" name="stringA" autocomplete="off" required />
+    </Label>
+    <Label>
       Cadena B:
-      <input
-        class="exercise__input transition-3"
-        type="text"
-        name="stringB"
-        autocomplete="off"
-        required
-      />
-    </label>
-    <button class="button mt-1 transition-3" type="submit">
-      Combinar cadenas
-    </button>
+      <Input type="text" name="stringB" autocomplete="off" required />
+    </Label>
+    <Button type="submit"> Combinar cadenas </Button>
   </form>
 </Exercise>

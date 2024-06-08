@@ -7,9 +7,15 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<header class="bg-portage-950 py-0 px-3 m-2 rounded-md">
-  <h2 class="font-medium text-lg text-center text-balance py-2 px-3 border-b border-portage-800 text-portage-100">{title}</h2>
-  <p class="text-pretty text-portage-300 py-2">
+<header class="py-0 px-3 m-2 rounded-md bg-portage-100 dark:bg-portage-950">
+  <h2
+    class="font-medium text-lg text-center text-balance py-2 px-3 border-b 
+    border-portage-300 text-portage-900
+    dark:border-portage-800 dark:text-portage-100"
+  >
+    {title}
+  </h2>
+  <p class="text-pretty text-portage-600 dark:text-portage-300 py-2">
     {description}
   </p>
 </header>

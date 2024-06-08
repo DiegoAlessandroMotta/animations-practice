@@ -21,13 +21,19 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
     <link rel="icon" type="image/x-icon" href={favicon} />
     <ViewTransitions />
   </head>
-  <body class="bg-zinc-950">
+  <body class="bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-400">
     <Header />
     <slot />
   </body>
 </html>
 
 <style is:global>
+  html:has(input:not(#check__theme:checked)) {
+    :root {
+      color-scheme: light light;
+    }
+  }
+
   :root {
     color-scheme: light dark;
   }
@@ -37,6 +43,11 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
     padding: 0;
     box-sizing: border-box;
   }
+
+  /* html:has(input:not(#check__theme:checked)) header { */
+  /* html:has(input#check__theme:checked) header {
+    background: #fff !important;
+  } */
 
   html {
     scrollbar-width: thin;

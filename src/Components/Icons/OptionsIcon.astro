@@ -2,26 +2,17 @@
 interface Props {
   class?: string;
 }
-
-const { class: className } = Astro.props;
 ---
 
-<span class="icon-container">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="2"
-    stroke="currentColor"
-    width="1.25rem"
-    height="1.25rem"
-    class={className ??
-      "h-5 w-5 text-current transition-colors duration-[inherit]"}
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-    ></path>
-  </svg>
-</span>
+<svg
+  fill="currentColor"
+  viewBox="0 0 24 24"
+  stroke-width="1.5"
+  stroke="none"
+  class={Astro.props.class}
+  ><g
+    ><path
+      d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+    ></path></g
+  ></svg
+>

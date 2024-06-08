@@ -8,6 +8,7 @@ import AnaliticsIcon from "./Icons/AnaliticsIcon.astro";
 import PostButton from "./PostButton.astro";
 import PostContent from "./PostContent.astro";
 import IconText from "./IconText.astro";
+import BookmarkIcon from "./Icons/BookmarkIcon.astro";
 
 interface Props {
   username: string;
@@ -40,197 +41,81 @@ const countToString = (count: number) => {
 };
 ---
 
-<article class="post">
-  <div class="post-container">
-    <aside class="post-aside">
-      <figure class="user-avatar">
-        <img
-          class="user-avatar__image"
-          src={avatarUrl}
-          alt="avatar"
-          loading="lazy"
-        />
-      </figure>
-    </aside>
-    <div class="post-content">
-      <header class="post-header">
-        <span class="user-information">
-          <span class="user-information__username">{username}</span>
-          <span class="user-information__account-name">@{accountName}</span>
-          <span> · </span>
-          <span class="post-time-ago">17h</span>
+<article
+  class="flex mx-auto max-w-[600px] min-w-0 w-full py-3 px-4 border-x border-b cursor-pointer
+    bg-white border-zinc-200 hover:bg-zinc-50
+    dark:bg-black dark:border-zinc-800 dark:hover:bg-zinc-950"
+>
+  <aside class="pr-4">
+    <figure class="w-10 h-10 pointer rounded-full overflow-hidden">
+      <img
+        class="object-cover max-w-10 w-10 max-h-10 h-10"
+        src={avatarUrl}
+        alt="avatar"
+        loading="lazy"
+      />
+    </figure>
+  </aside>
+  <div class="flex-grow">
+    <header class="flex">
+      <div class="text-sm">
+        <span
+          class="font-semibold cursor-pointer
+            underline underline-offset-2 decoration-2 decoration-transparent hover:decoration-current
+            text-black dark:text-white"
+          >{username}</span
+        ><span class="cursor-pointer text-zinc-500 ml-1"
+          >@{accountName} · <span>17h</span>
         </span>
-        <span class="post-options">
-          <PostButton class="hover:text-icon-skyblue">
-            <OptionsIcon slot="icon" />
-          </PostButton>
-        </span>
-      </header>
-      <div>
-        <PostContent>
-          <slot />
-        </PostContent>
       </div>
-      <figure class="post__image-container">
-        <img
-          class="post__image"
-          src={postImgUrl}
-          alt="post-image"
-          loading="lazy"
-        />
-      </figure>
-      <footer class="post-footer">
-        <div class="icons-container">
-          <PostButton class="hover:text-icon-skyblue">
-            <ReplyIcon slot="icon" />
-            <IconText>{countToString(repliesCount)}</IconText>
+      <div class="h-4 ml-auto">
+        <PostButton class="text-zinc-500 hover:text-icon-skyblue">
+          <OptionsIcon class="w-5 h-5" slot="icon" />
+        </PostButton>
+      </div>
+    </header>
+    <div>
+      <PostContent>
+        <slot />
+      </PostContent>
+    </div>
+    <figure
+      class="post__image-container flex items-center max-h-[510px] mt-3 w-fit cursor-pointer overflow-y-hidden"
+    >
+      <img
+        class="max-h-[510px] max-w-full rounded-2xl border border-zinc-200 dark:border-zinc-800"
+        src={postImgUrl}
+        alt="post-image"
+        loading="lazy"
+      />
+    </figure>
+    <footer class="pt-4">
+      <div class="flex justify-between">
+        <PostButton class="text-zinc-500 hover:text-icon-skyblue">
+          <ReplyIcon class="w-5 h-5" slot="icon" />
+          <IconText>{countToString(repliesCount)}</IconText>
+        </PostButton>
+        <PostButton class="text-zinc-500 hover:text-icon-lightGreen">
+          <RepostIcon class="w-5 h-5" slot="icon" />
+          <IconText>{countToString(repostsCount)}</IconText>
+        </PostButton>
+        <PostButton class="text-zinc-500 hover:text-icon-carmesi">
+          <LikeIcon class="w-5 h-5" slot="icon" />
+          <IconText>{countToString(likesCount)}</IconText>
+        </PostButton>
+        <PostButton class="text-zinc-500 hover:text-icon-skyblue">
+          <AnaliticsIcon class="w-5 h-5" slot="icon" />
+          <IconText>{countToString(analiticsCount)}</IconText>
+        </PostButton>
+        <div class="flex gap-3">
+          <PostButton class="text-zinc-500 hover:text-icon-skyblue">
+            <BookmarkIcon class="w-5 h-5" slot="icon" />
           </PostButton>
-          <PostButton class="hover:text-icon-lightGreen">
-            <RepostIcon slot="icon" />
-            <IconText>{countToString(repostsCount)}</IconText>
-          </PostButton>
-          <PostButton class="hover:text-icon-carmesi">
-            <LikeIcon slot="icon" />
-            <IconText>{countToString(likesCount)}</IconText>
-          </PostButton>
-          <PostButton class="hover:text-icon-skyblue">
-            <AnaliticsIcon slot="icon" class="text-current" />
-            <IconText>{countToString(analiticsCount)}</IconText>
-          </PostButton>
-          <PostButton class="hover:text-icon-skyblue">
-            <ShareIcon slot="icon" />
+          <PostButton class="text-zinc-500 hover:text-icon-skyblue">
+            <ShareIcon class="w-5 h-5" slot="icon" />
           </PostButton>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   </div>
 </article>
-
-<style>
-  .post {
-    display: flex;
-    flex-flow: column nowrap;
-    margin: 0 auto;
-    max-width: 600px;
-    min-width: 200px;
-    width: 100%;
-    background-color: black;
-    padding: 0.8rem 1rem;
-    border-left: 1px solid hsla(0, 0%, 100%, 20%);
-    border-right: 1px solid hsla(0, 0%, 100%, 20%);
-    transition: 0.3s;
-    cursor: pointer;
-
-    &:has(+ .post) {
-      border-bottom: 1px solid hsla(0, 0%, 100%, 20%);
-    }
-
-    &:hover {
-      background-color: hsl(0, 0%, 3%);
-    }
-  }
-
-  .post-container {
-    display: flex;
-    flex-flow: row nowrap;
-  }
-
-  .post-aside {
-    padding-right: 1rem;
-  }
-
-  .post-content {
-    flex-grow: 1;
-  }
-
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .user-avatar__image {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50%;
-  }
-
-  .post-header {
-    display: flex;
-  }
-
-  .user-information {
-    font-size: 15px;
-    color: hsla(0, 0%, 100%, 50%);
-    height: fit-content;
-  }
-
-  .user-information__username {
-    color: hsl(0, 0%, 100%);
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 2px;
-    text-decoration-color: transparent;
-    transition: 0.2s;
-
-    &:hover {
-      text-decoration-color: currentColor;
-      cursor: pointer;
-    }
-  }
-
-  .user-information__account-name {
-    font-weight: 500;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .post-time-ago {
-    font-weight: 400;
-  }
-
-  .post-options {
-    height: 1rem;
-    margin-left: auto;
-  }
-
-  .post__image-container {
-    overflow-y: hidden;
-    display: flex;
-    align-items: center;
-    max-height: 510px;
-    margin-top: 0.7rem;
-    width: fit-content;
-    cursor: pointer;
-  }
-
-  .post__image {
-    max-height: 510px;
-    max-width: 100%;
-    border-radius: 1rem;
-    border: 1px solid hsla(0, 0%, 100%, 20%);
-    object-fit: cover;
-  }
-
-  .post-footer {
-    padding-top: 1rem;
-  }
-
-  .icons-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .icon-button {
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-  }
-</style>

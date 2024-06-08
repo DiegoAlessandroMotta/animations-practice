@@ -3,6 +3,10 @@ import animations from '@midudev/tailwind-animations';
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+	// darkMode: ['selector', 'html:has(input:not(#check__theme:checked))'],
+	darkMode: ['selector', 'html:has(input#check__theme:checked)'],
+	// darkMode: ['selector', '[data-mode="dark"]'],
+	// darkMode: ['variant', '&:has(input#check__theme:checked)'],
 	theme: {
 		extend: {
 			colors: {

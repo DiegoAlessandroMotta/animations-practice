@@ -9,7 +9,7 @@ export const ImageViewer = () => {
 
     images.forEach(($imageContainer) => {
       $imageContainer.addEventListener("click", (event) => {
-        const $img = event.target?.closest("img");
+        const $img = (event.target as HTMLElement)?.closest("img");
 
         if ($img instanceof HTMLImageElement) {
           const newImgUrl = $img.getAttribute("src");
@@ -21,7 +21,7 @@ export const ImageViewer = () => {
   }, [])
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (event.target !== event.target?.closest("img")) {
+    if (event.target !== (event.target as HTMLElement)?.closest("img")) {
       setClassList('animate-fade-out')
       setTimeout(() => {
         setImgUrl(null)

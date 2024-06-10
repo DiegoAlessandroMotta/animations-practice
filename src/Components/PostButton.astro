@@ -9,7 +9,7 @@ const { class: className } = Astro.props;
 ---
 
 <button
-  class=`bg-transparent flex items-stretch cursor-pointer transition-colors duration-200
+  class=`bg-transparent flex items-stretch cursor-pointer transition-colors duration-200 relative
   [&:hover>figure]:before:opacity-10 [&:hover>figure]:before:duration-200 ${className}`
 >
   <slot name="before" />

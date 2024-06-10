@@ -2,8 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import Post from "@/Components/Post.astro";
 import { fetchPosts } from "@/utils/services";
+import ImageViewerIsland from "@/Components/ImageViewerIsland.astro";
 
-const posts = await fetchPosts(3);
+const posts = await fetchPosts(6);
 ---
 
 <Layout title="Twitter" favicon="/ico/twitter.ico">
@@ -25,93 +26,5 @@ const posts = await fetchPosts(3);
     }
   </main>
 
-  <div class="layers">
-    <div id="image-viewer-container"></div>
-  </div>
-
-  <script is:inline type="module">
-    // Twitter page
-    const removeElement = ({ selector }) => {
-      const $element = document.querySelector(selector);
-
-      if ($element !== null) {
-        $element.remove();
-        return;
-      }
-
-      console.log(`element "${$element}" not found`);
-    };
-
-    const images = document.querySelectorAll(".image-container");
-    const $imageViewerContainer = document.querySelector(
-      "#image-viewer-container",
-    );
-
-    images.forEach(($imageContainer) => {
-      $imageContainer.addEventListener("click", (event) => {
-        const $img = event.target.closest("img");
-
-        if ($img instanceof HTMLImageElement) {
-          const imgUrl = $img.getAttribute("src");
-
-          const newImageViewer = ImageViewer({ imgUrl });
-
-          $imageViewerContainer.appendChild(newImageViewer);
-        }
-      });
-    });
-
-    $imageViewerContainer?.addEventListener("click", (event) => {
-      if (event.target !== event.target.closest("img")) {
-        const selector = "[data-id=img-viewer]";
-        const $element = document.querySelector(selector);
-
-        $element.classList.toggle("animate-fade-in");
-        $element.classList.toggle("animate-fade-out");
-
-        setTimeout(() => {
-          removeElement({ selector });
-        }, 200);
-      }
-    });
-
-    const ImageViewer = ({ imgUrl }) => {
-      const newImageViewer = document.createElement("div");
-      const newImageContainer = document.createElement("picture");
-      const newImage = document.createElement("img");
-
-      newImageViewer.classList.add(
-        "fixed",
-        "w-dvw",
-        "h-dvh",
-        "bg-black/50",
-        "backdrop-blur",
-        "top-0",
-        "animate-fade-in",
-        "animate-duration-faster",
-      );
-      newImageViewer.dataset.id = "img-viewer";
-
-      newImageContainer.classList.add(
-        "w-full",
-        "h-full",
-        "flex",
-        "items-center",
-        "justify-center",
-      );
-
-      newImage.classList.add(
-        "object-contain",
-        "max-h-[95dvh]",
-        "max-w-[95dvw]",
-      );
-      newImage.src = imgUrl;
-      newImage.alt = "Anything";
-
-      newImageContainer.appendChild(newImage);
-      newImageViewer.appendChild(newImageContainer);
-
-      return newImageViewer;
-    };
-  </script>
+  <ImageViewerIsland />
 </Layout>

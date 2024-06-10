@@ -21,9 +21,11 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
     <link rel="icon" type="image/x-icon" href={favicon} />
     <ViewTransitions />
   </head>
-  <body class="bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-400">
-    <Header />
-    <slot />
+  <body class="bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-400 overflow-y-hidden overflow-x-hidden">
+    <div class="w-dvw h-dvh overflow-y-auto overflow-x-hidden flex flex-col">
+      <Header />
+      <slot />
+    </div>
   </body>
 </html>
 
@@ -42,16 +44,13 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
   }
 
   /* html:has(input:not(#check__theme:checked)) header { */
   /* html:has(input#check__theme:checked) header {
     background: #fff !important;
   } */
-
-  html {
-    scrollbar-width: thin;
-  }
 
   body {
     min-height: 100dvh;
@@ -68,37 +67,5 @@ const { title, favicon = "/favicon.svg" } = Astro.props;
       "Open Sans",
       "Helvetica Neue",
       sans-serif;
-
-    overflow-x: hidden;
-
-    &:has([data-id="img-viewer"]) {
-      overflow: hidden;
-    }
-  }
-
-  .viewer {
-    position: fixed;
-    width: 100dvw;
-    height: 100dvh;
-    background-color: hsla(0, 0%, 0%, 60%);
-    backdrop-filter: blur(5px);
-    left: 0;
-    top: 0;
-  }
-
-  .viewer__image-container {
-    height: 100dvh;
-    max-width: 95dvw;
-    width: 100%;
-    overflow-x: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-  }
-
-  .viewer__image {
-    max-height: 95%;
-    max-width: 100%;
   }
 </style>

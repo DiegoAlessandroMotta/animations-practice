@@ -1,24 +1,27 @@
 ---
-import DarkThemeIcon from "./Icons/DarkThemeIcon.astro";
 import DevIcon from "./Icons/DevIcon.astro";
-import LightThemeIcon from "./Icons/LightThemeIcon.astro";
+import ThemeSwitch from "./ThemeSwitch.astro";
+// sticky top-0 backdrop-blur-md
 ---
 
 <header
-  class="flex flex-wrap justify-between items-center content-center
-  px-5 py-3 gap-6 w-dvw z-50 border-b
-  border-zinc-200 bg-white
-  dark:border-zinc-800 dark:bg-zinc-950"
+  class="flex flex-wrap justify-between items-center content-center relative
+  px-5 py-3 gap-6 w-dvw
+  bg-white
+  dark:bg-zinc-950
+  "
 >
   <div class="flex flex-wrap gap-y-1.5 gap-x-3">
     <div class="contents">
       <a class="mx-auto flex content-center" href="/">
         <div class="content-center mr-1">
-          <DevIcon class="w-5 h-5 text-portage-600 dark:text-portage-400" />
+          <DevIcon class="w-5 h-5 text-secondary-600 dark:text-secondary-400" />
         </div>
-        <p class="text-xl font-semibold text-portage-950 dark:text-portage-100">
+        <span
+          class="text-xl font-semibold text-secondary-950 dark:text-secondary-100"
+        >
           Practice
-        </p>
+        </span>
       </a>
     </div>
     <nav>
@@ -26,8 +29,8 @@ import LightThemeIcon from "./Icons/LightThemeIcon.astro";
         class="flex flex-wrap items-center font-medium text-zinc-500 dark:text-zinc-400
           [&>li]:contents [&>li>a]:inline-block
           [&>li>a]:text-sm [&>li>a]:px-2 [&>li>a]:py-1
-          [&>li>a:hover]:text-portage-900 [&>li>a:focus]:text-portage-900
-          dark:[&>li>a:hover]:text-portage-200 dark:[&>li>a:focus]:text-portage-200
+          [&>li>a:hover]:text-secondary-900 [&>li>a:focus]:text-secondary-900
+          dark:[&>li>a:hover]:text-secondary-200 dark:[&>li>a:focus]:text-secondary-200
           [&>li>a]:transition-colors"
       >
         <li>
@@ -49,62 +52,9 @@ import LightThemeIcon from "./Icons/LightThemeIcon.astro";
     </nav>
   </div>
 
-  <div class="flex" transition:persist>
-    <input type="checkbox" id="check__theme" checked hidden />
-    <label
-      class="text-sm flex px-4 py-1 rounded-full
-       text-zinc-500 hover:bg-zinc-200 [&:hover>svg]:text-zinc-800
-       dark:text-zinc-400 dark:hover:bg-zinc-900 dark:[&:hover>svg]:text-zinc-100
-        transition-colors"
-      for="check__theme"
-    >
-      <LightThemeIcon
-        class="w-5 h-5 text-current transition-colors hidden dark:block"
-      />
-      <DarkThemeIcon
-        class="w-5 h-5 text-current transition-colors dark:hidden"
-      />
-    </label>
+  <div class="contents">
+    <ThemeSwitch />
   </div>
 </header>
-
-<script>
-  const $darkThemeSwitch = document.getElementById(
-    "check__theme",
-  ) as HTMLInputElement;
-
-  const THEMES = {
-    LIGHT: "light",
-    DARK: "dark",
-  };
-
-  const getPreferedTheme = () => {
-    const storedTheme = localStorage.getItem("theme");
-
-    if (storedTheme) {
-      return storedTheme === THEMES.DARK ? THEMES.DARK : THEMES.LIGHT;
-    }
-
-    if (!window.matchMedia) {
-      return THEMES.LIGHT;
-    }
-
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return THEMES.DARK;
-    }
-
-    return THEMES.LIGHT;
-  };
-
-  const handleSwitchTheme = () => {
-    const theme = $darkThemeSwitch.checked ? THEMES.DARK : THEMES.LIGHT;
-    window.localStorage.setItem("theme", theme);
-  };
-
-  $darkThemeSwitch?.addEventListener("click", () => {
-    console.log($darkThemeSwitch.checked);
-    handleSwitchTheme();
-  });
-
-  $darkThemeSwitch.checked = getPreferedTheme() == THEMES.DARK;
-</script>
+<div class="border-b border-zinc-200 dark:border-zinc-800">
+</div>

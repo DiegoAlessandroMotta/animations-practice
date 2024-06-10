@@ -1,0 +1,71 @@
+---
+import DarkThemeIcon from "./Icons/DarkThemeIcon.astro";
+import LightThemeIcon from "./Icons/LightThemeIcon.astro";
+
+// const tabIndexStyles = `
+//   outline-none ring-2 outline-1 ring-transparent
+//   has-[~input:focus]:ring-blue-600 has-[~input:focus]:outline-white`;
+---
+
+<div class="absolute top-3 right-5 sm:static" transition:persist>
+  <label
+    for="dark-theme-switch"
+    class="text-sm flex px-4 py-1 rounded-full outline-none ring-1 ring-transparent
+      has-[~input:focus]:ring-zinc-200 dark:has-[~input:focus]:ring-zinc-800
+      text-zinc-500 hover:bg-zinc-200 [&:hover>svg]:text-zinc-800
+      has-[~input:focus]:text-zinc-800
+      dark:text-zinc-400 dark:hover:bg-zinc-900 dark:[&:hover>svg]:text-zinc-100
+      dark:has-[~input:focus]:text-zinc-100
+      transition-colors"
+  >
+    <LightThemeIcon
+      class="w-5 h-5 text-current transition-colors hidden dark:block"
+    />
+    <DarkThemeIcon class="w-5 h-5 text-current transition-colors dark:hidden" />
+  </label>
+  <input
+    class="absolute opacity-0 -left-[9999px]"
+    type="checkbox"
+    id="dark-theme-switch"
+    checked
+  />
+</div>
+
+<script>
+  const $darkThemeSwitch = document.getElementById("dark-theme-switch");
+
+  const THEMES = {
+    LIGHT: "light",
+    DARK: "dark",
+  };
+
+  const getPreferedTheme = () => {
+    const storedTheme = window.localStorage.getItem("theme");
+
+    if (storedTheme) {
+      return storedTheme === THEMES.LIGHT ? THEMES.LIGHT : THEMES.DARK;
+    }
+
+    if (!window.matchMedia) {
+      return THEMES.DARK;
+    }
+
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return THEMES.LIGHT;
+    }
+
+    return THEMES.DARK;
+  };
+
+  if (
+    $darkThemeSwitch !== null &&
+    $darkThemeSwitch instanceof HTMLInputElement
+  ) {
+    $darkThemeSwitch.addEventListener("click", () => {
+      const theme = $darkThemeSwitch.checked ? THEMES.DARK : THEMES.LIGHT;
+      window.localStorage.setItem("theme", theme);
+    });
+
+    $darkThemeSwitch.checked = getPreferedTheme() == THEMES.DARK;
+  }
+</script>

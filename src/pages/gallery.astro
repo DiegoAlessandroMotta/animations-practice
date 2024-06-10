@@ -2,97 +2,119 @@
 import Layout from "../layouts/Layout.astro";
 
 const images = [1, 2, 3, 5, 4, 6, 7, 9, 8];
+// Array.from({length: 9})
 ---
 
 <Layout title="Gallery">
-  <main class="flex justify-center min-h-dvh p-8">
-    <section class="gallery grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] auto-rows-auto gap-4 max-w-7xl min-w-0 w-full">
+  <main class="flex justify-center p-8">
+    <section
+      class="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-auto gap-4 max-w-7xl min-w-0 w-full"
+    >
       {
         images.map((code) => (
-          <figure class="image-container w-full min-w-[300px] flex overflow-hidden relative rounded-lg hover:shadow-md hover:shadow-black transition-shadow duration-500 cursor-pointer">
-            <img 
-              class="grayscale transition-[filter,_rotate,_scale,_transform] duration-500 object-cover hover:rotate-[0.5deg] hover:grayscale-0 hover:scale-105"
-              src={`/img/${code}.webp`} 
-              alt={`persona ${code}`} 
+          <picture class="image-container flex overflow-hidden w-full h-full relative rounded-lg
+            hover:shadow-md hover:shadow-black transition-shadow duration-500 cursor-pointer">
+            <img
+              class="grayscale transition-all duration-500 object-cover 
+                hover:rotate-[0.5deg] hover:grayscale-0 hover:scale-105"
+              src={`/img/${code}.webp`}
+              alt={`persona ${code}`}
             />
             <p class="absolute py-1 px-2 text-lg text-white bg-black/50">
               {code}
             </p>
-          </figure>
+          </picture>
         ))
       }
     </section>
   </main>
 
   <div class="layers">
-    <div id="post-viewer"></div>
+    <div id="image-viewer-container"></div>
   </div>
-
+  
   <script is:inline type="module">
-    const appendHTML = ({ parentElement, htmlContent }) => {
-      parentElement.innerHTML += htmlContent;
-    };
-
+    // Gallery page
     const removeElement = ({ selector }) => {
       const $element = document.querySelector(selector);
-
+  
       if ($element !== null) {
         $element.remove();
         return;
       }
-
-      console.log("element not found");
+  
+      console.log(`element "${$element}" not found`);
     };
-
-    const $imagesContainer = document.querySelectorAll(".image-container");
-    const $postViewer = document.querySelector("#post-viewer");
-
-    $imagesContainer.forEach(($imageContainer) => {
+  
+    const images = document.querySelectorAll(".image-container");
+    const $imageViewerContainer = document.querySelector(
+      "#image-viewer-container",
+    );
+  
+    images.forEach(($imageContainer) => {
       $imageContainer.addEventListener("click", (event) => {
         const $img = event.target.closest("img");
-
+  
         if ($img instanceof HTMLImageElement) {
           const imgUrl = $img.getAttribute("src");
-
-          appendHTML({
-            parentElement: $postViewer,
-            htmlContent: ImageViewer({ imgUrl }),
-          });
+  
+          const newImageViewer = ImageViewer({ imgUrl });
+  
+          $imageViewerContainer.appendChild(newImageViewer);
         }
       });
     });
-
-    $postViewer?.addEventListener("click", (event) => {
+  
+    $imageViewerContainer?.addEventListener("click", (event) => {
       if (event.target !== event.target.closest("img")) {
         const selector = "[data-id=img-viewer]";
         const $element = document.querySelector(selector);
-
+  
         $element.classList.toggle("animate-fade-in");
         $element.classList.toggle("animate-fade-out");
-
+  
         setTimeout(() => {
           removeElement({ selector });
-        }, 300);
+        }, 200);
       }
     });
-
+  
     const ImageViewer = ({ imgUrl }) => {
-      return `
-        <div 
-          class="viewer animate-fade-in animate-duration-faster" 
-          data-id="img-viewer"
-        >
-          <figure class="viewer__image-container">
-            <img
-              class="viewer__image"
-              src="${imgUrl}"
-              alt="anything"
-            />
-          </figure>
-        </div>
-      `;
+      const newImageViewer = document.createElement("div");
+      const newImageContainer = document.createElement("picture");
+      const newImage = document.createElement("img");
+  
+      newImageViewer.classList.add(
+        "fixed",
+        "w-dvw",
+        "h-dvh",
+        "bg-black/50",
+        "backdrop-blur",
+        "top-0",
+        "animate-fade-in",
+        "animate-duration-faster",
+      );
+      newImageViewer.dataset.id = "img-viewer";
+  
+      newImageContainer.classList.add(
+        "w-full",
+        "h-full",
+        "flex",
+        "items-center",
+        "justify-center",
+      );
+  
+      newImage.classList.add("object-contain", "max-h-[95dvh]", "max-w-[95dvw]");
+      newImage.src = imgUrl;
+      newImage.alt = "Anything";
+  
+      newImageContainer.appendChild(newImage);
+      newImageViewer.appendChild(newImageContainer);
+  
+      return newImageViewer;
     };
   </script>
+  
 </Layout>
 
 <style>
@@ -100,7 +122,17 @@ const images = [1, 2, 3, 5, 4, 6, 7, 9, 8];
     .image-container:nth-child(1),
     .image-container:nth-child(5),
     .image-container:nth-child(9) {
-      grid-column: span 2;
+      grid-column: 1;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .gallery {
+      .image-container:nth-child(1),
+      .image-container:nth-child(5),
+      .image-container:nth-child(9) {
+        grid-column: span 2;
+      }
     }
   }
 </style>

@@ -15,7 +15,7 @@ import Label from "@/Components/Label.astro";
     resultado mediante una alerta o en la consola.`
   messageId="message-4"
 >
-  <form class="exercise-form" id="form-4">
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-4">
     <Label>
       Monto total:
       <Input
@@ -29,3 +29,32 @@ import Label from "@/Components/Label.astro";
     <Button type="submit"> Calcular </Button>
   </form>
 </Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 4
+    const $form4 = document.getElementById("form-4");
+
+    $form4?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-4"]');
+      const formData = new FormData($form4);
+      const { amount } = Object.fromEntries(formData);
+
+      const numValue = Number(amount);
+      const friendsCount = 3;
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}"" no es un numero`
+        : `
+          Monto a pagar total: S/. ${numValue}<br>
+          Monto a pagar por cada amigo: S/. ${(numValue / friendsCount).toFixed(2)}
+        `;
+
+      // displayHTMLMessage({ $element: $message, content: message });
+      console.log(message);
+      $message.innerHTML = message;
+      $form4.reset();
+    });
+  })();
+</script>

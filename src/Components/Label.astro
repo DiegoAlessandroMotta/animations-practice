@@ -1,7 +1,18 @@
-<label
-  class="flex flex-col gap-0.5 has-[+label]:mb-3 has-[+button]:mb-5
-    text-secondary-900 dark:text-secondary-100"
-  {...Astro.props}
->
+---
+interface Props {
+  row?: boolean;
+  gap?: string;
+}
+
+const { row, gap } = Astro.props;
+
+const className = `flex 
+  ${row ? "flex-row" : "flex-col"} 
+  gap-${gap ?? "0.5"}
+  has-[+label]:mb-3 has-[+button]:mb-5 
+  text-secondary-900 dark:text-secondary-100 cursor-pointer`;
+---
+
+<label class={className} {...Astro.props}>
   <slot />
 </label>

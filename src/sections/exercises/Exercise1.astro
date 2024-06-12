@@ -13,7 +13,7 @@ import Label from "@/Components/Label.astro";
     años." El resultado se mostrará en una alerta o en la consola`
   messageId="message-1"
 >
-  <form class="exercise-form" id="form-1">
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-1">
     <Label>
       Nombres:
       <Input
@@ -52,3 +52,33 @@ import Label from "@/Components/Label.astro";
     <Button type="submit"> Mostrar saludo </Button>
   </form>
 </Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 1
+    const $form1 = document.getElementById("form-1");
+
+    $form1?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-1"]');
+      const formData = new FormData($form1);
+      const { firstname, lastname, age } = Object.fromEntries(formData);
+
+      const currentTime = new Date().getHours();
+
+      const greeting =
+        currentTime < 12
+          ? "Buen día"
+          : currentTime < 18
+            ? "Buenas tardes"
+            : "Buenas noches";
+
+      const message = `${greeting}, soy ${firstname} ${lastname} y tengo ${age} años`;
+
+      // displayTextMessage({ $element: $message, message });
+      console.log(message);
+      $message.innerText = message;
+      $form1.reset();
+    });
+  })();
+</script>

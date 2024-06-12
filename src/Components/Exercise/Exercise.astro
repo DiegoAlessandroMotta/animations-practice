@@ -14,7 +14,7 @@ const { title, description, messageId } = Astro.props;
 ---
 
 <ExerciseBox>
-  <ExerciseHeader {title} {description} />
+  <ExerciseHeader {title} set:html={description} />
   <ExerciseContent>
     <slot />
   </ExerciseContent>

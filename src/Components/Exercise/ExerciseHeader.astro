@@ -1,10 +1,9 @@
 ---
 interface Props {
   title: string;
-  description: string;
 }
 
-const { title, description } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <header class="py-0 px-3 m-2 rounded-md bg-secondary-100 dark:bg-secondary-950">
@@ -16,6 +15,6 @@ const { title, description } = Astro.props;
     {title}
   </h2>
   <p class="text-pretty text-secondary-600 dark:text-secondary-300 py-2">
-    {description}
+     <slot />
   </p>
 </header>

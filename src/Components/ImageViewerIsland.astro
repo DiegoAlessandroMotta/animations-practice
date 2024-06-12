@@ -1,5 +1,6 @@
 ---
 import { ImageViewer } from "./ImageViewer";
+
 // <script is:inline type="module">
 //   const removeElement = ({ selector }) => {
 //     const $element = document.querySelector(selector);
@@ -83,7 +84,7 @@ import { ImageViewer } from "./ImageViewer";
 ---
 
 <div class="layers">
-  <div id="image-viewer-container">
+  <div id="image-viewer-container" class="relative">
     <ImageViewer client:idle />
   </div>
 </div>

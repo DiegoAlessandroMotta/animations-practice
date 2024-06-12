@@ -43,6 +43,11 @@ export const ImageViewer = () => {
           src={imgUrl}
           alt="Anything" />
       </picture>
+      <div className="absolute top-0 left-0 flex z-30 w-14 h-14 items-center justify-center
+      backdrop:blur-md rounded-full 
+      bg-black/70 dark:bg-white/70 text-white dark:text-black">
+        Close
+      </div>
     </div>
   )
 }

@@ -1,0 +1,90 @@
+---
+import Button from "@/Components/Button.astro";
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Ejercicio 8"
+  description=`
+  En un restaurante típico se ofrece tres tipo de comidas, los cuales consisten en los siguientes:<br>
+  - Opción 1: Incluye especial de pescado a la hoja, acompañado de salsa de cocona<br>
+  - Opción 2: Incluye especial de tacacho con cecina mas su refresco de carambola.<br>
+  - Opción 3: Incluye caldo de gallina, acompañado de su arroz sin sal.<br>
+  En caso de no seleccionar ninguna de las opciones, se ofrecerá solo su menú del día.`
+  messageId="message-8"
+>
+  <form class="max-w-md w-full mx-auto h-fit" id="form-8">
+    <p class="border-b border-zinc-300 dark:border-zinc-700 mb-3 pb-1">
+      Elija un plato
+    </p>
+    <Label row gap="3">
+      <Input name="plate" type="radio" value="option1" required />
+      Especial de pescado a la hoja + Salsa de cocona
+    </Label>
+    <Label row gap="3">
+      <Input name="plate" type="radio" value="option2" required />
+      Especial de tacacho con cecina + Refresco de carambola
+    </Label>
+    <Label row gap="3">
+      <Input name="plate" type="radio" value="option3" required />
+      Caldo de gallina + arroz sin sal
+    </Label>
+    <Label row gap="3">
+      <Input name="plate" type="radio" value="none" required />
+      Ninguna
+    </Label>
+    <Button type="submit"> Realizar pedido </Button>
+  </form>
+</Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 8
+    const $form8 = document.getElementById("form-8");
+
+    $form8?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-8"]');
+      const formData = new FormData($form8);
+      const { plate } = Object.fromEntries(formData);
+
+      const messages = {
+        option1:
+          "En breve recibira su plato de pescado a la hoja y una salsa de cocona",
+        option2:
+          "En breve recibira su plato de tacacho con cecina y un refresco de carambola",
+        option3:
+          "En breve recibira su plato de caldo de gallina y un extra de arroz sin sal",
+        default: "Recibirá su menú del día",
+      };
+
+      // const message = Object.hasOwn(messages, plate)
+      //   ? messages[plate]
+      //   : messages["default"];
+
+      let message;
+
+      switch (plate) {
+        case "option1":
+          message = messages["option1"];
+          break;
+        case "option2":
+          message = messages["option2"];
+          break;
+        case "option3":
+          message = messages["option3"];
+          break;
+
+        default:
+          message = messages["default"];
+      }
+
+      // displayHTMLMessage({ $element: $message, content: message });
+      console.log(message);
+      $message.innerHTML = message;
+      $form8.reset();
+    });
+  })();
+</script>

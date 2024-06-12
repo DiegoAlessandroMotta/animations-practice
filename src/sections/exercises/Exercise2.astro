@@ -13,7 +13,7 @@ import Label from "@/Components/Label.astro";
     correspondiente.`
   messageId="message-2"
 >
-  <form class="exercise-form" id="form-2">
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-2">
     <Label>
       Número:
       <Input type="number" name="num" autocomplete="off" required />
@@ -21,3 +21,32 @@ import Label from "@/Components/Label.astro";
     <Button type="submit"> Evaluar </Button>
   </form>
 </Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 2
+    const $form2 = document.getElementById("form-2");
+
+    $form2?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-2"]');
+      const formData = new FormData($form2);
+      const { num } = Object.fromEntries(formData);
+
+      const numValue = Number(num);
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}" no es un numero`
+        : numValue == 0
+          ? `el numero es igual a 0`
+          : numValue > 0
+            ? `el numero ${numValue} es positivo`
+            : `el numero ${numValue} es negativo`;
+
+      // displayTextMessage({ $element: $message, message });
+      console.log(message);
+      $message.innerText = message;
+      $form2.reset();
+    });
+  })();
+</script>

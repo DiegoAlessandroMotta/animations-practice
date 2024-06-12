@@ -14,7 +14,7 @@ import Label from "@/Components/Label.astro";
     impuesto.`
   messageId="message-3"
 >
-  <form class="exercise-form" id="form-3">
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-3">
     <Label>
       Monto a pagar:
       <Input
@@ -29,3 +29,32 @@ import Label from "@/Components/Label.astro";
     <Button type="submit"> Calcular </Button>
   </form>
 </Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 3
+    const $form3 = document.getElementById("form-3");
+
+    $form3?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-3"]');
+      const formData = new FormData($form3);
+      const { amount } = Object.fromEntries(formData);
+
+      const numValue = Number(amount);
+      const igv = 0.18;
+
+      const message = isNaN(numValue)
+        ? `El valor "${numValue}"" no es un numero`
+        : `
+      Monto a pagar (Sin IGV): S/. ${numValue}<br>
+      Monto a pagar (IGV 18% incluido): S/. ${(numValue + numValue * igv).toFixed(2)}
+    `;
+
+      // displayHTMLMessage({ $element: $message, content: message });
+      console.log(message);
+      $message.innerHTML = message;
+      $form3.reset();
+    });
+  })();
+</script>

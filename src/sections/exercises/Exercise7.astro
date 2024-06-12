@@ -1,0 +1,204 @@
+---
+import Button from "@/Components/Button.astro";
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Ejercicio 7"
+  description=`
+    Condiciones de ingreso a la discoteca de Puerto Maldonado:<br>
+    - Si es menor de edad no ingresa<br>
+    - Si es menor de edad y está acompañado de un adulto puede ingresar<br>
+    - Si es mayor o igual a 18 y menor a 30 puede ingresar, sin ningún beneficio especial<br>
+    - Si es mayor o igual a 30 y menor o igual a 60 puede ingresar y recibe una chela<br>
+    - Si es mayor a 60 tiene descuento de 10% en bebidas y tragos`
+  messageId="message-7"
+>
+  <form class="max-w-md w-full mx-auto h-fit" id="form-7">
+    <div class="flex gap-3 mb-4">
+      <Label>
+        Edad:
+        <Input
+          type="number"
+          name="age"
+          id="input-age"
+          autocomplete="off"
+          min="1"
+          required
+        />
+      </Label>
+      <div class="flex gap-4 mt-5 collapse" id="confirmation">
+        <Label for="masdeuno"> Está acompañado de un adulto </Label>
+        <Input
+          type="checkbox"
+          id="masdeuno"
+          name="masdeuno"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+    <!-- <Button type="submit"> Evaluar </Button> -->
+  </form>
+</Exercise>
+
+<script is:inline>
+  (() => {
+    const displayTextMessage = ({ $element, message }) => {
+      console.log(message);
+      $element.innerText = message;
+    };
+
+    const displayHTMLMessage = ({ $element, content }) => {
+      console.log(content);
+      $element.innerHTML = content;
+    };
+
+    // Ejercicio 7
+    const $form7 = document.getElementById("form-7");
+    const $inputAge = document.getElementById("input-age");
+    const $confirmationBox = document.getElementById("confirmation");
+    const $masdeuno = document.getElementById("masdeuno");
+    let ageNumber;
+
+    const handleValidateForm = (ageNumber) => {
+      const $message = document.querySelector('p[data-id="message-7"]');
+
+      if (ageNumber === 0) {
+        displayHTMLMessage({
+          $element: $message,
+          content: null,
+        });
+        $confirmationBox.classList.add("collapse");
+        return;
+      }
+
+      if (isNaN(ageNumber) || ageNumber < 1) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Ingrese una edad válida",
+        });
+        $confirmationBox.classList.add("collapse");
+        return;
+      }
+
+      if (ageNumber > 60) {
+        displayHTMLMessage({
+          $element: $message,
+          content:
+            "Puede acceder <br> tiene descuento de 10% en bebidas y tragos",
+        });
+        $confirmationBox.classList.add("collapse");
+        return;
+      }
+
+      if (ageNumber >= 30) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Puede acceder <br> tiene derecho a una chela",
+        });
+        $confirmationBox.classList.add("collapse");
+        return;
+      }
+
+      if (ageNumber >= 18) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Puede acceder <br> no tiene ningún beneficio especial",
+        });
+        $confirmationBox.classList.add("collapse");
+        return;
+      }
+
+      $confirmationBox.classList.remove("collapse");
+
+      if ($masdeuno.checked) {
+        displayHTMLMessage({
+          $element: $message,
+          content:
+            "Puede acceder <br> Aunque es menor de edad está acompañado de un adulto",
+        });
+        return;
+      }
+
+      const message =
+        "No puede ingresar ya que es menor de edad y no está acompañado";
+
+      displayHTMLMessage({ $element: $message, content: message });
+    };
+
+    if ($inputAge instanceof HTMLInputElement) {
+      $inputAge?.addEventListener("input", (event) => {
+        ageNumber = Number(event.target.value);
+        handleValidateForm(ageNumber);
+      });
+
+      $masdeuno.addEventListener("input", (event) => {
+        handleValidateForm(ageNumber);
+      });
+    }
+
+    $form7?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-7"]');
+      const formData = new FormData($form7);
+      const { age, masdeuno } = Object.fromEntries(formData);
+
+      const ageNumber = Number(age);
+
+      if (isNaN(ageNumber) || ageNumber < 1) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Ingrese una edad válida",
+        });
+        $form7.reset();
+        return;
+      }
+
+      if (ageNumber > 60) {
+        displayHTMLMessage({
+          $element: $message,
+          content:
+            "Puede acceder <br> tiene descuento de 10% en bebidas y tragos",
+        });
+        $form7.reset();
+        return;
+      }
+
+      if (ageNumber >= 30) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Puede acceder <br> tiene derecho a una chela",
+        });
+        $form7.reset();
+        return;
+      }
+
+      if (ageNumber >= 18) {
+        displayHTMLMessage({
+          $element: $message,
+          content: "Puede acceder <br> no tiene ningún beneficio especial",
+        });
+        $form7.reset();
+        return;
+      }
+
+      if (masdeuno !== undefined) {
+        displayHTMLMessage({
+          $element: $message,
+          content:
+            "Puede acceder <br> Aunque es menor de edad está acompañado de un adulto",
+        });
+        $form7.reset();
+        return;
+      }
+
+      const message =
+        "No puede ingresar ya que es menor de edad y no está acompañado";
+
+      displayHTMLMessage({ $element: $message, content: message });
+      $form7.reset();
+    });
+  })();
+</script>

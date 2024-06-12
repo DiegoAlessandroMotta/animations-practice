@@ -15,7 +15,7 @@ import Label from "@/Components/Label.astro";
     "adios", el resultado sería "byeadiosbye".`
   messageId="message-5"
 >
-  <form class="exercise-form" id="form-5">
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-5">
     <Label>
       Cadena A:
       <Input type="text" name="stringA" autocomplete="off" required />
@@ -27,3 +27,28 @@ import Label from "@/Components/Label.astro";
     <Button type="submit"> Combinar cadenas </Button>
   </form>
 </Exercise>
+
+<script is:inline>
+  (() => {
+    // Ejercicio 5
+    const $form5 = document.getElementById("form-5");
+
+    $form5?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const $message = document.querySelector('p[data-id="message-5"]');
+      const formData = new FormData($form5);
+      const objectData = Object.fromEntries(formData);
+
+      const [shortString, longString] = Object.values(objectData).toSorted(
+        (a, b) => a.length - b.length,
+      );
+
+      const message = shortString + longString + shortString;
+
+      // displayTextMessage({ $element: $message, message });
+      console.log(message);
+      $message.innerText = message;
+      $form5.reset();
+    });
+  })();
+</script>

@@ -1,12 +1,12 @@
 ---
 import ImageViewerIsland from "@/Components/ImageViewerIsland.astro";
-import Layout from "../layouts/Layout.astro";
+import CommonLayout from "../layouts/CommonLayout.astro";
 
 const images = [1, 2, 3, 5, 4, 6, 7, 9, 8];
 // Array.from({length: 9})
 ---
 
-<Layout title="Gallery">
+<CommonLayout title="Gallery">
   <main class="flex justify-center p-8">
     <section
       class="gallery grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-auto gap-4 max-w-7xl min-w-0 w-full"
@@ -31,7 +31,7 @@ const images = [1, 2, 3, 5, 4, 6, 7, 9, 8];
   </main>
 
   <ImageViewerIsland />
-</Layout>
+</CommonLayout>
 
 <style>
   .gallery {

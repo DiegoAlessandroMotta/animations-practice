@@ -1,0 +1,16 @@
+---
+import Header from "@/Components/Header.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  favicon?: string;
+}
+
+const { title, favicon = "/favicon.svg" } = Astro.props;
+---
+
+<BaseLayout title={title} favicon={favicon}>
+  <Header />
+  <slot />
+</BaseLayout>

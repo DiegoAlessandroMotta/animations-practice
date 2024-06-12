@@ -1,5 +1,5 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import CommonLayout from "@/layouts/CommonLayout.astro";
 import Post from "@/Components/Post.astro";
 import { fetchPosts } from "@/utils/services";
 import ImageViewerIsland from "@/Components/ImageViewerIsland.astro";
@@ -7,7 +7,7 @@ import ImageViewerIsland from "@/Components/ImageViewerIsland.astro";
 const posts = await fetchPosts(3);
 ---
 
-<Layout title="Twitter" favicon="/ico/twitter.ico">
+<CommonLayout title="Twitter" favicon="/ico/twitter.ico">
   <main class="bg-white dark:bg-black">
     {
       posts.map((post) => (
@@ -27,4 +27,4 @@ const posts = await fetchPosts(3);
   </main>
 
   <ImageViewerIsland />
-</Layout>
+</CommonLayout>

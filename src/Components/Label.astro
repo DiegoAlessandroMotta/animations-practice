@@ -2,9 +2,11 @@
 interface Props {
   row?: boolean;
   gap?: string;
+  form?: string | undefined | null;
+  for?: string | undefined | null;
 }
 
-const { row, gap } = Astro.props;
+const { row, gap, ...other } = Astro.props;
 
 const className = `flex 
   ${row ? "flex-row" : "flex-col"} 

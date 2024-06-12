@@ -1,4 +1,5 @@
 import animations from '@midudev/tailwind-animations';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,6 +7,9 @@ export default {
 	darkMode: ['selector', 'html:has(input#dark-theme-switch:checked)'],
 	theme: {
 		extend: {
+			fontFamily: {
+        'sans': ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
+      },
 			colors: {
 				'icon-skyblue': 'rgb(30, 156, 241)',
 				'icon-lightGreen': 'rgb(0, 184, 122)',

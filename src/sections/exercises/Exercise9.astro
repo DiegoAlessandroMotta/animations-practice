@@ -1,0 +1,110 @@
+---
+// import Button from "@/Components/Button.astro";
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Ejercicio 9"
+  description=`
+  Según el número ingresado por un usuario calcula la suma de los valores menores a este número comenzando desde 1`
+  messageId="message-9"
+>
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-9">
+    <Label>
+      Numero
+      <Input name="num" type="number" min="1" max="9999" required />
+    </Label>
+    <!-- <Button type="submit"> Mostrar suma </Button> -->
+  </form>
+</Exercise>
+
+<script is:inline>
+  (() => {
+    const debounce = (callback, delay) => {
+      let timeoutId;
+      return (...args) => {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          callback.apply(null, args);
+        }, delay);
+      };
+    };
+
+    const inputFormDelay = 200;
+
+    // Ejercicio 9
+    const $form9 = document.getElementById("form-9");
+
+    const handleFormChange = () => {
+      const $message = document.querySelector('p[data-id="message-9"]');
+      const formData = new FormData($form9);
+      const { num } = Object.fromEntries(formData);
+
+      if (num === "") {
+        $message.innerHTML = "";
+        return;
+      }
+
+      if (num.length > 4) {
+        $message.innerHTML = "El valor máximo a evaluar es 9999";
+        return;
+      }
+
+      const numValue = Number(num);
+
+      if (isNaN(numValue) || numValue === 0) {
+        const message = `El valor ingresado no es un numero`;
+        console.log(message);
+        $message.innerHTML = message;
+        return;
+      }
+
+      // const sum = Array.from({ length: numValue - 1 })
+      //   .map((_, num) => num + 1)
+      //   .reduce((acc, current) => acc + current, 0);
+
+      let sum = 0;
+      for (let i = 1; i < numValue; i++) {
+        console.log(i);
+        sum += i;
+      }
+
+      const message = `
+          Numero ingresado: ${numValue}<br>
+          Suma de valores menores: ${sum}`;
+
+      // displayHTMLMessage({ $element: $message, content: message });
+      console.log(message);
+      $message.innerHTML = message;
+    };
+
+    const debouncedHandleFormChange = debounce(
+      handleFormChange,
+      inputFormDelay,
+    );
+
+    if ($form9 instanceof HTMLFormElement) {
+      const $inputNum = $form9.elements["num"];
+
+      if ($inputNum instanceof HTMLInputElement) {
+        $inputNum.addEventListener("input", (event) => {
+          $inputNum.value = event.target.value;
+
+          debouncedHandleFormChange();
+
+          if (event.target.value.length > 4) {
+            $inputNum.value = event.target.value.slice(0, -1);
+          }
+        });
+      }
+    }
+
+    // $form9?.addEventListener("submit", (event) => {
+    //   event.preventDefault();
+    //   handleFormChange();
+    //   $form9.reset();
+    // });
+  })();
+</script>

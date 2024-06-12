@@ -1,0 +1,114 @@
+---
+// import Button from "@/Components/Button.astro";
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Ejercicio 10"
+  description=`
+  Se tiene un catálogo de productos con estos precios: 50, 20, 10, 100, 30, 10<br>
+	Indique cuál es su presupuesto y según el orden en que están indique 	cuánto gastará Ej. si mi presupuesto es 90 considerare 50, 20 y 10`
+  messageId="message-10"
+>
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-10">
+    <Label>
+      Presupuesto
+      <Input name="amount" type="number" min="0" max="9999" required />
+    </Label>
+    <!-- <Button type="submit"> Evaluar presupuesto </Button> -->
+  </form>
+</Exercise>
+
+<script is:inline>
+  (() => {
+    const debounce = (callback, delay) => {
+      let timeoutId;
+      return (...args) => {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          callback.apply(null, args);
+        }, delay);
+      };
+    };
+
+    const inputFormDelay = 200;
+
+    const prices = [50, 20, 10, 100, 30, 10];
+
+    // Ejercicio 10
+    const $form10 = document.getElementById("form-10");
+
+    const handleFormChange = () => {
+      const $message = document.querySelector('p[data-id="message-10"]');
+      const formData = new FormData($form10);
+      const { amount } = Object.fromEntries(formData);
+
+      if (amount === "") {
+        $message.innerHTML = "";
+        return;
+      }
+
+      if (amount.length > 4) {
+        $message.innerHTML = "El valor máximo a evaluar es 9999";
+        return;
+      }
+
+      const amountValue = Number(amount);
+
+      let accumulated = 0;
+      const availableProducts = [];
+
+      for (const price of prices) {
+        accumulated += price;
+        const isHigher = accumulated > amountValue;
+        if (isHigher) {
+          break;
+        }
+
+        availableProducts.push(price);
+      }
+
+      const message = `
+        Monto ingresado: ${amountValue}<br>
+        ${
+          availableProducts.length > 0
+            ? `Productos disponibles según su presupuesto:<br>
+          ${availableProducts.join(", ")}`
+            : "No puede adquirir ningún producto con su presupuesto actual"
+        }`;
+
+      // displayHTMLMessage({ $element: $message, content: message });
+      console.log(message);
+      $message.innerHTML = message;
+    };
+
+    const debouncedHandleFormChange = debounce(
+      handleFormChange,
+      inputFormDelay,
+    );
+
+    if ($form10 instanceof HTMLFormElement) {
+      const $inputNum = $form10.elements["amount"];
+
+      if ($inputNum instanceof HTMLInputElement) {
+        $inputNum.addEventListener("input", (event) => {
+          $inputNum.value = event.target.value;
+
+          debouncedHandleFormChange();
+
+          if (event.target.value.length > 4) {
+            $inputNum.value = event.target.value.slice(0, -1);
+          }
+        });
+      }
+    }
+
+    // $form10?.addEventListener("submit", (event) => {
+    //   event.preventDefault();
+    //   handleFormChange();
+    //   $form10.reset();
+    // });
+  })();
+</script>

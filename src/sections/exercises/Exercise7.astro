@@ -45,11 +45,6 @@ import Label from "@/Components/Label.astro";
 
 <script is:inline>
   (() => {
-    const displayTextMessage = ({ $element, message }) => {
-      console.log(message);
-      $element.innerText = message;
-    };
-
     const displayHTMLMessage = ({ $element, content }) => {
       console.log(content);
       $element.innerHTML = content;
@@ -134,7 +129,7 @@ import Label from "@/Components/Label.astro";
         handleValidateForm(ageNumber);
       });
 
-      $masdeuno.addEventListener("input", (event) => {
+      $masdeuno.addEventListener("input", () => {
         handleValidateForm(ageNumber);
       });
     }

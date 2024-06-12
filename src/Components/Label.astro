@@ -6,7 +6,7 @@ interface Props {
   for?: string | undefined | null;
 }
 
-const { row, gap, ...other } = Astro.props;
+const { row, gap } = Astro.props;
 
 const className = `flex 
   ${row ? "flex-row" : "flex-col"} 

@@ -1,0 +1,100 @@
+---
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Ejercicio 11"
+  description=`
+  Se tiene un catálogo de productos con estos precios: 50, 20, 10, 100, 30, 10<br>
+	Indique cuál es su presupuesto y según el orden en que están indique 	cuánto gastará 
+  Ej. si mi presupuesto es 90 considerare 50, 20 y 10`
+  messageId="message-11"
+>
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-11">
+    <Label>
+      Presupuesto
+      <Input name="amount" type="number" min="0" max="9999" required />
+    </Label>
+  </form>
+</Exercise>
+
+<script is:inline type="module">
+  import { debounce, handleDomElement } from "/js/utils.js";
+
+  (() => {
+    const delay = 250;
+    const prices = [50, 20, 10, 100, 30, 10];
+
+    // Ejercicio 11
+    const $form11 = document.getElementById("form-11");
+    const $message = document.querySelector('p[data-id="message-11"]');
+
+    if (!($form11 instanceof HTMLFormElement)) {
+      return;
+    }
+
+    const $inputNum = $form11.elements["amount"];
+
+    if (
+      !($inputNum instanceof HTMLInputElement) ||
+      !($message instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    const [, setMessage] = handleDomElement($message);
+    const [amount, , getCurrentAmount] = handleDomElement($inputNum);
+
+    const handleInputChange = () => {
+      getCurrentAmount();
+      console.log("Input changed", amount.value);
+
+      if (amount.value === "") {
+        setMessage("");
+        return;
+      }
+
+      if (amount.value.length > 4) {
+        setMessage("El presupuesto máximo a evaluar es S/. 9999");
+        return;
+      }
+
+      const amountValue = Number(amount.value);
+
+      let accumulated = 0;
+      const availableProducts = [];
+
+      for (const price of prices) {
+        const isHigher = accumulated + price > amountValue;
+        if (isHigher) {
+          break;
+        }
+
+        availableProducts.push(price);
+        accumulated += price;
+      }
+
+      setMessage(`
+        Monto ingresado: S/. ${amountValue}<br> ${
+          availableProducts.length > 0
+            ? `Solo gastará: S/. ${accumulated}<br>Productos disponibles según su presupuesto:<br>${availableProducts.join(", ")}`
+            : "No puede adquirir ningún producto con su presupuesto actual"
+        }
+      `);
+    };
+
+    const debouncedHandleInputChange = debounce(handleInputChange, delay);
+
+    $inputNum.addEventListener("keypress", (event) => {
+      if (!/[0-9]/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    $inputNum.addEventListener("input", () => {
+      debouncedHandleInputChange();
+    });
+  })();
+</script>

@@ -6,15 +6,15 @@ interface Props {
   for?: string | undefined | null;
 }
 
-const { row, gap } = Astro.props;
+const { row, gap, ...props } = Astro.props;
 
 const className = `flex 
   ${row ? "flex-row" : "flex-col"} 
-  gap-${gap ?? "0.5"}
+  ${gap ? `gap-${gap}` : "gap-0.5"} 
   has-[+label]:mb-3 has-[+button]:mb-5 
   text-secondary-900 dark:text-secondary-100 cursor-pointer`;
 ---
 
-<label class={className} {...Astro.props}>
+<label class={className} {...props}>
   <slot />
 </label>

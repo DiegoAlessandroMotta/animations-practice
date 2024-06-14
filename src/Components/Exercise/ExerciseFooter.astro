@@ -1,18 +1,22 @@
 ---
 interface Props {
-  messageId: string;
+  messageId?: string;
 }
 
-const { messageId } = Astro.props;
+const { messageId = null } = Astro.props;
 ---
 
-<footer class="min-h-32">
+<footer class="min-h-32 mb-4">
   <p class="font-medium text-lg text-center text-zinc-600 dark:text-zinc-300">
     Resultado:
   </p>
-  <p
-    class="text-center text-zinc-500 dark:text-zinc-400 mt-2 px-3"
-    data-id={messageId}
-  >
-  </p>
+  {
+    messageId && (
+      <p
+        class="text-center text-zinc-500 dark:text-zinc-400 mt-2 px-3"
+        data-id={messageId}
+      ></p>
+    )
+  }
+  <slot />
 </footer>

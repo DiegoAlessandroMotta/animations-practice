@@ -1,110 +1,198 @@
 ---
-// import Button from "@/Components/Button.astro";
-import Exercise from "@/Components/Exercise/Exercise.astro";
+import ExerciseBox from "@/Components/Exercise/ExerciseBox.astro";
+import ExerciseContent from "@/Components/Exercise/ExerciseContent.astro";
+import ExerciseFooter from "@/Components/Exercise/ExerciseFooter.astro";
+import ExerciseHeader from "@/Components/Exercise/ExerciseHeader.astro";
 import Input from "@/Components/Input.astro";
 import Label from "@/Components/Label.astro";
 ---
 
-<Exercise
-  title="Ejercicio 9"
-  description=`
-  Según el número ingresado por un usuario calcula la suma de los valores menores a este número comenzando desde 1`
-  messageId="message-9"
->
-  <form class="max-w-64 w-full mx-auto h-fit" id="form-9">
-    <Label>
-      Numero
-      <Input name="num" type="number" min="1" max="9999" required />
-    </Label>
-    <!-- <Button type="submit"> Mostrar suma </Button> -->
-  </form>
-</Exercise>
+<ExerciseBox>
+  <ExerciseHeader title="Ejercicio 9">
+    Con un for imprima los números pares de la tabla de multiplicar del 7 por
+    separado.
+  </ExerciseHeader>
+  <ExerciseContent>
+    <form class="max-w-64 w-full mx-auto h-fit" id="form-9">
+      <Label>
+        Multiplicador
+        <Input
+          name="multiplier"
+          type="number"
+          min="1"
+          max="99"
+          autocomplete="off"
+          required
+        />
+      </Label>
+      <Label>
+        limite
+        <Input
+          name="limiter"
+          type="number"
+          min="1"
+          max="50"
+          autocomplete="off"
+          required
+        />
+      </Label>
+    </form>
+  </ExerciseContent>
+  <ExerciseFooter>
+    <p
+      class="text-center text-zinc-500 dark:text-zinc-400 mt-2 px-3"
+      data-id="message-9"
+    >
+    </p>
+    <div
+      class="flex gap-6 flex-wrap justify-center invisible"
+      data-id="message-table-box"
+    >
+      <div>
+        <p class="border-b border-zinc-300 dark:border-zinc-700 mb-3 pb-1">
+          Tabla de multiplicar (impar)
+        </p>
+        <p data-id="message-table-odd"></p>
+      </div>
+      <div>
+        <p class="border-b border-zinc-300 dark:border-zinc-700 mb-3 pb-1">
+          Tabla de multiplicar (par)
+        </p>
+        <p data-id="message-table-even"></p>
+      </div>
+    </div>
+  </ExerciseFooter>
+</ExerciseBox>
 
-<script is:inline>
+<script is:inline type="module">
+  import { debounce, handleDomElement, $ } from "/js/utils.js";
+
   (() => {
-    const debounce = (callback, delay) => {
-      let timeoutId;
-      return (...args) => {
-        if (timeoutId) clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          callback.apply(null, args);
-        }, delay);
-      };
-    };
-
-    const inputFormDelay = 200;
-
+    const delay = 250;
     // Ejercicio 9
     const $form9 = document.getElementById("form-9");
 
-    const handleFormChange = () => {
-      const $message = document.querySelector('p[data-id="message-9"]');
-      const formData = new FormData($form9);
-      const { num } = Object.fromEntries(formData);
-
-      if (num === "") {
-        $message.innerHTML = "";
-        return;
-      }
-
-      if (num.length > 4) {
-        $message.innerHTML = "El valor máximo a evaluar es 9999";
-        return;
-      }
-
-      const numValue = Number(num);
-
-      if (isNaN(numValue) || numValue === 0) {
-        const message = `El valor ingresado no es un numero`;
-        console.log(message);
-        $message.innerHTML = message;
-        return;
-      }
-
-      // const sum = Array.from({ length: numValue - 1 })
-      //   .map((_, num) => num + 1)
-      //   .reduce((acc, current) => acc + current, 0);
-
-      let sum = 0;
-      for (let i = 1; i < numValue; i++) {
-        console.log(i);
-        sum += i;
-      }
-
-      const message = `
-          Numero ingresado: ${numValue}<br>
-          Suma de valores menores: ${sum}`;
-
-      // displayHTMLMessage({ $element: $message, content: message });
-      console.log(message);
-      $message.innerHTML = message;
-    };
-
-    const debouncedHandleFormChange = debounce(
-      handleFormChange,
-      inputFormDelay,
-    );
-
-    if ($form9 instanceof HTMLFormElement) {
-      const $inputNum = $form9.elements["num"];
-
-      if ($inputNum instanceof HTMLInputElement) {
-        $inputNum.addEventListener("input", (event) => {
-          $inputNum.value = event.target.value;
-
-          debouncedHandleFormChange();
-
-          if (event.target.value.length > 4) {
-            $inputNum.value = event.target.value.slice(0, -1);
-          }
-        });
-      }
+    if (!($form9 instanceof HTMLFormElement)) {
+      return;
     }
 
-    // $form9?.addEventListener("submit", (event) => {
-    //   event.preventDefault();
-    //   handleFormChange();
-    //   $form9.reset();
-    // });
+    const $multiplier = $form9.elements["multiplier"];
+    const $limiter = $form9.elements["limiter"];
+    const $tableBox = $('[data-id="message-table-box"]');
+    const $tableOdd = $('p[data-id="message-table-odd"]');
+    const $tableEven = $('p[data-id="message-table-even"]');
+    const $message = $('p[data-id="message-9"]');
+
+    if (
+      !($multiplier instanceof HTMLInputElement) ||
+      !($limiter instanceof HTMLInputElement) ||
+      !($tableBox instanceof HTMLElement) ||
+      !($tableOdd instanceof HTMLElement) ||
+      !($tableEven instanceof HTMLElement) ||
+      !($message instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    const [, setMessage] = handleDomElement($message);
+    const [multiplier, setMultiplier, getCurrentMultiplier] =
+      handleDomElement($multiplier);
+    const [limiter, setLimiter, getCurrentLimiter] = handleDomElement($limiter);
+
+    setMultiplier(7);
+    setLimiter(12);
+
+    const [, setTableOdd] = handleDomElement($tableOdd);
+    const [, setTableEven] = handleDomElement($tableEven);
+
+    const handleInputChange = () => {
+      getCurrentMultiplier();
+      getCurrentLimiter();
+
+      if (multiplier.value === "" || limiter.value === "") {
+        setTableOdd("");
+        setTableEven("");
+        setMessage("");
+        $tableBox.classList.add("invisible");
+        return;
+      }
+
+      if (!/[0-9]/.test(multiplier.value) || !/[0-9]/.test(limiter.value)) {
+        setMessage("El valor ingresado no es un numero");
+        setTableOdd("");
+        setTableEven("");
+        $tableBox.classList.add("invisible");
+        return;
+      }
+
+      if (multiplier.value.length > 2 || multiplier.value > 99) {
+        setMessage("El valor máximo del multiplicador es 99");
+        setTableOdd("");
+        setTableEven("");
+        $tableBox.classList.add("invisible");
+        return;
+      }
+
+      if (limiter.value.length > 2 || limiter.value > 50) {
+        setMessage("El valor máximo del limitador es 50");
+        setTableOdd("");
+        setTableEven("");
+        $tableBox.classList.add("invisible");
+        return;
+      }
+
+      const oddResults = [];
+      const evenResults = [];
+
+      for (let i = 1; i <= limiter.value; i++) {
+        const result = multiplier.value * i;
+        const resultMessage = `<li>${multiplier.value} x ${i} = ${result}</li>`;
+
+        if (i % 2 === 0) {
+          evenResults.push(resultMessage);
+          continue;
+        }
+
+        oddResults.push(resultMessage);
+      }
+
+      setTableOdd(`
+        <ul>
+          ${oddResults.join("")}
+        </ul>
+      `);
+
+      setTableEven(`
+        <ul>
+          ${evenResults.join("")}
+        </ul>
+      `);
+
+      $tableBox.classList.remove("invisible");
+    };
+
+    const debouncedHandleInputChange = debounce(handleInputChange, delay);
+
+    $multiplier.addEventListener("keypress", (event) => {
+      if (!/[0-9]/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    $multiplier.addEventListener("input", () => {
+      debouncedHandleInputChange();
+    });
+
+    $limiter.addEventListener("keypress", (event) => {
+      if (!/[0-9]/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    $limiter.addEventListener("input", () => {
+      debouncedHandleInputChange();
+    });
+
+    handleInputChange();
   })();
 </script>

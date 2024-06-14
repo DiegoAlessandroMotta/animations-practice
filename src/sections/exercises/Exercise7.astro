@@ -1,5 +1,4 @@
 ---
-// import Button from "@/Components/Button.astro";
 import Exercise from "@/Components/Exercise/Exercise.astro";
 import Input from "@/Components/Input.astro";
 import Label from "@/Components/Label.astro";
@@ -16,184 +15,147 @@ import Label from "@/Components/Label.astro";
     - Si es mayor a 60 tiene descuento de 10% en bebidas y tragos`
   messageId="message-7"
 >
-  <form class="max-w-md w-full mx-auto h-fit" id="form-7">
-    <div class="flex gap-3 mb-4">
-      <Label>
-        Edad:
-        <Input
-          type="number"
-          name="age"
-          id="input-age"
-          autocomplete="off"
-          min="1"
-          required
-        />
+  <form class="max-w-80 w-full mx-auto h-fit" id="form-7">
+    <Label>
+      Edad:
+      <Input
+        type="number"
+        name="age"
+        autocomplete="off"
+        min="1"
+        max="120"
+        required
+      />
+    </Label>
+    <div
+      class="flex gap-4 mt-5 min-h-6 invisible"
+      data-id="accompanied-confirmation-box"
+    >
+      <Label row>
+        <span class="mr-2">Está acompañado de un adulto</span>
+        <Input type="checkbox" name="accompanied" autocomplete="off" />
       </Label>
-      <div class="flex gap-4 mt-5 collapse" id="confirmation">
-        <Label for="masdeuno"> Está acompañado de un adulto </Label>
-        <Input
-          type="checkbox"
-          id="masdeuno"
-          name="masdeuno"
-          autocomplete="off"
-        />
-      </div>
     </div>
-    <!-- <Button type="submit"> Evaluar </Button> -->
   </form>
 </Exercise>
 
-<script is:inline>
+<script is:inline type="module">
+  import { debounce, handleDomElement } from "/js/utils.js";
+
   (() => {
-    const displayHTMLMessage = ({ $element, content }) => {
-      console.log(content);
-      $element.innerHTML = content;
-    };
+    const delay = 250;
 
     // Ejercicio 7
     const $form7 = document.getElementById("form-7");
-    const $inputAge = document.getElementById("input-age");
-    const $confirmationBox = document.getElementById("confirmation");
-    const $masdeuno = document.getElementById("masdeuno");
-    let ageNumber;
+    const $message = document.querySelector('p[data-id="message-7"]');
+    const $confirmationBox = document.querySelector(
+      '[data-id="accompanied-confirmation-box"]',
+    );
 
-    const handleValidateForm = (ageNumber) => {
-      const $message = document.querySelector('p[data-id="message-7"]');
-
-      if (ageNumber === 0) {
-        displayHTMLMessage({
-          $element: $message,
-          content: null,
-        });
-        $confirmationBox.classList.add("collapse");
-        return;
-      }
-
-      if (isNaN(ageNumber) || ageNumber < 1) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Ingrese una edad válida",
-        });
-        $confirmationBox.classList.add("collapse");
-        return;
-      }
-
-      if (ageNumber > 60) {
-        displayHTMLMessage({
-          $element: $message,
-          content:
-            "Puede acceder <br> tiene descuento de 10% en bebidas y tragos",
-        });
-        $confirmationBox.classList.add("collapse");
-        return;
-      }
-
-      if (ageNumber >= 30) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Puede acceder <br> tiene derecho a una chela",
-        });
-        $confirmationBox.classList.add("collapse");
-        return;
-      }
-
-      if (ageNumber >= 18) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Puede acceder <br> no tiene ningún beneficio especial",
-        });
-        $confirmationBox.classList.add("collapse");
-        return;
-      }
-
-      $confirmationBox.classList.remove("collapse");
-
-      if ($masdeuno.checked) {
-        displayHTMLMessage({
-          $element: $message,
-          content:
-            "Puede acceder <br> Aunque es menor de edad está acompañado de un adulto",
-        });
-        return;
-      }
-
-      const message =
-        "No puede ingresar ya que es menor de edad y no está acompañado";
-
-      displayHTMLMessage({ $element: $message, content: message });
-    };
-
-    if ($inputAge instanceof HTMLInputElement) {
-      $inputAge?.addEventListener("input", (event) => {
-        ageNumber = Number(event.target.value);
-        handleValidateForm(ageNumber);
-      });
-
-      $masdeuno.addEventListener("input", () => {
-        handleValidateForm(ageNumber);
-      });
+    if (!($form7 instanceof HTMLFormElement)) {
+      return;
     }
 
-    $form7?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-7"]');
-      const formData = new FormData($form7);
-      const { age, masdeuno } = Object.fromEntries(formData);
+    const $inputAge = $form7.elements["age"];
+    const $inputAccompanied = $form7.elements["accompanied"];
 
-      const ageNumber = Number(age);
+    if (
+      !($inputAge instanceof HTMLInputElement) ||
+      !($inputAccompanied instanceof HTMLInputElement) ||
+      !($confirmationBox instanceof HTMLElement) ||
+      !($message instanceof HTMLElement)
+    ) {
+      return;
+    }
 
-      if (isNaN(ageNumber) || ageNumber < 1) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Ingrese una edad válida",
-        });
-        $form7.reset();
+    const [age, , getCurrentAge] = handleDomElement($inputAge);
+    const [isAccompanied, setIsAccompanied, getCurrentAccompanient] =
+      handleDomElement($inputAccompanied);
+    const [, setMessage] = handleDomElement($message);
+
+    const showMessage = () => {
+      getCurrentAge();
+      getCurrentAccompanient();
+
+      if (age.value === "") {
+        setMessage("");
         return;
       }
 
-      if (ageNumber > 60) {
-        displayHTMLMessage({
-          $element: $message,
-          content:
-            "Puede acceder <br> tiene descuento de 10% en bebidas y tragos",
-        });
-        $form7.reset();
+      if (!/[0-9]/.test(age.value)) {
+        setMessage("El valor ingresado no es un numero");
         return;
       }
 
-      if (ageNumber >= 30) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Puede acceder <br> tiene derecho a una chela",
-        });
-        $form7.reset();
+      if (age.value.length > 4 || ageValue > 120) {
+        setMessage("El valor máximo a ingresar es 120");
         return;
       }
 
-      if (ageNumber >= 18) {
-        displayHTMLMessage({
-          $element: $message,
-          content: "Puede acceder <br> no tiene ningún beneficio especial",
-        });
-        $form7.reset();
+      if (ageValue > 60) {
+        setMessage(
+          "Puede acceder <br> Tiene descuento de 10% en bebidas y tragos",
+        );
         return;
       }
 
-      if (masdeuno !== undefined) {
-        displayHTMLMessage({
-          $element: $message,
-          content:
-            "Puede acceder <br> Aunque es menor de edad está acompañado de un adulto",
-        });
-        $form7.reset();
+      if (ageValue >= 30) {
+        setMessage("Puede acceder <br> Tiene derecho a una chela");
         return;
       }
 
-      const message =
-        "No puede ingresar ya que es menor de edad y no está acompañado";
+      if (ageValue >= 18) {
+        setMessage("Puede acceder <br> No tiene ningún beneficio especial");
+        return;
+      }
 
-      displayHTMLMessage({ $element: $message, content: message });
-      $form7.reset();
+      if (ageValue < 15) {
+        setMessage("No puede acceder ya que la edad mínima es 15 años");
+        return;
+      }
+
+      if (isAccompanied.value === true) {
+        setMessage(
+          "Puede acceder <br> Aunque es menor de edad está acompañado de un adulto",
+        );
+        return;
+      }
+
+      setMessage(
+        "No puede ingresar ya que es menor de edad y no está acompañado por un adulto",
+      );
+    };
+
+    const debouncedShowMessage = debounce(showMessage, delay);
+
+    $inputAge.addEventListener("keypress", (event) => {
+      if (!/[0-9]/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    $inputAge.addEventListener("input", (event) => {
+      debouncedShowMessage();
+
+      const value = event.target.value;
+
+      if (value < 15) {
+        $confirmationBox.classList.add("invisible");
+        setIsAccompanied(false);
+        return;
+      }
+
+      if (value < 18) {
+        $confirmationBox.classList.remove("invisible");
+        return;
+      }
+
+      setIsAccompanied(false);
+      $confirmationBox.classList.add("invisible");
+    });
+
+    $inputAccompanied.addEventListener("change", () => {
+      showMessage();
     });
   })();
 </script>

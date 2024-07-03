@@ -1,0 +1,181 @@
+---
+import Exercise from "@/Components/Exercise/Exercise.astro";
+import Input from "@/Components/Input.astro";
+import Label from "@/Components/Label.astro";
+---
+
+<Exercise
+  title="Time Zone Converter"
+  description=`Convert time from diferents time zones to other time zones`
+  messageId="message-tz-converter"
+>
+  <form class="max-w-64 w-full mx-auto h-fit" id="form-tz-converter">
+    <div class="flex gap-2 w-full">
+      <Label fullWidth>
+        Time
+        <Input name="time" type="time" required />
+      </Label>
+      <Label>
+        Time zone
+        <select
+          class="outline-none rounded-md px-3 py-2 border
+          bg-zinc-200 text-zinc-500 border-zinc-300
+          focus:text-zinc-700 hover:border-secondary-400 focus:border-zinc-400
+          dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700
+          dark:focus:text-secondary-100 dark:hover:border-secondary-800 dark:focus:border-zinc-400"
+          name="time-zone"
+          required
+        >
+          <option value="CEST" selected>CEST</option>
+          <option value="PDT">PDT</option>
+          <option value="JST">JST</option>
+          <option value="CST">CST</option>
+          <option value="EST">EST</option>
+        </select>
+      </Label>
+    </div>
+  </form>
+</Exercise>
+
+<script is:inline type="module">
+  import { debounce, handleDomElement, $ } from "/js/utils.js";
+
+  (() => {
+    const delay = 250;
+
+    const $form11 = $("#form-tz-converter");
+    const $message = $('[data-id="message-tz-converter"]');
+
+    if (!($form11 instanceof HTMLFormElement)) {
+      return;
+    }
+
+    const $inputTime = $form11.elements["time"];
+    const $selectTimeZone = $form11.elements["time-zone"];
+
+    if (
+      !($inputTime instanceof HTMLInputElement) ||
+      !($selectTimeZone instanceof HTMLSelectElement) ||
+      !($message instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    $message.classList.add("flex", "gap-2", "justify-center");
+
+    const [, setMessage] = handleDomElement($message);
+    const [time, , getCurrentTime] = handleDomElement($inputTime);
+    const [timeZone, , getCurrentTimeZone] = handleDomElement($selectTimeZone);
+
+    const utcDifferences = {
+      JST: 8,
+      CEST: 1,
+      EST: -5,
+      CST: -6,
+      PDT: -8,
+    };
+
+    const handleInputChange = () => {
+      getCurrentTime();
+      getCurrentTimeZone();
+
+      const newTimeZoneDifference = Object.hasOwn(
+        utcDifferences,
+        timeZone.value,
+      )
+        ? utcDifferences[timeZone.value]
+        : utcDifferences.CEST;
+
+      if (time.value === "") {
+        setMessage("");
+        return;
+      }
+
+      const [hours, minutes] = time.value.split(":");
+      const newTime = new Date();
+
+      if (
+        isNaN(newTime.setHours(hours)) ||
+        isNaN(newTime.setMinutes(minutes))
+      ) {
+        setMessage("Invalid time");
+        return;
+      }
+
+      newTime.setHours(newTime.getHours() - newTimeZoneDifference);
+
+      const locations = Object.entries(utcDifferences).map(
+        ([timeZone, utcDifference]) => ({
+          timeZone,
+          utcDifference,
+          utcDifferenceString:
+            (utcDifference < 0 ? utcDifference : "+" + utcDifference) + ":00",
+          currentTime: getTimeStringFromDate(
+            getNewTimeFromZone(newTime, utcDifference),
+          ),
+        }),
+      );
+
+      setMessage(
+        locations
+          .map(
+            (location) => `
+            <div 
+              class="outline-none rounded-md px-3 py-2 border
+                bg-white text-zinc-800 border-zinc-200
+                hover:border-secondary-300
+                dark:bg-zinc-950 dark:text-zinc-200 dark:border-zinc-800
+                dark:hover:border-secondary-900
+                flex gap-2 items-center
+                "
+            >
+              <div class="font-light">
+                <p>${location.timeZone}</p>
+                <p class="text-xs">UTC ${location.utcDifferenceString}</p>
+              </div>
+              <p class="font-semibold text-secondary-600 dark:text-secondary-400">${location.currentTime}</p>
+            </div>
+          `,
+          )
+          .join(""),
+      );
+    };
+
+    handleInputChange();
+
+    const debouncedHandleInputChange = debounce(handleInputChange, delay);
+
+    $inputTime.addEventListener("keypress", (event) => {
+      if (!/[0-9]/.test(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    $inputTime.addEventListener("input", () => {
+      debouncedHandleInputChange();
+    });
+
+    $selectTimeZone.addEventListener("change", () => {
+      handleInputChange();
+    });
+
+    function getTimeStringFromDate(date) {
+      if (!(date instanceof Date)) {
+        return "Invalid Date";
+      }
+
+      return date.toTimeString().split(" ").at(0).substring(0, 5);
+    }
+
+    function getNewTimeFromZone(date, utcDifference) {
+      if (!(date instanceof Date)) {
+        return "Invalid Date";
+      }
+
+      const newDate = new Date(date);
+      newDate.setHours(date.getHours() + utcDifference);
+
+      return newDate;
+    }
+  })();
+</script>

@@ -88,7 +88,7 @@ import Label from "@/Components/Label.astro";
 
     $form6?.addEventListener("submit", (event) => {
       event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-6"]');
+      const $message = document.querySelector('[data-id="message-6"]');
       const formData = new FormData($form6);
       const { baseA, heightA, baseB, heightB } = Object.fromEntries(formData);
 

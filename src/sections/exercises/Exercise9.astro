@@ -26,7 +26,7 @@ import Label from "@/Components/Label.astro";
         />
       </Label>
       <Label>
-        limite
+        Límite
         <Input
           name="limiter"
           type="number"
@@ -38,11 +38,7 @@ import Label from "@/Components/Label.astro";
       </Label>
     </form>
   </ExerciseContent>
-  <ExerciseFooter>
-    <p
-      class="text-center text-zinc-500 dark:text-zinc-400 mt-2 px-3"
-      data-id="message-9"
-    >
+  <ExerciseFooter messageId="message-9">
     </p>
     <div
       class="flex gap-6 flex-wrap justify-center invisible"
@@ -70,7 +66,7 @@ import Label from "@/Components/Label.astro";
   (() => {
     const delay = 250;
     // Ejercicio 9
-    const $form9 = document.getElementById("form-9");
+    const $form9 = $("#form-9");
 
     if (!($form9 instanceof HTMLFormElement)) {
       return;
@@ -79,9 +75,9 @@ import Label from "@/Components/Label.astro";
     const $multiplier = $form9.elements["multiplier"];
     const $limiter = $form9.elements["limiter"];
     const $tableBox = $('[data-id="message-table-box"]');
-    const $tableOdd = $('p[data-id="message-table-odd"]');
-    const $tableEven = $('p[data-id="message-table-even"]');
-    const $message = $('p[data-id="message-9"]');
+    const $tableOdd = $('[data-id="message-table-odd"]');
+    const $tableEven = $('[data-id="message-table-even"]');
+    const $message = $('[data-id="message-9"]');
 
     if (
       !($multiplier instanceof HTMLInputElement) ||
@@ -168,6 +164,7 @@ import Label from "@/Components/Label.astro";
         </ul>
       `);
 
+      setMessage("");
       $tableBox.classList.remove("invisible");
     };
 

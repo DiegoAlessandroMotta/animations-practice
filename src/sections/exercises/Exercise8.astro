@@ -31,22 +31,34 @@ import Label from "@/Components/Label.astro";
       <Input name="plate" type="radio" value="option3" />
       Caldo de gallina + arroz sin sal
     </Label>
-    <!-- <Label row gap="3"> -->
-      <!-- <Input name="plate" type="radio" value="none" required /> -->
-      <!-- Ninguna -->
-    <!-- </Label> -->
     <Button type="submit"> Realizar pedido </Button>
   </form>
 </Exercise>
 
-<script is:inline>
+<script is:inline type="module">
+  import { handleDomElement, $ } from "/js/utils.js";
+
   (() => {
     // Ejercicio 8
-    const $form8 = document.getElementById("form-8");
+    const $form8 = $("#form-8");
 
-    $form8?.addEventListener("submit", (event) => {
+    if (!($form8 instanceof HTMLFormElement)) {
+      return;
+    }
+
+    const $message = $('[data-id="message-8"]');
+    const $optionInput = $form8.elements["plate"];
+
+    console.log($optionInput);
+    console.log($optionInput.value);
+    console.log(typeof $optionInput);
+
+    if (!($message instanceof HTMLElement)) {
+      return;
+    }
+
+    $form8.addEventListener("submit", (event) => {
       event.preventDefault();
-      const $message = document.querySelector('p[data-id="message-8"]');
       const formData = new FormData($form8);
       const { plate } = Object.fromEntries(formData);
 

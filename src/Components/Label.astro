@@ -2,15 +2,17 @@
 interface Props {
   row?: boolean;
   gap?: string;
+  fullWidth?: boolean;
   form?: string | undefined | null;
   for?: string | undefined | null;
 }
 
-const { row, gap, ...props } = Astro.props;
+const { row, gap, fullWidth, ...props } = Astro.props;
 
 const className = `flex 
   ${row ? "flex-row" : "flex-col"} 
   ${gap ? `gap-${gap}` : "gap-0.5"} 
+  ${fullWidth ? "w-full" : ""}
   has-[+label]:mb-3 has-[+button]:mb-5 
   text-secondary-900 dark:text-secondary-100 cursor-pointer`;
 ---

@@ -9,11 +9,15 @@ import Label from "@/Components/Label.astro";
   description=`Convert time from diferents time zones to other time zones`
   messageId="message-tz-converter"
 >
-  <form class="max-w-64 w-full mx-auto h-fit" id="form-tz-converter">
-    <div class="flex gap-2 w-full">
-      <Label fullWidth>
+  <form class="max-w-96 w-full mx-auto h-fit" id="form-tz-converter">
+    <div class="flex gap-2 w-full flex-wrap justify-center">
+      <Label>
         Time
         <Input name="time" type="time" required />
+      </Label>
+      <Label>
+        Date
+        <Input name="date" type="date" required />
       </Label>
       <Label>
         Time zone
@@ -26,11 +30,12 @@ import Label from "@/Components/Label.astro";
           name="time-zone"
           required
         >
-          <option value="CEST" selected>CEST</option>
-          <option value="PDT">PDT</option>
           <option value="JST">JST</option>
-          <option value="CST">CST</option>
+          <option value="CEST" selected>CEST</option>
+          <option value="UTC">UTC</option>
           <option value="EST">EST</option>
+          <option value="CST">CST</option>
+          <option value="PDT">PDT</option>
         </select>
       </Label>
     </div>
@@ -38,10 +43,16 @@ import Label from "@/Components/Label.astro";
 </Exercise>
 
 <script is:inline type="module">
-  import { debounce, handleDomElement, $ } from "/js/utils.js";
+  import { debounce, handleDomElement, $, validStringDate } from "/js/utils.js";
 
   (() => {
     const delay = 250;
+
+    Date.prototype.toDateInputValue = function () {
+      var local = new Date(this);
+      local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+      return local.toJSON().slice(0, 10);
+    };
 
     const $form11 = $("#form-tz-converter");
     const $message = $('[data-id="message-tz-converter"]');
@@ -51,92 +62,100 @@ import Label from "@/Components/Label.astro";
     }
 
     const $inputTime = $form11.elements["time"];
+    const $inputDate = $form11.elements["date"];
     const $selectTimeZone = $form11.elements["time-zone"];
 
     if (
       !($inputTime instanceof HTMLInputElement) ||
+      !($inputDate instanceof HTMLInputElement) ||
       !($selectTimeZone instanceof HTMLSelectElement) ||
       !($message instanceof HTMLElement)
     ) {
       return;
     }
 
-    $message.classList.add("flex", "gap-2", "justify-center");
+    // $message.classList.add("flex", "gap-2", "justify-center", "flex-wrap");
+    $message.classList.add(
+      "grid",
+      "grid-cols-[repeat(auto-fit,_minmax(128px,_156px))]",
+      "gap-2",
+      "justify-center",
+    );
 
     const [, setMessage] = handleDomElement($message);
     const [time, , getCurrentTime] = handleDomElement($inputTime);
+    const [date, setDate, getCurrentDate] = handleDomElement($inputDate);
     const [timeZone, , getCurrentTimeZone] = handleDomElement($selectTimeZone);
 
+    setDate(new Date().toDateInputValue());
+
     const utcDifferences = {
-      JST: 8,
-      CEST: 1,
-      EST: -5,
-      CST: -6,
-      PDT: -8,
+      JST: 9,
+      CEST: 2,
+      UTC: 0,
+      EST: -4,
+      CST: -5,
+      PDT: -7,
     };
 
     const handleInputChange = () => {
       getCurrentTime();
       getCurrentTimeZone();
+      getCurrentDate();
 
-      const newTimeZoneDifference = Object.hasOwn(
-        utcDifferences,
-        timeZone.value,
-      )
+      const currentOffsetHours = Object.hasOwn(utcDifferences, timeZone.value)
         ? utcDifferences[timeZone.value]
         : utcDifferences.CEST;
 
-      if (time.value === "") {
+      if (time.value === "" || date.value === "") {
         setMessage("");
         return;
       }
 
-      const [hours, minutes] = time.value.split(":");
-      const newTime = new Date();
+      const [hoursString, minutesString] = time.value.split(":");
+      const hours = Number(hoursString);
+      const minutes = Number(minutesString);
 
-      if (
-        isNaN(newTime.setHours(hours)) ||
-        isNaN(newTime.setMinutes(minutes))
-      ) {
+      if (hours > 23 || hours < 0 || minutes > 60 || minutes < 0) {
         setMessage("Invalid time");
         return;
       }
 
-      newTime.setHours(newTime.getHours() - newTimeZoneDifference);
+      if (!validStringDate(date.value)) {
+        setMessage("Invalid date");
+        return;
+      }
 
-      const locations = Object.entries(utcDifferences).map(
-        ([timeZone, utcDifference]) => ({
-          timeZone,
-          utcDifference,
-          utcDifferenceString:
-            (utcDifference < 0 ? utcDifference : "+" + utcDifference) + ":00",
-          currentTime: getTimeStringFromDate(
-            getNewTimeFromZone(newTime, utcDifference),
-          ),
-        }),
-      );
+      const currentDate = new Date(date.value);
+      currentDate.setUTCHours(hours);
+      currentDate.setUTCMinutes(minutes);
+
+      const selectedDate = offsetDate(currentDate, -currentOffsetHours, 0);
 
       setMessage(
-        locations
-          .map(
-            (location) => `
-            <div 
-              class="outline-none rounded-md px-3 py-2 border
-                bg-white text-zinc-800 border-zinc-200
-                hover:border-secondary-300
-                dark:bg-zinc-950 dark:text-zinc-200 dark:border-zinc-800
-                dark:hover:border-secondary-900
-                flex gap-2 items-center
-                "
-            >
-              <div class="font-light">
-                <p>${location.timeZone}</p>
-                <p class="text-xs">UTC ${location.utcDifferenceString}</p>
-              </div>
-              <p class="font-semibold text-secondary-600 dark:text-secondary-400">${location.currentTime}</p>
-            </div>
-          `,
-          )
+        Object.entries(utcDifferences)
+          .map(([timeZone, offsetHours]) => {
+            const location = getOffsetDate(selectedDate, offsetHours);
+
+            return `
+             <div
+               class="outline-none rounded-md px-3 py-2 border
+                 bg-white text-zinc-800 border-zinc-200
+                 hover:border-secondary-300
+                 dark:bg-zinc-950 dark:text-zinc-200 dark:border-zinc-800
+                 dark:hover:border-secondary-900
+                 flex gap-2 items-center justify-center
+                 "
+             >
+               <div class="font-light">
+                 <p>${timeZone}</p>
+                 <p class="text-xs">${location.day}/${location.month}</p>
+                 <p class="text-xs">UTC ${location.offsetHoursString}</p>
+               </div>
+               <p class="font-semibold text-secondary-600 dark:text-secondary-400">${location.timeString.substring(0, 5)}</p>
+             </div>
+           `;
+          })
           .join(""),
       );
     };
@@ -151,31 +170,83 @@ import Label from "@/Components/Label.astro";
       }
     });
 
-    $inputTime.addEventListener("input", () => {
+    $inputTime.addEventListener("change", () => {
       debouncedHandleInputChange();
+    });
+
+    $inputDate.addEventListener("change", () => {
+      handleInputChange();
     });
 
     $selectTimeZone.addEventListener("change", () => {
       handleInputChange();
     });
 
-    function getTimeStringFromDate(date) {
-      if (!(date instanceof Date)) {
-        return "Invalid Date";
+    function isValidDate(date) {
+      if (date instanceof Date && !isNaN(date.getTime())) {
+        return true;
       }
 
-      return date.toTimeString().split(" ").at(0).substring(0, 5);
+      return false;
     }
 
-    function getNewTimeFromZone(date, utcDifference) {
-      if (!(date instanceof Date)) {
-        return "Invalid Date";
+    function getDateFromString(stringDate) {
+      const newDate = new Date(stringDate);
+
+      if (!isValidDate(newDate)) {
+        return undefined;
       }
 
-      const newDate = new Date(date);
-      newDate.setHours(date.getHours() + utcDifference);
+      const newStringDate = newDate.toISOString();
 
-      return newDate;
+      const yearMonthDayString = newStringDate.split("T").at(0);
+      const timeString = newStringDate.split("T").at(1) ?? "";
+
+      const month = yearMonthDayString.split("-").at(1) ?? "";
+      const day = yearMonthDayString.split("-").at(2) ?? "";
+      const hours = timeString.split(":").at(0) ?? "";
+      const minutes = timeString.split(":").at(1) ?? "";
+
+      return {
+        month,
+        day,
+        hours,
+        minutes,
+        timeString,
+      };
+    }
+
+    function getOffsetDate(date, offsetHours) {
+      if (!isValidDate(date) || isNaN(Number(offsetHours))) {
+        return undefined;
+      }
+
+      const offsetDate = new Date(
+        date.getTime() + offsetHours * 60 * 60 * 1000,
+      );
+
+      return {
+        ...getDateFromString(offsetDate.toISOString()),
+        offsetHours,
+        offsetHoursString:
+          (offsetHours < 0 ? offsetHours : "+" + offsetHours) + ":00",
+      };
+    }
+
+    function offsetDate(date, offsetHours, offsetMinutes) {
+      if (
+        !isValidDate(date) ||
+        isNaN(Number(offsetHours)) ||
+        isNaN(Number(offsetMinutes))
+      ) {
+        return undefined;
+      }
+
+      return new Date(
+        date.getTime() +
+          offsetHours * 60 * 60 * 1000 +
+          offsetMinutes * 60 * 1000,
+      );
     }
   })();
 </script>

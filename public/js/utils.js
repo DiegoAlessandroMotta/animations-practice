@@ -52,6 +52,10 @@ export const handleDomElement = ($element) => {
       ? value(element)
       : value
 
+    if (newValue === undefined) {
+      return
+    }
+
     if ($element instanceof HTMLInputElement) {
       if ($element.type === "checkbox") {
         $element.checked = Boolean(newValue);
@@ -77,3 +81,7 @@ export const handleDomElement = ($element) => {
   getCurrentValue();
   return [element, setValue, getCurrentValue];
 };
+
+export const validStringDate = (value) => {
+  return /^(\d{4}[- /.]((0[13578]|1[02])[- /.](0[1-9]|[12][0-9]|3[01])|(0[469]|11)[- /.](0[1-9]|[12][0-9]|30)|02[- /.](0[1-9]|1\d|2[0-8]))|(\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00)[- /.]02[- /.]29)$/g.test(value)
+}

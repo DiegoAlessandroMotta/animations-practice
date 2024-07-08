@@ -6,7 +6,7 @@ import Label from "@/Components/Label.astro";
 
 <Exercise
   title="Time Zone Converter"
-  description=`Convert time from diferents time zones to other time zones`
+  description=`Convert time from diferents time zones`
   messageId="message-tz-converter"
 >
   <form class="max-w-96 w-full mx-auto h-fit" id="form-tz-converter">
@@ -31,6 +31,7 @@ import Label from "@/Components/Label.astro";
           required
         >
           <option value="JST">JST</option>
+          <option value="BST">BST</option>
           <option value="CEST" selected>CEST</option>
           <option value="UTC">UTC</option>
           <option value="EST">EST</option>
@@ -74,10 +75,9 @@ import Label from "@/Components/Label.astro";
       return;
     }
 
-    // $message.classList.add("flex", "gap-2", "justify-center", "flex-wrap");
     $message.classList.add(
       "grid",
-      "grid-cols-[repeat(auto-fit,_minmax(128px,_156px))]",
+      "grid-cols-[repeat(auto-fill,_minmax(196px,_1fr))]",
       "gap-2",
       "justify-center",
     );
@@ -89,25 +89,62 @@ import Label from "@/Components/Label.astro";
 
     setDate(new Date().toDateInputValue());
 
-    const utcDifferences = {
-      JST: 9,
-      CEST: 2,
-      UTC: 0,
-      EST: -4,
-      CST: -5,
-      PDT: -7,
-    };
+    const timeZones = [
+      {
+        abbreviation: "JST",
+        name: "Japan Standard Time",
+        utcOffset: 9,
+      },
+      {
+        abbreviation: "BST",
+        name: "British Summer Time",
+        utcOffset: 1,
+      },
+      {
+        abbreviation: "CEST",
+        name: "Central European Summer Time",
+        utcOffset: 2,
+      },
+      {
+        abbreviation: "UTC",
+        name: "Coordinated Universal Time",
+        utcOffset: 0,
+      },
+      {
+        abbreviation: "EST",
+        name: "Eastern Standard Time",
+        utcOffset: -4,
+      },
+      {
+        abbreviation: "CST",
+        name: "Central Standard Time",
+        utcOffset: -5,
+      },
+      {
+        abbreviation: "PDT",
+        name: "Pacific Daylight Time",
+        utcOffset: -7,
+      },
+    ];
+
+    const defaultZoneCode = "UTC";
+    const defaultZone = timeZones.find(
+      (a) => a.abbreviation === defaultZoneCode,
+    );
 
     const handleInputChange = () => {
       getCurrentTime();
       getCurrentTimeZone();
       getCurrentDate();
 
-      const currentOffsetHours = Object.hasOwn(utcDifferences, timeZone.value)
-        ? utcDifferences[timeZone.value]
-        : utcDifferences.CEST;
+      const selectedZone =
+        timeZones.find((a) => a.abbreviation === timeZone.value) ?? defaultZone;
 
-      if (time.value === "" || date.value === "") {
+      if (
+        time.value === "" ||
+        date.value === "" ||
+        selectedZone === undefined
+      ) {
         setMessage("");
         return;
       }
@@ -130,29 +167,30 @@ import Label from "@/Components/Label.astro";
       currentDate.setUTCHours(hours);
       currentDate.setUTCMinutes(minutes);
 
-      const selectedDate = offsetDate(currentDate, -currentOffsetHours, 0);
+      const selectedDate = offsetDate(currentDate, -selectedZone.utcOffset, 0);
 
       setMessage(
-        Object.entries(utcDifferences)
-          .map(([timeZone, offsetHours]) => {
-            const location = getOffsetDate(selectedDate, offsetHours);
+        timeZones
+          .map((timeZone) => {
+            const location = getOffsetDate(selectedDate, timeZone.utcOffset);
 
             return `
              <div
                class="outline-none rounded-md px-3 py-2 border
-                 bg-white text-zinc-800 border-zinc-200
-                 hover:border-secondary-300
-                 dark:bg-zinc-950 dark:text-zinc-200 dark:border-zinc-800
-                 dark:hover:border-secondary-900
-                 flex gap-2 items-center justify-center
-                 "
+                 bg-white text-zinc-600 border-zinc-200
+                 dark:bg-zinc-950 dark:text-zinc-400 dark:border-zinc-800
+                 text-start"
              >
-               <div class="font-light">
-                 <p>${timeZone}</p>
-                 <p class="text-xs">${location.day}/${location.month}</p>
-                 <p class="text-xs">UTC ${location.offsetHoursString}</p>
-               </div>
-               <p class="font-semibold text-secondary-600 dark:text-secondary-400">${location.timeString.substring(0, 5)}</p>
+              <p class="text-zinc-700 dark:text-zinc-300">${timeZone.abbreviation}</p>
+              <div>
+                <span 
+                  class="font-medium text-secondary-600 dark:text-secondary-400 text-xl">
+                  ${location.timeString.substring(0, 5)}
+                </span>
+                <span class="text-sm">${location.day}/${location.month}</span>
+              </div>
+              <p class="text-xs">UTC ${location.offsetHoursString}</p>
+              <p class="text-xs">${timeZone.name}</p>
              </div>
            `;
           })

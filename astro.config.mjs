@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  // server:{
+  // server: {
   //   port: 12345,
   //   host: '0.0.0.0'
   // },

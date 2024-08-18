@@ -4,9 +4,6 @@ import CommonLayout from "../layouts/CommonLayout.astro";
 
 <CommonLayout title="Web Dev Practice">
 	<main class="py-6 px-2 flex flex-grow justify-center">
-		<!-- <picture class="rocket">
-			<RocketIcon />
-		</picture> -->
 		<div
 			class="bg-secondary-100 dark:bg-secondary-950 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl h-fit"
 		>
@@ -29,74 +26,8 @@ import CommonLayout from "../layouts/CommonLayout.astro";
 				Welcome
 			</h3>
 			<p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">
-				Explore all pages and sections, this web was created using astro and tailwindcss
+				...
 			</p>
 		</div>
 	</main>
 </CommonLayout>
-
-<style>
-	.rocket {
-		width: fit-content;
-		height: fit-content;
-		/* animation: name duration timing-function delay iteration-count direction fill-mode; */
-		animation: move-and-rotate 8s infinite;
-	}
-
-	@keyframes move-and-rotate {
-		0% {
-			translate: 0px 0px;
-			rotate: 0deg;
-			color: white;
-			filter: drop-shadow(0px 0px 20px white);
-		}
-
-		10% {
-			translate: 0px 0px;
-			rotate: 90deg;
-		}
-
-		25% {
-			translate: calc(100dvw - 200px) 0px;
-			rotate: 90deg;
-			color: aqua;
-			filter: drop-shadow(0px 0px 20px aqua);
-		}
-
-		35% {
-			translate: calc(100dvw - 200px) 0px;
-			rotate: 180deg;
-		}
-
-		50% {
-			translate: calc(100dvw - 200px) calc(100dvh - 200px);
-			rotate: 180deg;
-			color: chartreuse;
-			filter: drop-shadow(0px 0px 20px chartreuse);
-		}
-
-		60% {
-			translate: calc(100dvw - 200px) calc(100dvh - 200px);
-			rotate: 270deg;
-		}
-
-		75% {
-			translate: 0px calc(100dvh - 200px);
-			rotate: 270deg;
-			color: deeppink;
-			filter: drop-shadow(0px 0px 20px deeppink);
-		}
-
-		85% {
-			translate: 0px calc(100dvh - 200px);
-			rotate: 360deg;
-		}
-
-		100% {
-			translate: 0px 0px;
-			rotate: 360deg;
-			color: white;
-			filter: drop-shadow(0px 0px 20px white);
-		}
-	}
-</style>

@@ -7,8 +7,8 @@ import ImageViewerIsland from "@/Components/ImageViewerIsland.astro";
 const posts = await fetchPosts(3);
 ---
 
-<CommonLayout title="Twitter" favicon="/ico/twitter.ico">
-  <main class="bg-white dark:bg-black">
+<CommonLayout title="Twitter" favicon="/ico/twitter.ico" hideFooter>
+  <main class="bg-white dark:bg-black pb-8">
     {
       posts.map((post) => (
         <Post
@@ -25,6 +25,5 @@ const posts = await fetchPosts(3);
       ))
     }
   </main>
-
   <ImageViewerIsland />
 </CommonLayout>

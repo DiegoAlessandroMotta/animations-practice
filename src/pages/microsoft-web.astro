@@ -1,4 +1,6 @@
 ---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+
 const cards = [
   {
     title: 'Maximiza el día a día con Microsoft 365',
@@ -30,116 +32,108 @@ const cards = [
 <!-- BEM -->
 <!-- Block__element--modifier -->
 <!-- Card__button--liked -->
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Microsoft web</title>
-    <link rel="SHORTCUT ICON" href="/ico/microsoft.ico" type="image/x-icon">
-  </head>
-  <body>
-    <header class="home-header">
-      <nav class="navbar-horizontal justify-between max-w-1600 mx-auto">
-        <nav class="navbar-horizontal">
-          <div class="link-container">
-            <a class="mx-auto" href="/">
-              <img 
-                class="home-header__logo"
-                src="/img/microsoft/RE1Mu3b.png" 
-                alt="Microsoft"
-              />
-            </a>
-          </div>
-          <ul class="horizontal-links">
-            <li class="link-container"><a href="/" class="horizontal-links__link">Home</a></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Microsoft 365</a></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Office<a/></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Copilot<a/></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Windows<a/></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Xbox<a/></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Soporte<a/></li>
-          </ul>
-        </nav>
-        <nav class="navbar-horizontal">
-          <ul class="horizontal-links">
-            <li class="link-container"><a href="#" class="horizontal-links__link horizontal-links__link--current">Todo microsoft</a></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Buscar</a></li>
-            <li class="link-container"><a href="#" class="horizontal-links__link">Iniciar sesión</a></li>
-          </ul>
-        </nav>
+
+<BaseLayout title="Microsoft Web" favicon="/ico/microsoft.ico">
+  <header class="home-header">
+    <nav class="navbar-horizontal justify-between max-w-1600 mx-auto">
+      <nav class="navbar-horizontal">
+        <div class="link-container">
+          <a class="mx-auto" href="/">
+            <img 
+              class="home-header__logo"
+              src="/img/microsoft/RE1Mu3b.png" 
+              alt="Microsoft"
+            />
+          </a>
+        </div>
+        <ul class="horizontal-links">
+          <li class="link-container"><a href="/" class="horizontal-links__link">Home</a></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Microsoft 365</a></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Office<a/></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Copilot<a/></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Windows<a/></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Xbox<a/></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Soporte<a/></li>
+        </ul>
       </nav>
-    </header>
-    <main>
-      <section class="banner">
-        <figure class="banner__img-container">
-          <img
-            class="banner__img-md radio-1920-600"
-            src="/img/microsoft/Highlight-Surface-Laptop-AI-7Ed-Sapphire-MC001-3000x1682_VP5-1920x600.avif"
-            alt="banner image"
-          />
-          <img 
-            class="banner__img radio-859-540"
-            src="/img/microsoft/Highlight-Surface-Laptop-AI-7Ed-Sapphire-MC001-3000x1682_VP2-859x540.avif" 
-            alt="banner image"
-          />
-        </figure>
-        <div class="banner__content my-auto">
-          <article class="banner__content-container">
-            <h2 class="banner__content-title">Conoce Surface Laptop</h2>
-            <p class="banner__content-text">
-              Desbloquea características de IA de nueva generación, como Recuerdos y Cocreador, con este portátil excepcionalmente potente.
-            </p>
-            <button class="button">Reservar ahora</button>
-          </article>
-        </div>
-      </section>
-      <section class="cards-container max-w-1600 mx-auto">
-        {
-          cards.map(card => (
-            <article class="card">
-              <img
-                class="card__img"
-                src={card.imgUrl}
-                alt="image"
-              />
-              <div class="card__content">
-                <div>
-                  <h2 class="card__content-title">{card.title}</h2>
-                  <p class="card__content-text">{card.text}</p>
-                </div>
-                <button class="button">{card.textButton}</button>
+      <nav class="navbar-horizontal">
+        <ul class="horizontal-links">
+          <li class="link-container"><a href="#" class="horizontal-links__link horizontal-links__link--current">Todo microsoft</a></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Buscar</a></li>
+          <li class="link-container"><a href="#" class="horizontal-links__link">Iniciar sesión</a></li>
+        </ul>
+      </nav>
+    </nav>
+  </header>
+  <main>
+    <section class="banner">
+      <figure class="banner__img-container">
+        <img
+          class="banner__img-md radio-1920-600"
+          src="/img/microsoft/Highlight-Surface-Laptop-AI-7Ed-Sapphire-MC001-3000x1682_VP5-1920x600.avif"
+          alt="banner image"
+        />
+        <img 
+          class="banner__img radio-859-540"
+          src="/img/microsoft/Highlight-Surface-Laptop-AI-7Ed-Sapphire-MC001-3000x1682_VP2-859x540.avif" 
+          alt="banner image"
+        />
+      </figure>
+      <div class="banner__content my-auto">
+        <article class="banner__content-container">
+          <h2 class="banner__content-title">Conoce Surface Laptop</h2>
+          <p class="banner__content-text">
+            Desbloquea características de IA de nueva generación, como Recuerdos y Cocreador, con este portátil excepcionalmente potente.
+          </p>
+          <button class="button">Reservar ahora</button>
+        </article>
+      </div>
+    </section>
+    <section class="cards-container max-w-1600 mx-auto">
+      {
+        cards.map(card => (
+          <article class="card">
+            <img
+              class="card__img"
+              src={card.imgUrl}
+              alt="image"
+            />
+            <div class="card__content">
+              <div>
+                <h2 class="card__content-title">{card.title}</h2>
+                <p class="card__content-text">{card.text}</p>
               </div>
-            </article>
-          ))
-        }
-      </section>
-      <section class="banner max-w-1600 mx-auto mb-2">
-        <figure class="banner__img-container">
-          <img
-            class="banner__img-md radio-1596-600"
-            src="/img/microsoft/Highlight-Copilot-Hero-MC002_VP5-1596x600.avif"
-            alt="banner"
-          />
-          <img 
-            class="banner__img radio-859-540"
-            src="/img/microsoft/Highlight-Copilot-Hero-MC002_VP2-859x540.avif"
-            alt="banner"
-          />
-        </figure>
-        <div class="banner__content banner__content--right my-auto">
-          <article class="banner__content-container">
-            <h2 class="banner__content-title">Comienza una nueva era de IA</h2>
-            <p class="banner__content-text">
-              Los PC Windows más rápidos  e inteligentes de la historia
-            </p>
-            <button class="button">Más información</button>
+              <button class="button">{card.textButton}</button>
+            </div>
           </article>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+        ))
+      }
+    </section>
+    <section class="banner max-w-1600 mx-auto mb-2">
+      <figure class="banner__img-container">
+        <img
+          class="banner__img-md radio-1596-600"
+          src="/img/microsoft/Highlight-Copilot-Hero-MC002_VP5-1596x600.avif"
+          alt="banner"
+        />
+        <img 
+          class="banner__img radio-859-540"
+          src="/img/microsoft/Highlight-Copilot-Hero-MC002_VP2-859x540.avif"
+          alt="banner"
+        />
+      </figure>
+      <div class="banner__content banner__content--right my-auto">
+        <article class="banner__content-container">
+          <h2 class="banner__content-title">Comienza una nueva era de IA</h2>
+          <p class="banner__content-text">
+            Los PC Windows más rápidos  e inteligentes de la historia
+          </p>
+          <button class="button">Más información</button>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
 
 <style>
   * {

@@ -1,7 +1,7 @@
 ---
-import Exercise from "@/Components/Exercise/Exercise.astro";
-import Input from "@/Components/Input.astro";
-import Label from "@/Components/Label.astro";
+import Exercise from '@/Components/Exercise/Exercise.astro';
+import Input from '@/Components/Input.astro';
+import Label from '@/Components/Label.astro';
 ---
 
 <Exercise
@@ -33,10 +33,12 @@ import Label from "@/Components/Label.astro";
           <option value="JST">JST</option>
           <option value="BST">BST</option>
           <option value="CEST" selected>CEST</option>
+          <option value="CET">CET</option>
           <option value="UTC">UTC</option>
           <option value="EST">EST</option>
           <option value="CST">CST</option>
           <option value="PDT">PDT</option>
+          <option value="PST">PST</option>
         </select>
       </Label>
     </div>
@@ -44,7 +46,7 @@ import Label from "@/Components/Label.astro";
 </Exercise>
 
 <script is:inline type="module">
-  import { debounce, handleDomElement, $, validStringDate } from "/js/utils.js";
+  import { debounce, handleDomElement, $, validStringDate } from '/js/utils.js';
 
   (() => {
     const delay = 250;
@@ -55,16 +57,16 @@ import Label from "@/Components/Label.astro";
       return local.toJSON().slice(0, 10);
     };
 
-    const $form11 = $("#form-tz-converter");
+    const $form11 = $('#form-tz-converter');
     const $message = $('[data-id="message-tz-converter"]');
 
     if (!($form11 instanceof HTMLFormElement)) {
       return;
     }
 
-    const $inputTime = $form11.elements["time"];
-    const $inputDate = $form11.elements["date"];
-    const $selectTimeZone = $form11.elements["time-zone"];
+    const $inputTime = $form11.elements['time'];
+    const $inputDate = $form11.elements['date'];
+    const $selectTimeZone = $form11.elements['time-zone'];
 
     if (
       !($inputTime instanceof HTMLInputElement) ||
@@ -76,10 +78,10 @@ import Label from "@/Components/Label.astro";
     }
 
     $message.classList.add(
-      "grid",
-      "grid-cols-[repeat(auto-fill,_minmax(196px,_1fr))]",
-      "gap-2",
-      "justify-center",
+      'grid',
+      'grid-cols-[repeat(auto-fill,_minmax(196px,_1fr))]',
+      'gap-2',
+      'justify-center'
     );
 
     const [, setMessage] = handleDomElement($message);
@@ -91,45 +93,56 @@ import Label from "@/Components/Label.astro";
 
     const timeZones = [
       {
-        abbreviation: "JST",
-        name: "Japan Standard Time",
+        abbreviation: 'JST',
+        name: 'Japan Standard Time',
         utcOffset: 9,
       },
       {
-        abbreviation: "BST",
-        name: "British Summer Time",
+        abbreviation: 'BST',
+        name: 'British Summer Time',
         utcOffset: 1,
       },
       {
-        abbreviation: "CEST",
-        name: "Central European Summer Time",
+        abbreviation: 'CET',
+        name: 'Central European Time',
+        utcOffset: 1,
+      },
+      {
+        abbreviation: 'CEST',
+        name: 'Central European Summer Time',
         utcOffset: 2,
       },
       {
-        abbreviation: "UTC",
-        name: "Coordinated Universal Time",
+        abbreviation: 'UTC',
+        name: 'Coordinated Universal Time',
         utcOffset: 0,
       },
       {
-        abbreviation: "EST",
-        name: "Eastern Standard Time",
+        abbreviation: 'EST',
+        name: 'Eastern Standard Time',
         utcOffset: -4,
       },
       {
-        abbreviation: "CST",
-        name: "Central Standard Time",
+        abbreviation: 'CST',
+        name: 'Central Standard Time',
         utcOffset: -5,
+        special: true,
       },
       {
-        abbreviation: "PDT",
-        name: "Pacific Daylight Time",
+        abbreviation: 'PDT',
+        name: 'Pacific Daylight Time',
         utcOffset: -7,
+      },
+      {
+        abbreviation: 'PST',
+        name: 'Pacific Standard Time',
+        utcOffset: -8,
       },
     ];
 
-    const defaultZoneCode = "UTC";
+    const defaultZoneCode = 'UTC';
     const defaultZone = timeZones.find(
-      (a) => a.abbreviation === defaultZoneCode,
+      (a) => a.abbreviation === defaultZoneCode
     );
 
     const handleInputChange = () => {
@@ -141,25 +154,25 @@ import Label from "@/Components/Label.astro";
         timeZones.find((a) => a.abbreviation === timeZone.value) ?? defaultZone;
 
       if (
-        time.value === "" ||
-        date.value === "" ||
+        time.value === '' ||
+        date.value === '' ||
         selectedZone === undefined
       ) {
-        setMessage("");
+        setMessage('');
         return;
       }
 
-      const [hoursString, minutesString] = time.value.split(":");
+      const [hoursString, minutesString] = time.value.split(':');
       const hours = Number(hoursString);
       const minutes = Number(minutesString);
 
       if (hours > 23 || hours < 0 || minutes > 60 || minutes < 0) {
-        setMessage("Invalid time");
+        setMessage('Invalid time');
         return;
       }
 
       if (!validStringDate(date.value)) {
-        setMessage("Invalid date");
+        setMessage('Invalid date');
         return;
       }
 
@@ -194,7 +207,7 @@ import Label from "@/Components/Label.astro";
              </div>
            `;
           })
-          .join(""),
+          .join('')
       );
     };
 
@@ -202,21 +215,21 @@ import Label from "@/Components/Label.astro";
 
     const debouncedHandleInputChange = debounce(handleInputChange, delay);
 
-    $inputTime.addEventListener("keypress", (event) => {
+    $inputTime.addEventListener('keypress', (event) => {
       if (!/[0-9]/.test(event.key)) {
         event.preventDefault();
       }
     });
 
-    $inputTime.addEventListener("change", () => {
+    $inputTime.addEventListener('change', () => {
       debouncedHandleInputChange();
     });
 
-    $inputDate.addEventListener("change", () => {
+    $inputDate.addEventListener('change', () => {
       handleInputChange();
     });
 
-    $selectTimeZone.addEventListener("change", () => {
+    $selectTimeZone.addEventListener('change', () => {
       handleInputChange();
     });
 
@@ -237,13 +250,13 @@ import Label from "@/Components/Label.astro";
 
       const newStringDate = newDate.toISOString();
 
-      const yearMonthDayString = newStringDate.split("T").at(0);
-      const timeString = newStringDate.split("T").at(1) ?? "";
+      const yearMonthDayString = newStringDate.split('T').at(0);
+      const timeString = newStringDate.split('T').at(1) ?? '';
 
-      const month = yearMonthDayString.split("-").at(1) ?? "";
-      const day = yearMonthDayString.split("-").at(2) ?? "";
-      const hours = timeString.split(":").at(0) ?? "";
-      const minutes = timeString.split(":").at(1) ?? "";
+      const month = yearMonthDayString.split('-').at(1) ?? '';
+      const day = yearMonthDayString.split('-').at(2) ?? '';
+      const hours = timeString.split(':').at(0) ?? '';
+      const minutes = timeString.split(':').at(1) ?? '';
 
       return {
         month,
@@ -260,14 +273,14 @@ import Label from "@/Components/Label.astro";
       }
 
       const offsetDate = new Date(
-        date.getTime() + offsetHours * 60 * 60 * 1000,
+        date.getTime() + offsetHours * 60 * 60 * 1000
       );
 
       return {
         ...getDateFromString(offsetDate.toISOString()),
         offsetHours,
         offsetHoursString:
-          (offsetHours < 0 ? offsetHours : "+" + offsetHours) + ":00",
+          (offsetHours < 0 ? offsetHours : '+' + offsetHours) + ':00',
       };
     }
 
@@ -283,7 +296,7 @@ import Label from "@/Components/Label.astro";
       return new Date(
         date.getTime() +
           offsetHours * 60 * 60 * 1000 +
-          offsetMinutes * 60 * 1000,
+          offsetMinutes * 60 * 1000
       );
     }
   })();
